@@ -21,18 +21,7 @@ public class Tablist {
 
     private static Scoreboard sb;
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private static final File file = new File("plugins/Horizon/playerData.yml");
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
 
     public static void setSb() {

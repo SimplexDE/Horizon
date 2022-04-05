@@ -22,34 +22,11 @@ import java.io.IOException;
 
 public class ModerationAPI {
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static final File file = new File("plugins/Horizon/playerData.yml");
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static final File file2 = new File("plugins/Horizon/bannedData.yml");
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static final YamlConfiguration bD = YamlConfiguration.loadConfiguration(file2);
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static void saveConfig() {
         try {
             pD.save(file);
@@ -58,10 +35,6 @@ public class ModerationAPI {
         }
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static boolean getBoolean(String path) {
         boolean out = false;
         try {
@@ -73,10 +46,6 @@ public class ModerationAPI {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static String getString(String path) {
         String out = "";
         try {
@@ -88,10 +57,6 @@ public class ModerationAPI {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static boolean getBooleanbD(String path) {
         boolean out = false;
         try {
@@ -103,10 +68,6 @@ public class ModerationAPI {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static String getStringbD(String path) {
         String out = "";
         try {
@@ -118,10 +79,6 @@ public class ModerationAPI {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
     private static int getInt(String path) {
         int out = 0;
         try {

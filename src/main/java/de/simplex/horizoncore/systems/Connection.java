@@ -27,39 +27,11 @@ import java.util.Locale;
  */
 public class Connection implements Listener {
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private static final File file = new File("plugins/Horizon/playerData.yml");
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private static final File file2 = new File("plugins/Horizon/bannedData.yml");
-
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private static final YamlConfiguration bD = YamlConfiguration.loadConfiguration(file2);
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private void saveConfig() {
         try {
             pD.save(file);
@@ -68,11 +40,6 @@ public class Connection implements Listener {
         }
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private boolean getBoolean(String path) {
         boolean out = false;
         try {
@@ -84,11 +51,6 @@ public class Connection implements Listener {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private String getString(String path) {
         String out = "";
         try {
@@ -100,11 +62,6 @@ public class Connection implements Listener {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private boolean getBooleanbD(String path) {
         boolean out = false;
         try {
@@ -116,11 +73,6 @@ public class Connection implements Listener {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private String getStringbD(String path) {
         String out = "";
         try {
@@ -132,11 +84,6 @@ public class Connection implements Listener {
         return out;
     }
 
-    /**
-     * @see de.simplex.horizoncore.commands.api.ConfigAPI
-     * @deprecated
-     */
-    @Deprecated
     private int getInt(String path) {
         int out = 0;
         try {
