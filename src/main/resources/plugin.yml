@@ -1,0 +1,73 @@
+name: Horizoncore
+version: '${project.version}'
+main: de.simplex.horizoncore.Main
+api-version: 1.18
+
+commands:
+  spawn:
+    description: Teleportiert dich zum Spawn
+  achievements:
+    description: Zeigt deine Errungenschaften
+  profile:
+    description: Öffnet dein Profil
+    aliases:
+      - profil
+  difficulty:
+    description: Den Schwierigkeitsgrad ändern
+    aliases:
+      - diffi
+      - diff
+      - schwierigkeitsgrad
+  flight:
+    description: Erlaubt dir/oder einem Spieler zu fliegen!
+    aliases:
+      - fly
+      - fliegen
+  friede:
+    description: Friede, Freude, Eierkuchen!
+    aliases:
+      - freude
+      - eierkuchen
+  teamchat:
+    description: Teamchat
+    aliases:
+      - tc
+  eban:
+    description: .
+  eunban:
+    description: .
+  ekick:
+    description: .
+  ewarn:
+    description: .
+  emute:
+    description: .
+  globalmute:
+    description: Globalmute verwalten
+    aliases:
+      - chatmute
+  broadcast:
+    description: Eine Serverweite Nachricht senden
+    aliases:
+      - bc
+      - alert
+      - rundfunk
+      - rf
+  whisper:
+    description: Einem Spieler etwas zu Flüstern
+    aliases:
+      - emsg
+      - tell
+  maintenance:
+    description: Serverwartungen umschalten
+    aliases:
+      - wartungen
+      - wartung
+      - serverwartung
+      - servermaintenance
+  gamemode:
+    description: Verändert deinen Spielmodus
+    aliases:
+      - gm
+      - spielmodus
+      - gmc
