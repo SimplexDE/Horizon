@@ -21,7 +21,7 @@ public class ChatGlobalMute implements CommandExecutor {
 
 
         Main pl = JavaPlugin.getPlugin(Main.class);
-        FileConfiguration con = pl.getConfig(); // TODO -> ConfigAPI implementieren
+        FileConfiguration con = pl.getConfig();
 
         if (!(sender.hasPermission("core.globalmute"))) {
             sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
