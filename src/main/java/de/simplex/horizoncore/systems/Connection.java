@@ -97,10 +97,13 @@ public class Connection implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onJoin(PlayerJoinEvent event) {
-        Tablist.setSb();
-        event.setJoinMessage("§8» §a+ §8┃ §e" + event.getPlayer().getName() + "§7 ist Beigetreten.");
-
         Player player = event.getPlayer();
+
+        pConfig pC = pConfig.loadConfig(player);
+
+        Sb.defaultSb(player);
+        Tablist.setSb();
+        event.setJoinMessage("§8» §a+ §8┃ §e" + player.getName() + "§7 ist Beigetreten.");
 
         pD.set(player.getUniqueId() + ".ONLINE", true);
         pD.set(player.getUniqueId() + ".KICKED", null);

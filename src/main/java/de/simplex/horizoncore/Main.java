@@ -5,7 +5,9 @@ import de.simplex.horizoncore.commands.moderation.*;
 import de.simplex.horizoncore.commands.utility.*;
 import de.simplex.horizoncore.systems.Chat;
 import de.simplex.horizoncore.systems.Connection;
+import de.simplex.horizoncore.systems.Sb;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -70,6 +72,9 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
 
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            Sb.defaultSb(all);
+        }
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
     }
@@ -79,6 +84,10 @@ public final class Main extends JavaPlugin {
      */
     @Override
     public void onDisable() {
+        for (Player all : Bukkit.getOnlinePlayers()) {
+            Sb.unsetScoreboard(all);
+        }
+
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore deaktiviert!");
     }
 }
