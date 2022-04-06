@@ -56,6 +56,8 @@ public final class Main extends JavaPlugin {
         getCommand("difficulty").setExecutor(new Difficulty());
         getCommand("achievements").setExecutor(new Achievements());
         getCommand("spawn").setExecutor(new Spawn());
+        getCommand("sethome").setExecutor(new sethome());
+        getCommand("home").setExecutor(new home());
 
         getCommand("eban").setExecutor(new Ban());
         getCommand("eunban").setExecutor(new Unban());

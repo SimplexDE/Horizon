@@ -4,6 +4,10 @@ main: de.simplex.horizoncore.Main
 api-version: 1.18
 
 commands:
+  sethome:
+    description: Setzt dein Zuhause
+  home:
+    description: Teleportiert dich zu deinem Zuhause
   spawn:
     description: Teleportiert dich zum Spawn
   achievements:
