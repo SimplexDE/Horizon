@@ -2,13 +2,11 @@ package de.simplex.horizoncore.systems;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 
 /**
@@ -30,16 +28,18 @@ public class Tablist {
         sb.registerNewTeam("000Admin").setPrefix("§4Admin §8┃ §c");
         sb.registerNewTeam("001Content").setPrefix("§bCon §8┃ §7");
         sb.registerNewTeam("002Dev").setPrefix("§3Dev §8┃ §7");
-        sb.registerNewTeam("003Mod").setPrefix("§cMod §8┃ §7");
-        sb.registerNewTeam("004Friend").setPrefix("§5Freund §8┃ §7");
-        sb.registerNewTeam("005Spieler").setPrefix("§7Spieler §8┃ §7");
+        sb.registerNewTeam("003Mod").setPrefix("§2Mod §8┃ §7");
+        sb.registerNewTeam("004Sup").setPrefix("§aSup §8┃ §7");
+        sb.registerNewTeam("005Friend").setPrefix("§5Freund §8┃ §7");
+        sb.registerNewTeam("006Spieler").setPrefix("§7Spieler §8┃ §7");
 
         sb.getTeam("000Admin").setColor(ChatColor.DARK_RED);
         sb.getTeam("001Content").setColor(ChatColor.AQUA);
         sb.getTeam("002Dev").setColor(ChatColor.DARK_AQUA);
-        sb.getTeam("003Mod").setColor(ChatColor.RED);
-        sb.getTeam("004Friend").setColor(ChatColor.DARK_PURPLE);
-        sb.getTeam("005Spieler").setColor(ChatColor.GRAY);
+        sb.getTeam("003Mod").setColor(ChatColor.DARK_GREEN);
+        sb.getTeam("004Sup").setColor(ChatColor.GREEN);
+        sb.getTeam("005Friend").setColor(ChatColor.DARK_PURPLE);
+        sb.getTeam("006Spieler").setColor(ChatColor.GRAY);
 
         Collection<? extends org.bukkit.entity.Player> onlinePlayers = Bukkit.getOnlinePlayers();
         for (Player all : Bukkit.getOnlinePlayers()) {
@@ -58,10 +58,12 @@ public class Tablist {
             team = "002Dev";
         } else if (player.hasPermission("rank.mod")) {
             team = "003Mod";
+        } else if (player.hasPermission("rank.sup")) {
+            team = "004Sup";
         } else if (player.hasPermission("rank.friend")) {
-            team = "004Friend";
+            team = "005Friend";
         } else {
-            team = "005Spieler";
+            team = "006Spieler";
         }
 
         sb.getTeam(team).addPlayer(player);

@@ -42,21 +42,25 @@ public class Teamchat implements CommandExecutor {
         RANK ASSIGNING
          */
         if (operator.hasPermission("rank.admin")) {
-            playerRank = "§4Admin";
+            playerRank = "§4Administrator";
             playerColor = "§4";
             messageColor = "§c";
-        } else if (operator.hasPermission("rank.dev")) {
-            playerRank = "§3Dev";
-            playerColor = "§3";
-            messageColor = "§a";
-        } else if (operator.hasPermission("rank.mod")) {
-            playerRank = "§cMod";
-            playerColor = "§c";
-            messageColor = "§a";
         } else if (operator.hasPermission("rank.con")) {
-            playerRank = "§bCon";
+            playerRank = "§bContent";
             playerColor = "§b";
-            messageColor = "§a";
+            messageColor = "§7";
+        } else if (operator.hasPermission("rank.dev")) {
+            playerRank = "§3Developer";
+            playerColor = "§3";
+            messageColor = "§7";
+        } else if (operator.hasPermission("rank.mod")) {
+            playerRank = "§2Moderator";
+            playerColor = "§2";
+            messageColor = "§7";
+        } else if (operator.hasPermission("rank.sup")) {
+            playerRank = "§aSupporter";
+            playerColor = "§a";
+            messageColor = "§7";
         }
 
         String msg = "";

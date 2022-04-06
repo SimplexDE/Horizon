@@ -62,19 +62,23 @@ public class Chat implements Listener {
         } else if (player.hasPermission("rank.con")) {
             playerRank = "§bContent";
             playerColor = "§b";
-            messageColor = "§a";
+            messageColor = "§7";
         } else if (player.hasPermission("rank.dev")) {
             playerRank = "§3Developer";
             playerColor = "§3";
-            messageColor = "§a";
+            messageColor = "§7";
         } else if (player.hasPermission("rank.mod")) {
-            playerRank = "§cModerator";
-            playerColor = "§c";
-            messageColor = "§a";
+            playerRank = "§2Moderator";
+            playerColor = "§2";
+            messageColor = "§7";
+        } else if (player.hasPermission("rank.sup")) {
+            playerRank = "§aSupporter";
+            playerColor = "§a";
+            messageColor = "§7";
         } else if (player.hasPermission("rank.friend")) {
             playerRank = "§5Freund";
             playerColor = "§5";
-            messageColor = "§a";
+            messageColor = "§7";
         }
 
         String chatFormat = (playerRank + " §8┃ " + playerColor + player.getName() + " §8» " + messageColor + message);
