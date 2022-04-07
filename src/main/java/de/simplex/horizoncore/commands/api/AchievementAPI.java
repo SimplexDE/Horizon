@@ -24,6 +24,12 @@ import java.util.List;
  */
 public class AchievementAPI {
 
+	/**
+	 * pConfig anwenden!
+	 * Beispiel für einen möglichen String:
+	 * "Player.stats.achievementData.<Name>.<Wert>"
+	 */
+
     private static final File AchievementConfig = new File("plugins/Horizon/achievementData.yml");
     private static final YamlConfiguration AConfig = YamlConfiguration.loadConfiguration(AchievementConfig);
 
