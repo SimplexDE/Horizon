@@ -28,8 +28,10 @@ public class SetHome implements CommandExecutor {
                     pC.set("homelist." + homes + ".X", loc.getX());
                     pC.set("homelist." + homes + ".Y", loc.getY());
                     pC.set("homelist." + homes + ".Z", loc.getZ());
+                    pC.save();
 
-                    p.sendMessage(Main.PREFIX + "Home §e\"%s\" §7wurde gesetzt.");
+                    p.sendMessage(Main.PREFIX + String.format("Home §e\"%s\" §7wurde gesetzt.", name));
+
                 } else {
                     p.sendMessage(Main.PREFIX + "&cNutzung: /sethome <Name>");
                     return false;
