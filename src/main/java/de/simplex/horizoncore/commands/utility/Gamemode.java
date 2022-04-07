@@ -15,57 +15,55 @@ import org.bukkit.entity.Player;
  */
 public class Gamemode implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (sender instanceof Player p) {
+		if (sender instanceof Player p) {
 
-            if (!(sender.hasPermission("core.gamemode"))) {
-                sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
-                return false;
-            }
+			if (!sender.hasPermission("core.gamemode")) {
+				sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
+				return false;
+			}
 
-            if (args.length == 1) {
-                org.bukkit.GameMode gm = org.bukkit.GameMode.valueOf(args[0]);
-                if (gm == null)
-                    gm = org.bukkit.GameMode.getByValue(Integer.parseInt(args[0]));
-                if (gm == null) {
-                    p.sendMessage(Main.PREFIX + "Dieser Spielmodus existiert nicht!");
-                    return true;
-                }
-                p.sendMessage(Main.PREFIX + String.format("Dein Spielmodus ist nun §a%s§8.", gm.toString().toLowerCase()));
+			org.bukkit.GameMode gm;
+			if (args.length == 1 || args.length == 2) {
+				gm = org.bukkit.GameMode.valueOf(args[0]);
+				if (gm == null)
+					gm = org.bukkit.GameMode.getByValue(Integer.parseInt(args[0]));
+				if (gm == null) {
+					p.sendMessage(Main.PREFIX + "Dieser Spielmodus existiert nicht!");
+					return true;
+				}
+			} else {
+				p.sendMessage(Main.PREFIX + "Diese Argumentenlänge ist ungültig.");
+				return true;
+			}
 
-            } else if (args.length == 2) {
+			String s = Main.PREFIX + String.format("Dein Spielmodus ist nun §a%s§8.", gm.toString().toLowerCase());
+			if (args.length == 1) {
+				p.sendMessage(s);
+				p.setGameMode(gm);
 
-                if (!p.hasPermission("core.gamemode.other")) {
-                    sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
-                    return false;
-                }
+			} else {
+				if (!p.hasPermission("core.gamemode.others")) {
+					sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
+					return false;
+				}
 
-                org.bukkit.GameMode gm = org.bukkit.GameMode.valueOf(args[0]);
-                Player target = Bukkit.getPlayer(args[1]);
-                if (gm == null)
-                    gm = org.bukkit.GameMode.getByValue(Integer.parseInt(args[0]));
-                if (gm == null) {
-                    p.sendMessage(Main.PREFIX + "Dieser Spielmodus existiert nicht!");
-                    return true;
-                }
+				Player target = Bukkit.getPlayer(args[1]);
+				if (target == null) {
+					p.sendMessage(Main.PREFIX + "Diese/r Spieler:in ist nicht online!");
+					return true;
+				}
 
-                if (target == null)
-                    target = Bukkit.getPlayer(args[0]);
-                if (target == null) {
-                    p.sendMessage(Main.PREFIX + "Dieser Spieler ist nicht online!");
-                    return true;
-                }
-                target.sendMessage(Main.PREFIX + String.format("Dein Spielmodus ist nun §a%s§8.", gm.toString().toLowerCase()));
-                p.sendMessage(Main.PREFIX + String.format("Der Spielmodus von §e%s§7 ist nun §a%s§8.", target.getName(), gm.toString().toLowerCase()));
-            } else {
-                p.sendMessage(Main.PREFIX + "Diese Argumentenlänge ist ungültig.");
-            }
-        } else {
-            sender.sendMessage(Main.PREFIX + "Dieser Befehl ist nur für Spieler:innen zugänglich.");
-        }
-        return false;
-    }
+				target.setGameMode(gm);
+				target.sendMessage(s);
+				p.sendMessage(Main.PREFIX + String.format("Der Spielmodus von §e%s§7 ist nun §a%s§8.", target.getName(), gm.toString().toLowerCase()));
+			}
+		} else {
+			sender.sendMessage(Main.PREFIX + "Dieser Befehl ist nur für Spieler:innen zugänglich.");
+		}
+		return false;
+	}
 
 }
