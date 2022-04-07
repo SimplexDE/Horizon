@@ -15,28 +15,31 @@ import org.bukkit.command.CommandSender;
  */
 public class Broadcast implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender.hasPermission("core.alert") || sender.isOp())) {
-            sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
-            return false;
-        }
+		/**
+		 * Hat man op, so hat man automatisch jede Permission.
+		 */
+		if (!sender.hasPermission("core.alert") || !sender.isOp()) {
+			sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
+			return false;
+		}
 
-        if (args.length <= 0) {
-            sender.sendMessage(Main.PREFIX + "§cNutzung: /alert <Nachricht>");
-            return false;
-        }
+		if (args.length <= 0) {
+			sender.sendMessage(Main.PREFIX + "§cNutzung: /alert <Nachricht>");
+			return false;
+		}
 
-        String Message = "";
+		String msg = null;
 
-        for (int i = 0; i < args.length; i++) {
-            Message += (args[i] + " ");
-        }
+		for (String s : args) {
+			msg += s + " ";
+		}
 
-        Message = ChatColor.translateAlternateColorCodes('&', Message);
-        Bukkit.broadcastMessage("§8» §bRundfunk §8┃ §7" + Message);
+		msg = ChatColor.translateAlternateColorCodes('&', msg);
+		Bukkit.broadcastMessage("§8» §bRundfunk §8┃ §7" + msg);
 
-        return false;
-    }
+		return false;
+	}
 }
