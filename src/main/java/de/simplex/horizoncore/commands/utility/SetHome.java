@@ -18,7 +18,7 @@ public class SetHome implements CommandExecutor {
             PConfig pC = PConfig.loadConfig(p);
 
             if (!(p.hasPermission("core.sethome"))) {
-                p.sendMessage(Main.PREFIX, Main.NO_PERMISSION);
+                p.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
                 return false;
             }
 
@@ -29,7 +29,7 @@ public class SetHome implements CommandExecutor {
                     int homes = pC.getInt("homes");
                     String name = args[0];
                     if (!(p.hasPermission("core.sethome.limitbypass")))
-                        if (homes >= 2) {
+                        if (homes == 3) {
                             p.sendMessage(Main.PREFIX + "Du kannst nicht über mehr als 3 Homes setzen!");
                             return false;
                         }
