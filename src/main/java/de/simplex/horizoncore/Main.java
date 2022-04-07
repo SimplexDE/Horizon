@@ -5,9 +5,17 @@ import de.simplex.horizoncore.commands.moderation.*;
 import de.simplex.horizoncore.commands.utility.*;
 import de.simplex.horizoncore.systems.Chat;
 import de.simplex.horizoncore.systems.Connection;
+import de.simplex.horizoncore.systems.pConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Die Main-Klasse des Horizon-Plugins.
@@ -18,6 +26,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
 
 	public static Main INSTANCE;
+
+	public static HashMap<String, Integer> balanceTop = new HashMap<String, Integer>();
 
 	/**
 	 * Der Standard Nachrichten
@@ -46,6 +56,8 @@ public final class Main extends JavaPlugin {
 		getCommand("achievements").setExecutor(new Achievements());
 		getCommand("spawn").setExecutor(new Spawn());
 		getCommand("Enderchest").setExecutor(new Enderchest());
+		getCommand("Tokens").setExecutor(new Tokens());
+		getCommand("BalanceTop").setExecutor(new BalanceTop());
 
 		getCommand("eban").setExecutor(new Ban());
 		getCommand("eunban").setExecutor(new Unban());
@@ -61,6 +73,8 @@ public final class Main extends JavaPlugin {
 		getConfig().options().copyDefaults(true);
 
 		System.out.println(PREFIX + "§cCore aktiviert!");
+
+		genCurrentBalance();
 	}
 
 	/**
@@ -71,11 +85,35 @@ public final class Main extends JavaPlugin {
 		System.out.println(PREFIX + "§cCore deaktiviert!");
 	}
 
-	/**
-	 * Plugin extern erhalten
-	 * Wieso auch immer das fehlte lmao
-	 */
 	public static Main getPlugin() {
 		return INSTANCE;
+	}
+
+	/**
+	 * Ungetestet!
+	 */
+	public void genCurrentBalance() {
+		FileConfiguration c = INSTANCE.getConfig();
+
+		for (OfflinePlayer op : Bukkit.getOfflinePlayers()) {
+			int cTokens;
+			if (op.hasPlayedBefore() && pConfig.hasConfig(op)) {
+				pConfig opC = pConfig.loadConfig(op);
+				cTokens = opC.getTokens();
+			} else
+				continue;
+			balanceTop.put(op.getUniqueId().toString(), cTokens);
+		}
+		List<String> sort1 = new ArrayList<>(balanceTop.keySet());
+		Collections.sort(sort1);
+
+		for (int i = 0; i <= 5; i++) {
+			c.set("Balance.balanceTop." + i + ".uuid", balanceTop.get(sort1.get(i)));
+			c.set("Balance.balanceTop." + i + ".name", Bukkit.getOfflinePlayer(balanceTop.get(sort1.get(i)).toString()));
+			c.set("Balance.balanceTop." + i + ".tokens", sort1.get(i));
+		}
+		c.set("Balance.lastCalculated", System.currentTimeMillis());
+
+		saveConfig();
 	}
 }

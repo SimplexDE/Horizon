@@ -71,3 +71,7 @@ commands:
       - gm
       - spielmodus
       - gmc
+  tokens:
+    description: Verwalte das Token System.
+  BalanceTop:
+    description: Siehe eine Top-Liste der reichsten Spieler:innen.
