@@ -27,6 +27,22 @@ public class Gamemode implements CommandExecutor {
 
 			org.bukkit.GameMode gm;
 			if (args.length == 1 || args.length == 2) {
+				String gms;
+				switch (args[0]) {
+					case "1":
+						gms = "CREATIVE";
+						break;
+					case "2":
+						gms = "ADVENTURE";
+						break;
+					case "3":
+						gms = "SPECTATOR";
+						break;
+					case "0":
+						gms = "SURVIVAL";
+						break;
+
+				} // Geht bestimmt kürzer, aber ich löse das erstmal so. ~Simplex
 				gm = org.bukkit.GameMode.valueOf(args[0]);
 				if (gm == null)
 					gm = org.bukkit.GameMode.getByValue(Integer.parseInt(args[0]));
