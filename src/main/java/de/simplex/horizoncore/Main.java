@@ -48,6 +48,7 @@ public final class Main extends JavaPlugin {
 		getCommand("Enderchest").setExecutor(new Enderchest());
 		getCommand("Tokens").setExecutor(new Tokens());
 		getCommand("BalanceTop").setExecutor(new BalanceTop());
+		getCommand("sethome").setExecutor(new SetHome());
 
 		getCommand("eban").setExecutor(new Ban());
 		getCommand("eunban").setExecutor(new Unban());

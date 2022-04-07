@@ -5,6 +5,8 @@ api-version: 1.18
 author: WillyButz
 
 commands:
+  sethome:
+    description: Setzt dein Zuhause.
   spawn:
     description: Teleportiert dich zum Spawn
   achievements:
