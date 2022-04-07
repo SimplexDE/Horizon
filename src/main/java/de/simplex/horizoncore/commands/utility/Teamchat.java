@@ -17,72 +17,62 @@ import java.util.Collection;
  */
 public class Teamchat implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender instanceof Player)) {
-            sender.sendMessage(Main.PREFIX + "Dieser Befehl ist nur für Spieler verfügbar.");
-            return false;
-        }
+		if (!(sender instanceof Player operator)) {
+			sender.sendMessage(Main.PREFIX + "Dieser Befehl ist nur für Spieler:innen verfügbar.");
+			return true;
+		}
 
-        Player operator = (Player) sender;
+		if (!operator.hasPermission("core.teamchat")) {
+			sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
+			return true;
+		}
 
-        if (!(operator.hasPermission("core.teamchat"))) {
-            sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
-            return false;
-        }
+		if (args.length <= 0) {
+			sender.sendMessage(Main.PREFIX + "§cNutzung: /teamchat <Nachricht>");
+			return true;
+		}
 
-        Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
-
-        String playerRank = "§7Spieler";
-        String playerColor = "§7";
-        String messageColor = "§a";
+		String playerRank = "§7Spieler:in",
+				playerColor = "§7",
+				messageColor = "§7";
 
         /*
         RANK ASSIGNING
          */
-        if (operator.hasPermission("rank.admin")) {
-            playerRank = "§4Administrator";
-            playerColor = "§4";
-            messageColor = "§c";
-        } else if (operator.hasPermission("rank.con")) {
-            playerRank = "§bContent";
-            playerColor = "§b";
-            messageColor = "§7";
-        } else if (operator.hasPermission("rank.dev")) {
-            playerRank = "§3Developer";
-            playerColor = "§3";
-            messageColor = "§7";
-        } else if (operator.hasPermission("rank.mod")) {
-            playerRank = "§2Moderator";
-            playerColor = "§2";
-            messageColor = "§7";
-        } else if (operator.hasPermission("rank.sup")) {
-            playerRank = "§aSupporter";
-            playerColor = "§a";
-            messageColor = "§7";
-        }
+		if (operator.hasPermission("rank.admin")) {
+			playerRank = "§4Administrator";
+			playerColor = "§4";
+			messageColor = "§c";
+		} else if (operator.hasPermission("rank.con")) {
+			playerRank = "§bContent";
+			playerColor = "§b";
+		} else if (operator.hasPermission("rank.dev")) {
+			playerRank = "§3Developer";
+			playerColor = "§3";
+		} else if (operator.hasPermission("rank.mod")) {
+			playerRank = "§2Moderator";
+			playerColor = "§2";
+		} else if (operator.hasPermission("rank.sup")) {
+			playerRank = "§aSupporter";
+			playerColor = "§a";
+		}
 
-        String msg = "";
+		String msg = null;
 
-        if (args.length <= 0) {
-            sender.sendMessage(Main.PREFIX + "§cNutzung: /teamchat <Nachricht>");
-            return false;
-        }
+		for (String s : args) {
+			msg += s + " ";
+		}
 
-        for (int i = 0; i < args.length; i++) {
-            msg = msg + args[i] + " ";
-        }
+		String chatFormat = ("§b@Teamchat §8┃ " + playerRank + " §8┃ " + playerColor + operator.getName() + " §8» " + messageColor + msg);
 
-        String chatFormat = ("§b@Teamchat §8┃ " + playerRank + " §8┃ " + playerColor + operator.getName() + " §8» " + messageColor + msg);
-
-        for (org.bukkit.entity.Player onlinePlayer : onlinePlayers) {
-            if (onlinePlayer.hasPermission("core.teamchat")) {
-                onlinePlayer.sendMessage(chatFormat);
-            }
-        }
-
-
-        return false;
-    }
+		for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+			if (onlinePlayer.hasPermission("core.teamchat")) {
+				onlinePlayer.sendMessage(chatFormat);
+			}
+		}
+		return false;
+	}
 }
