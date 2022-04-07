@@ -5,7 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 /**
  * Der Maintenance Befehl,
@@ -16,28 +17,41 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class Maintenance implements CommandExecutor {
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	Main main = Main.getPlugin();
+	String MAINTENANCE_ANNOUNCE = "Main.PREFIX + \"Der Server hat den §cWartungsmodus §7%s.";
 
-        Main pl = JavaPlugin.getPlugin(Main.class);
+	@Override
+	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender.hasPermission("core.maintenance") || sender.isOp())) {
-            sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
-            return false;
-        }
+		if (!sender.hasPermission("core.maintenance")) {
+			sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
+			return false;
+		}
 
-        boolean maintenance = pl.getConfig().get("MAINTENANCE") != null && pl.getConfig().getBoolean("MAINTENANCE");
+		FileConfiguration c = main.getConfig();
+		boolean maintenance = c.get("MAINTENANCE") != null && c.getBoolean("MAINTENANCE");
 
-        if (!maintenance) {
-            maintenance = true;
-            Bukkit.broadcastMessage(Main.PREFIX + "Der Server hat den §cWartungsmodus §7betreten.");
-        } else {
-            maintenance = false;
-            Bukkit.broadcastMessage(Main.PREFIX + "Der Server hat den §cWartungsmodus §7verlassen.");
-        }
+		if (!maintenance) {
+			maintenance = true;
 
-        pl.getConfig().set("MAINTENANCE", maintenance);
-        pl.saveConfig();
-        return false;
-    }
+			/**
+			 * ap = allPlayers ;)
+			 */
+			for (Player ap : Bukkit.getOnlinePlayers()) {
+				if (!ap.hasPermission("core.ignoreMaintenanceKick")) {
+					ap.kickPlayer(String.format(MAINTENANCE_ANNOUNCE, "betreten") + " \nWir bitten um Geduld." +
+							"\nMehr Informationen: https://discord.gg/gw8nKNxCxE");
+				}
+			}
+			System.out.println(Main.PREFIX + "Alle Spieler:innen wurden auf Grund des Wartungsmoduses gekickt.");
+			Bukkit.broadcastMessage(String.format(MAINTENANCE_ANNOUNCE, "betreten"));
+		} else {
+			maintenance = false;
+			Bukkit.broadcastMessage(String.format(MAINTENANCE_ANNOUNCE, "verlassen"));
+		}
+
+		c.set("MAINTENANCE", maintenance);
+		main.saveConfig();
+		return false;
+	}
 }

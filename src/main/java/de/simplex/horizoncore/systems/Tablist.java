@@ -23,6 +23,9 @@ public class Tablist {
     private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
 
     public static void setSb() {
+        /**
+         * Ich wüsste nicht, das Scoreboards Tablists sind? Bitte anpassen, bei Fragen @TearsDontFall
+         */
         sb = Bukkit.getScoreboardManager().getNewScoreboard();
 
         sb.registerNewTeam("000Admin").setPrefix("§4Admin §8┃ §c");
@@ -41,7 +44,6 @@ public class Tablist {
         sb.getTeam("005Friend").setColor(ChatColor.DARK_PURPLE);
         sb.getTeam("006Spieler").setColor(ChatColor.GRAY);
 
-        Collection<? extends org.bukkit.entity.Player> onlinePlayers = Bukkit.getOnlinePlayers();
         for (Player all : Bukkit.getOnlinePlayers()) {
             setTeams(all);
         }

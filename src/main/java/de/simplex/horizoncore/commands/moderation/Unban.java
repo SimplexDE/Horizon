@@ -20,13 +20,13 @@ public class Unban implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (!(sender.hasPermission("core.ban"))) {
+        if (!sender.hasPermission("core.ban")) {
             sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
             return false;
         }
 
-        if (!(args.length == 1)) {
-            sender.sendMessage(Main.PREFIX + "§cNutzung: /eunban <Spieler>");
+        if (args.length != 1) {
+            sender.sendMessage(Main.PREFIX + "§cNutzung: /eunban <Spieler:in>");
             return false;
         }
 
