@@ -76,3 +76,5 @@ commands:
     description: Verwalte das Token System.
   BalanceTop:
     description: Siehe eine Top-Liste der reichsten Spieler:innen.
+  Enderchest:
+    description: Gain acces to your own Enderchest and upgrade it.

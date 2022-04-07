@@ -56,6 +56,7 @@ public final class Main extends JavaPlugin {
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);
 		pM.registerEvents(new Chat(), this);
+		pM.registerEvents(new Enderchest(), this);
 
 		saveDefaultConfig();
 		getConfig().options().copyDefaults(true);
