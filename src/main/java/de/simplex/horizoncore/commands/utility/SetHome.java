@@ -33,7 +33,7 @@ public class SetHome implements CommandExecutor {
                             p.sendMessage(Main.PREFIX + "Du kannst nicht über mehr als 3 Homes setzen!");
                             return false;
                         }
-                    if (name == pC.getString(name)) {
+                    if (name.equals(pC.getString("homelist." + name))) {
                         p.sendMessage(Main.PREFIX + "Dieser Name ist bereits benutzt.");
                         return false;
                     }
