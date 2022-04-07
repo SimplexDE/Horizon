@@ -16,13 +16,23 @@ public class SetHome implements CommandExecutor {
         if (sender instanceof Player) {
             Player p = (Player) sender;
             PConfig pC = PConfig.loadConfig(p);
+
+            if (!(p.hasPermission("core.sethome"))) {
+                p.sendMessage(Main.PREFIX, Main.NO_PERMISSION);
+                return false;
+            }
+
             if (p.getWorld() != null) {
                 if (args.length == 1) {
                     World w = p.getLocation().getWorld();
                     Location loc = p.getLocation();
                     int homes = pC.getInt("homes");
                     String name = args[0];
-
+                    if (!(p.hasPermission("core.sethome.limitbypass")))
+                        if (homes >= 2) {
+                            p.sendMessage(Main.PREFIX + "Du kannst nicht über mehr als 3 Homes setzen!");
+                            return false;
+                        }
                     pC.set("homes", homes += 1);
                     pC.set("homelist." + homes + ".name", name);
                     pC.set("homelist." + homes + ".X", loc.getX());
