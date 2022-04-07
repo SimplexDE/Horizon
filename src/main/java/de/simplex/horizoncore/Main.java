@@ -96,7 +96,7 @@ public final class Main extends JavaPlugin {
 		List<String> sort1 = new ArrayList<>(balanceTop.keySet());
 		Collections.sort(sort1);
 
-		if (sort1.get(0).isEmpty() || sort1.get(5).isEmpty()) {
+		if (sort1.size() < 5) {
 			Bukkit.getConsoleSender().sendMessage(PREFIX + "§6BalTop konnte nicht ermittelt werden!" +
 					" Zu wenig Daten.!");
 			return;
