@@ -96,6 +96,12 @@ public final class Main extends JavaPlugin {
 		List<String> sort1 = new ArrayList<>(balanceTop.keySet());
 		Collections.sort(sort1);
 
+		if (sort1.get(0).isEmpty() || sort1.get(5).isEmpty()) {
+			Bukkit.getConsoleSender().sendMessage(PREFIX + "§6BalTop konnte nicht ermittelt werden!" +
+					" Zu wenig Daten.!");
+			return;
+		}
+
 		for (int i = 0; i <= 5; i++) {
 			c.set("Balance.balanceTop." + i + ".uuid", balanceTop.get(sort1.get(i)));
 			c.set("Balance.balanceTop." + i + ".name", Bukkit.getOfflinePlayer(balanceTop.get(sort1.get(i)).toString()));
