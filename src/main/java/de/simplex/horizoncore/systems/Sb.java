@@ -15,7 +15,7 @@ public class Sb {
         pConfig pC = pConfig.loadConfig(p);
 
         Score s1 = o.getScore(" §0 "),
-                playerName = o.getScore("§7Spielername§8: "),
+                playerName = o.getScore("§7Dein Name§8: "),
 
                 s2 = o.getScore(" §1 "),
                 tokens = o.getScore("§6Tokens§8: ");
@@ -32,8 +32,8 @@ public class Sb {
         pName.addEntry("" + ChatColor.GREEN);
         tTeam.addEntry("" + ChatColor.GOLD);
 
-        pName.setPrefix("   > " + p.getName());
-        tTeam.setPrefix("   > " + pC.getTokens());
+        pName.setPrefix("   §8» §7" + p.getName());
+        tTeam.setPrefix("   §8» §6" + pC.getTokens());
 
         o.getScore("" + ChatColor.GREEN).setScore(18);
         o.getScore("" + ChatColor.GOLD).setScore(15);
@@ -43,7 +43,7 @@ public class Sb {
 
     public static void updateTokens(Player p) {
         Scoreboard sb = p.getScoreboard();
-        sb.getTeam("tokens").setPrefix("   > " + pConfig.loadConfig(p).getTokens());
+        sb.getTeam("tokens").setPrefix("   §8» §6" + pConfig.loadConfig(p).getTokens());
     }
 
     public static void unsetScoreboard(Player p) {
