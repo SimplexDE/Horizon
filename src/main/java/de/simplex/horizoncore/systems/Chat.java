@@ -26,7 +26,7 @@ public class Chat implements Listener {
          */
 		boolean chatEnabled = Main.getPlugin().getConfig().getBoolean("GLOBALMUTE");
 
-		if (!chatEnabled && !player.hasPermission("core.globalmute.bypass")) {
+		if (chatEnabled && !player.hasPermission("core.globalmute.bypass")) {
 			player.sendMessage(Main.PREFIX + "Der Chat ist aktuell §cStummgeschaltet§7.");
 			e.setCancelled(true);
 			Bukkit.getConsoleSender().sendMessage(player.getName()
