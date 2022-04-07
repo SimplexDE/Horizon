@@ -19,7 +19,6 @@ public class Chat implements Listener {
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player player = e.getPlayer();
 		String message = e.getMessage();
-		e.setCancelled(true);
 
         /*
         MESSAGE CREATION
