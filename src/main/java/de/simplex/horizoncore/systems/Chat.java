@@ -2,15 +2,10 @@ package de.simplex.horizoncore.systems;
 
 import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.commands.api.AchievementAPI;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Das Chat-System
@@ -54,12 +49,14 @@ public class Chat implements Listener {
 			playerRank = "§3Developer";
 			playerColor = "§3";
 		} else if (player.hasPermission("rank.mod")) {
-			playerRank = "§cModerator";
-			playerColor = "§c";
+			playerRank = "§2Moderator";
+			playerColor = "§2";
+		} else if (player.hasPermission("rank.sup")) {
+			playerRank = "§a";
+			playerColor = "§a";
 		} else if (player.hasPermission("rank.friend")) {
 			playerRank = "§5Freund";
 			playerColor = "§5";
-			messageColor = "§d";
 		}
 
 		message = message.replace("%%", "%");
