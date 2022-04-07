@@ -22,7 +22,7 @@ public class Broadcast implements CommandExecutor {
 			return false;
 		}
 
-		String msg = null;
+		String msg = "";
 
 		for (String s : args) {
 			msg += s + " ";

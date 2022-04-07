@@ -60,7 +60,7 @@ public class Teamchat implements CommandExecutor {
 			playerColor = "§a";
 		}
 
-		String msg = null;
+		String msg = "";
 
 		for (String s : args) {
 			msg += s + " ";

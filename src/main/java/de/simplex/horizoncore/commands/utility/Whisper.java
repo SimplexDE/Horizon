@@ -18,7 +18,7 @@ public class Whisper implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		String msg = null;
+		String msg = "";
 
 		if (!(sender.hasPermission("core.msg") || sender.isOp())) {
 			sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
@@ -46,7 +46,9 @@ public class Whisper implements CommandExecutor {
 			return false;
 		}
 
-		for (String s : args) {
+		String[] arg = args.toString().split(args[0]);
+
+		for (String s : arg) {
 			msg += s + " ";
 		}
 
