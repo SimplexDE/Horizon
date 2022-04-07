@@ -1,6 +1,7 @@
 package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
+import de.simplex.horizoncore.systems.pConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,32 +20,27 @@ public class Enderchest implements CommandExecutor, Listener {
 
 	public static final String EC_INV_NAME = "§9Enderchest";
 
+	public final String TRY = " Versuche \"/Enderchest <help; upgrade>\".";
 
 	/**
-	 * UNFERTIG!
-	 * -> Komponenten fehlen
+	 * Noch in Arbeit
 	 */
 	@Override
 	public boolean onCommand(CommandSender sen, Command cmd, String lab, String[] args) {
 		if (sen instanceof Player p) {
-
+			pConfig pC = pConfig.loadConfig(p);
 			if (args.length <= 0) {
-				int size = 1; //pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1 ;
-
+				int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
 				Inventory i = Bukkit.createInventory(null, 9 * size, EC_INV_NAME);
 
 				/**
-				 * TEMPORÄR
-				 * Wird in Config, statt pConfig gespeichert
-				 */
-				FileConfiguration c = Main.getPlugin().getConfig();
-
-				/**
 				 * ! der Rückgabewert von pC.get(<String>) könnte unpassend sein !
-				 * Mögliche Änderung nach Testung
+				 * Mögliche Änderung nach  ! Testung !
 				 *  -> Abwägung / Suche nach besseren möglichkeiten folgt.
+				 *
+				 *  Zum Abgleich wird zunächst erstmal nur der Inv-Content gespeichert. (-> InventoryCloseEvent)
 				 */
-				ItemStack[] content = (ItemStack[]) c.get("Player.enderChest.content");
+				ItemStack[] content = null; //(ItemStack[]) pC.get("Player.enderChest.content");
 
 				if (content != null) {
 					i.setContents(content);
@@ -53,26 +49,27 @@ public class Enderchest implements CommandExecutor, Listener {
 				p.openInventory(i);
 			} else if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("upgrade")) {
-					int size = 1; //pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1 ;
+					int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
 
-					if (size < 6) {
-
-						int tokens = 10, //pC.getTokens();
-								cost = (int) Math.round(20 * size * 1.2);
-
-						if (tokens >= cost) {
-							tokens = -cost;
-//							pC.setTokens(tokens);
-
-						} else {
-							p.sendMessage(Main.PREFIX + "Du hast nicht genügend Tokens.");
-						}
-					} else {
+					if (size >= 6) {
 						p.sendMessage(Main.PREFIX + "Deine Enderchest ist bereits auf dem höchsten Level!");
+						return true;
+					}
+					int tokens = pC.getTokens(),
+							cost = (int) Math.round(20 * size * 1.2);
+
+					if (tokens >= cost) {
+						tokens = -cost;
+						pC.setTokens(tokens);
+						p.sendMessage(Main.PREFIX + "Kauf erfolgreich.");
+					} else {
+						p.sendMessage(Main.PREFIX + "Du hast nicht genügend Tokens.");
 					}
 				} else {
-					p.sendMessage(Main.PREFIX + "Dieses Argument konnte nicht gefunden werden. Versuche \"/Enderchest <help; upgrade>\".");
+					p.sendMessage(Main.PREFIX + "Dieses Argument konnte nicht gefunden werden.");
 				}
+			} else {
+				p.sendMessage(Main.PREFIX + "Du hast zu viele Argumente verwendet. ");
 			}
 		} else {
 			sen.sendMessage(Main.NOT_A_PLAYER);
@@ -82,19 +79,15 @@ public class Enderchest implements CommandExecutor, Listener {
 
 	@EventHandler
 	public void handle(InventoryCloseEvent e) {
-		HumanEntity p = e.getPlayer();
-		InventoryView oi = p.getOpenInventory();
-		if (oi.getTitle().equalsIgnoreCase(EC_INV_NAME)) {
+		if (e.getPlayer() instanceof Player p) {
+			InventoryView oi = p.getOpenInventory();
+			if (oi.getTitle().equalsIgnoreCase(EC_INV_NAME)) {
+				pConfig pC = pConfig.loadConfig(p);
 
-			/**
-			 * TEMPORÄR
-			 * Wird in Config, statt pConfig gespeichert
-			 */
-			FileConfiguration c = Main.getPlugin().getConfig();
-
-			ItemStack[] content = oi.getTopInventory().getContents();
-			c.set("Player.enderChest.content", content);
-			Main.getPlugin().saveConfig();
+				ItemStack[] content = oi.getTopInventory().getContents();
+				pC.set("Player.enderChest.content", content);
+				pC.save();
+			}
 		}
 	}
 }
