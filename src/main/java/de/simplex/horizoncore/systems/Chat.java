@@ -2,6 +2,7 @@ package de.simplex.horizoncore.systems;
 
 import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.commands.api.AchievementAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,6 +28,9 @@ public class Chat implements Listener {
 
 		if (!chatEnabled && !player.hasPermission("core.globalmute.bypass")) {
 			player.sendMessage(Main.PREFIX + "Der Chat ist aktuell §cStummgeschaltet§7.");
+			e.setCancelled(true);
+			Bukkit.getConsoleSender().sendMessage(player.getName()
+					+ " hat versucht: \"" + e.getMessage() + "\" zu schreiben.");
 			return;
 		}
 
