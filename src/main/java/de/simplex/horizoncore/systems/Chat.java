@@ -2,14 +2,12 @@ package de.simplex.horizoncore.systems;
 
 import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.commands.api.AchievementAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,14 +77,14 @@ public class Chat implements Listener {
             messageColor = "§d";
         }
 
+        message = message.replace("%%", "%");
         String chatFormat = (playerRank + " §8┃ " + playerColor + player.getName() + " §8» " + messageColor + message);
 
         /*
         MESSAGE SENDING
          */
         AchievementAPI.activateAchievement(player, "ERSTE_NACHRICHT");
-        // Nicht broadcasten! Funktion:    event.setFormat(); inkl. .replace("(vorher)", "(nachher)"); nutzen!
-        Bukkit.broadcastMessage(chatFormat);
+        event.setFormat(chatFormat);
     }
 }
 
