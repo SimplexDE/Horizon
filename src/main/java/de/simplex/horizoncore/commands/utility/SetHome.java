@@ -33,13 +33,12 @@ public class SetHome implements CommandExecutor {
                             p.sendMessage(Main.PREFIX + "Du kannst nicht über mehr als 3 Homes setzen!");
                             return false;
                         }
-                    pC.set("homes", homes += 1);
-                    pC.set("homelist." + homes + ".name", name);
-                    pC.set("homelist." + homes + ".X", loc.getX());
-                    pC.set("homelist." + homes + ".Y", loc.getY());
-                    pC.set("homelist." + homes + ".Z", loc.getZ());
+                    if (name == pC.getString(name))
+                        pC.set("homes", homes += 1);
+                    pC.set("homelist." + name + ".X", loc.getX());
+                    pC.set("homelist." + name + ".Y", loc.getY());
+                    pC.set("homelist." + name + ".Z", loc.getZ());
                     pC.save();
-
                     p.sendMessage(Main.PREFIX + String.format("Home §e\"%s\" §7wurde gesetzt.", name));
 
                 } else {
