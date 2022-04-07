@@ -7,21 +7,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-/**
- * Der Broadcast Befehl
- *
- * @author Simplex
- * @since 1.0-Beta
- */
 public class Broadcast implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-		/**
-		 * Hat man op, so hat man automatisch jede Permission.
-		 */
-		if (!sender.hasPermission("core.alert") || !sender.isOp()) {
+		if (!sender.hasPermission("core.alert")) {
 			sender.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
 			return false;
 		}

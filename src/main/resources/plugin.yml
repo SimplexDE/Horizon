@@ -2,6 +2,7 @@ name: Horizoncore
 version: '${project.version}'
 main: de.simplex.horizoncore.Main
 api-version: 1.18
+author: WillyButz
 
 commands:
   spawn:

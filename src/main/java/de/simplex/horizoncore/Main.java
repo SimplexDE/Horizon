@@ -17,33 +17,23 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Die Main-Klasse des Horizon-Plugins.
- *
- * @author Simplex
- * @version 1.0-Beta
- */
 public final class Main extends JavaPlugin {
 
 	public static Main INSTANCE;
 
 	public static HashMap<String, Integer> balanceTop = new HashMap<String, Integer>();
 
-	/**
-	 * Der Standard Nachrichten
-	 */
 	public static final String PREFIX = "§8» §bSystem §8┃ §7",
 			NO_PERMISSION = "Du hast §4keinen Zugriff §7auf diesen Befehl.",
 			COMMAND_NOT_FOUND = "Dieser Befehl existiert nicht.",
 			NOT_A_PLAYER = "Dieser Befehl ist nur für Spieler:innen zulässig.";
 
-	/**
-	 * Aktivierungslogik
-	 */
 	@Override
 	public void onEnable() {
 
 		INSTANCE = this;
+		
+		getCommand("friede").setExecutor(new Friede());
 
 		getCommand("broadcast").setExecutor(new Broadcast());
 		getCommand("whisper").setExecutor(new Whisper());
@@ -63,8 +53,6 @@ public final class Main extends JavaPlugin {
 		getCommand("eunban").setExecutor(new Unban());
 		getCommand("ekick").setExecutor(new Kick());
 
-		getCommand("friede").setExecutor(new Friede());
-
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);
 		pM.registerEvents(new Chat(), this);
@@ -72,7 +60,7 @@ public final class Main extends JavaPlugin {
 		saveDefaultConfig();
 		getConfig().options().copyDefaults(true);
 
-		System.out.println(PREFIX + "§cCore aktiviert!");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
 
 		genCurrentBalance();
 	}
@@ -82,7 +70,7 @@ public final class Main extends JavaPlugin {
 	 */
 	@Override
 	public void onDisable() {
-		System.out.println(PREFIX + "§cCore deaktiviert!");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore deaktiviert!");
 	}
 
 	public static Main getPlugin() {
