@@ -20,71 +20,56 @@ import java.io.IOException;
  */
 public class Chat implements Listener {
 
-    private static final File file = new File("plugins/Horizon/playerData.yml");
-    private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
-
-    private static int getInt(String path) {
-        int out = 0;
-        try {
-            pD.load(file);
-            out = pD.getInt(path);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-        return out;
-    }
-
-    @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
-        Player player = event.getPlayer();
-        String message = event.getMessage();
-        event.setCancelled(true);
-
+	@EventHandler
+	public void onChat(AsyncPlayerChatEvent e) {
+		Player player = e.getPlayer();
+		String message = e.getMessage();
+		e.setCancelled(true);
 
         /*
         MESSAGE CREATION
          */
-        boolean chatEnabled = !Main.getPlugin().getConfig().getBoolean("GLOBALMUTE");
+		boolean chatEnabled = !Main.getPlugin().getConfig().getBoolean("GLOBALMUTE");
 
-        if (!chatEnabled && !player.hasPermission("core.globalmute.bypass")) {
-            player.sendMessage(Main.PREFIX + "Der Chat ist aktuell §cStummgeschaltet§7.");
-            return;
-        }
+		if (!chatEnabled && !player.hasPermission("core.globalmute.bypass")) {
+			player.sendMessage(Main.PREFIX + "Der Chat ist aktuell §cStummgeschaltet§7.");
+			return;
+		}
 
-        String playerRank = "§7Spieler:in";
-        String playerColor = "§7";
-        String messageColor = "§a";
+		String playerRank = "§7Spieler:in",
+				playerColor = "§7",
+				messageColor = "§a";
 
         /*
         RANK ASSIGNING
          */
-        if (player.hasPermission("rank.admin")) {
-            playerRank = "§4Administrator";
-            playerColor = "§4";
-            messageColor = "§c";
-        } else if (player.hasPermission("rank.con")) {
-            playerRank = "§bContent";
-            playerColor = "§b";
-        } else if (player.hasPermission("rank.dev")) {
-            playerRank = "§3Developer";
-            playerColor = "§3";
-        } else if (player.hasPermission("rank.mod")) {
-            playerRank = "§cModerator";
-            playerColor = "§c";
-        } else if (player.hasPermission("rank.friend")) {
-            playerRank = "§5Freund";
-            playerColor = "§5";
-            messageColor = "§d";
-        }
+		if (player.hasPermission("rank.admin")) {
+			playerRank = "§4Administrator";
+			playerColor = "§4";
+			messageColor = "§c";
+		} else if (player.hasPermission("rank.con")) {
+			playerRank = "§bContent";
+			playerColor = "§b";
+		} else if (player.hasPermission("rank.dev")) {
+			playerRank = "§3Developer";
+			playerColor = "§3";
+		} else if (player.hasPermission("rank.mod")) {
+			playerRank = "§cModerator";
+			playerColor = "§c";
+		} else if (player.hasPermission("rank.friend")) {
+			playerRank = "§5Freund";
+			playerColor = "§5";
+			messageColor = "§d";
+		}
 
-        message = message.replace("%%", "%");
-        String chatFormat = (playerRank + " §8┃ " + playerColor + player.getName() + " §8» " + messageColor + message);
+		message = message.replace("%%", "%");
+		String chatFormat = (playerRank + " §8┃ " + playerColor + player.getName() + " §8» " + messageColor + message);
 
         /*
         MESSAGE SENDING
          */
-        AchievementAPI.activateAchievement(player, "ERSTE_NACHRICHT");
-        event.setFormat(chatFormat);
-    }
+		AchievementAPI.activateAchievement(player, "ERSTE_NACHRICHT");
+		e.setFormat(chatFormat);
+	}
 }
 
