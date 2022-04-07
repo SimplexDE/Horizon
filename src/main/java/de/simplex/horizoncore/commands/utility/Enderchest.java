@@ -1,13 +1,11 @@
 package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
-import de.simplex.horizoncore.systems.pConfig;
+import de.simplex.horizoncore.systems.PConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,7 +26,7 @@ public class Enderchest implements CommandExecutor, Listener {
 	@Override
 	public boolean onCommand(CommandSender sen, Command cmd, String lab, String[] args) {
 		if (sen instanceof Player p) {
-			pConfig pC = pConfig.loadConfig(p);
+			PConfig pC = PConfig.loadConfig(p);
 			if (args.length <= 0) {
 				int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
 				Inventory i = Bukkit.createInventory(null, 9 * size, EC_INV_NAME);
@@ -82,7 +80,7 @@ public class Enderchest implements CommandExecutor, Listener {
 		if (e.getPlayer() instanceof Player p) {
 			InventoryView oi = p.getOpenInventory();
 			if (oi.getTitle().equalsIgnoreCase(EC_INV_NAME)) {
-				pConfig pC = pConfig.loadConfig(p);
+				PConfig pC = PConfig.loadConfig(p);
 
 				ItemStack[] content = oi.getTopInventory().getContents();
 				pC.set("Player.enderChest.content", content);

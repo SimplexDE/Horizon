@@ -12,7 +12,7 @@ public class Sb {
         Objective o = sb.registerNewObjective("hor", "hor", "§9§lH§9orizon");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        pConfig pC = pConfig.loadConfig(p);
+        PConfig pC = PConfig.loadConfig(p);
 
         Score s1 = o.getScore(" §0 "),
                 playerName = o.getScore("§7Dein Name§8: "),
@@ -43,7 +43,7 @@ public class Sb {
 
     public static void updateTokens(Player p) {
         Scoreboard sb = p.getScoreboard();
-        sb.getTeam("tokens").setPrefix("   §8» §6" + pConfig.loadConfig(p).getTokens());
+        sb.getTeam("tokens").setPrefix("   §8» §6" + PConfig.loadConfig(p).getTokens());
     }
 
     public static void unsetScoreboard(Player p) {

@@ -1,7 +1,7 @@
 package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
-import de.simplex.horizoncore.systems.pConfig;
+import de.simplex.horizoncore.systems.PConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -14,7 +14,7 @@ public class Tokens implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player p) {
-			pConfig pC = pConfig.loadConfig(p);
+			PConfig pC = PConfig.loadConfig(p);
 			if (args.length == 0) {
 				p.sendMessage(Main.PREFIX + String.format("Du hast §e%s §7Tokens.", pC.getTokens()));
 			} else if (args.length == 1) {
@@ -24,7 +24,7 @@ public class Tokens implements CommandExecutor {
 				}
 
 				Player t = Bukkit.getPlayer(args[0]);
-				pConfig tC = pConfig.loadConfig(t);
+				PConfig tC = PConfig.loadConfig(t);
 				p.sendMessage(Main.PREFIX + String.format("%s hat %s Tokens.", t.getName(), tC.getTokens()));
 
 			} else if (args.length >= 4) {
@@ -39,18 +39,18 @@ public class Tokens implements CommandExecutor {
 					Player t = Bukkit.getPlayer(args[1]);
 					if (t == null) {
 						OfflinePlayer ot = Bukkit.getOfflinePlayer(args[1]);
-						if (!ot.hasPlayedBefore() || !pConfig.hasConfig(ot)) {
+						if (!ot.hasPlayedBefore() || !PConfig.hasConfig(ot)) {
 							p.sendMessage(Main.PREFIX + args[1] + " war noch nie auf dem Server, oder hat keine config.");
 							return true;
 						}
-						pConfig otC = pConfig.loadConfig(ot);
+						PConfig otC = PConfig.loadConfig(ot);
 						otC.setTokens(0);
 						otC.save();
 						p.sendMessage(Main.PREFIX + args[1] + "'s Tokens wurden zu 0 gesetzt. (Derzeit offline)");
 						return true;
 					}
 
-					pConfig tC = pConfig.loadConfig(t);
+					PConfig tC = PConfig.loadConfig(t);
 					tC.setTokens(0);
 					tC.save();
 					t.sendMessage(Main.PREFIX + "Deine Tokens wurden resettet!");
@@ -67,7 +67,7 @@ public class Tokens implements CommandExecutor {
 					return true;
 				}
 
-				pConfig tC = pConfig.loadConfig(t);
+				PConfig tC = PConfig.loadConfig(t);
 				int i;
 
 				try {

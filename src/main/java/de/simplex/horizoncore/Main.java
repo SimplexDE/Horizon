@@ -5,7 +5,7 @@ import de.simplex.horizoncore.commands.moderation.*;
 import de.simplex.horizoncore.commands.utility.*;
 import de.simplex.horizoncore.systems.Chat;
 import de.simplex.horizoncore.systems.Connection;
-import de.simplex.horizoncore.systems.pConfig;
+import de.simplex.horizoncore.systems.PConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -32,7 +32,7 @@ public final class Main extends JavaPlugin {
 	public void onEnable() {
 
 		INSTANCE = this;
-		
+
 		getCommand("friede").setExecutor(new Friede());
 
 		getCommand("broadcast").setExecutor(new Broadcast());
@@ -85,8 +85,8 @@ public final class Main extends JavaPlugin {
 
 		for (OfflinePlayer op : Bukkit.getOfflinePlayers()) {
 			int cTokens;
-			if (op.hasPlayedBefore() && pConfig.hasConfig(op)) {
-				pConfig opC = pConfig.loadConfig(op);
+			if (op.hasPlayedBefore() && PConfig.hasConfig(op)) {
+				PConfig opC = PConfig.loadConfig(op);
 				cTokens = opC.getTokens();
 			} else
 				continue;

@@ -1,7 +1,7 @@
 package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
-import de.simplex.horizoncore.systems.pConfig;
+import de.simplex.horizoncore.systems.PConfig;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -9,13 +9,13 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class sethome implements CommandExecutor {
+public class SetHome implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            pConfig pC = pConfig.loadConfig(p);
+            PConfig pC = PConfig.loadConfig(p);
             if (p.getWorld() != null) {
                 if (args.length == 1) {
                     World w = p.getLocation().getWorld();

@@ -39,7 +39,7 @@ public class Connection implements Listener {
 	@EventHandler(ignoreCancelled = true)
 	public void onJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		pConfig pC = pConfig.loadConfig(player);
+		PConfig pC = PConfig.loadConfig(player);
 
 		if (!player.hasPlayedBefore()) {
 			pC.setTokens(1000);
@@ -62,7 +62,7 @@ public class Connection implements Listener {
 		event.setQuitMessage("§8» §c- §8┃ §e" + event.getPlayer().getName() + "§7 ist Gegangen.");
 
 		Player player = event.getPlayer();
-		pConfig pC = pConfig.loadConfig(player);
+		PConfig pC = PConfig.loadConfig(player);
 
 		Date now = new Date();
 		DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);

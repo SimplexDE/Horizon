@@ -10,27 +10,27 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public class pConfig {
+public class PConfig {
 	private static final String path = "plugins/Horizon/players/%s.yml",
 			tP = "token";
 	YamlConfiguration con;
 	File file;
 
 
-	public pConfig(final OfflinePlayer p) {
+	public PConfig(final OfflinePlayer p) {
 		final String uuid = p.getUniqueId().toString();
 		this.file = new File(String.format(path, uuid));
 		this.con = YamlConfiguration.loadConfiguration(this.file);
 	}
 
-	public static pConfig loadConfig(final OfflinePlayer p) {
+	public static PConfig loadConfig(final OfflinePlayer p) {
 		if (!hasConfig(p)) {
 			createConfig(p);
 		}
-		return new pConfig(p);
+		return new PConfig(p);
 	}
 
-	public static pConfig createConfig(final OfflinePlayer p) {
+	public static PConfig createConfig(final OfflinePlayer p) {
 		final String uuid = p.getUniqueId().toString();
 		final File file = new File(String.format(path, uuid));
 		if (!file.exists()) {
@@ -44,7 +44,7 @@ public class pConfig {
 				e.printStackTrace();
 			}
 		}
-		return new pConfig(p);
+		return new PConfig(p);
 	}
 
 	public static boolean hasConfig(final OfflinePlayer p) {
