@@ -81,11 +81,19 @@ public class pConfig {
 	}
 
 	public void setTokens(int i) {
+		if (i < 0) i = 0;
 		this.con.set(tP, i);
 	}
 
 	public void addTokens(int i) {
 		i += getTokens();
+		if (i < 0) i = 0;
+		this.con.set(tP, i);
+	}
+
+	public void removeTokens(int i) {
+		i -= getTokens();
+		if (i < 0) i = 0;
 		this.con.set(tP, i);
 	}
 
