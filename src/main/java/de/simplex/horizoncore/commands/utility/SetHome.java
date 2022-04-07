@@ -33,11 +33,12 @@ public class SetHome implements CommandExecutor {
                             p.sendMessage(Main.PREFIX + "Du kannst nicht über mehr als 3 Homes setzen!");
                             return false;
                         }
-                    if (name.equals(pC.getString("homelist." + name))) {
+                    if (name.equals(pC.getString("homelist." + name + ".name"))) {
                         p.sendMessage(Main.PREFIX + "Dieser Name ist bereits benutzt.");
                         return false;
                     }
                     pC.set("homes", homes += 1);
+                    pC.set("homelist." + name + ".name", name);
                     pC.set("homelist." + name + ".X", loc.getX());
                     pC.set("homelist." + name + ".Y", loc.getY());
                     pC.set("homelist." + name + ".Z", loc.getZ());
