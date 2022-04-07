@@ -42,13 +42,18 @@ public class Chat implements Listener {
         String message = event.getMessage();
         event.setCancelled(true);
 
-        Main pl = JavaPlugin.getPlugin(Main.class);
 
         /*
         MESSAGE CREATION
          */
-        boolean chatEnabled = !pl.getConfig().getBoolean("GLOBALMUTE");
-        String playerRank = "§7Spieler";
+        boolean chatEnabled = !Main.getPlugin().getConfig().getBoolean("GLOBALMUTE");
+
+        if (!chatEnabled && !player.hasPermission("core.globalmute.bypass")) {
+            player.sendMessage(Main.PREFIX + "Der Chat ist aktuell §cStummgeschaltet§7.");
+            return;
+        }
+
+        String playerRank = "§7Spieler:in";
         String playerColor = "§7";
         String messageColor = "§a";
 
@@ -62,23 +67,16 @@ public class Chat implements Listener {
         } else if (player.hasPermission("rank.con")) {
             playerRank = "§bContent";
             playerColor = "§b";
-            messageColor = "§7";
         } else if (player.hasPermission("rank.dev")) {
             playerRank = "§3Developer";
             playerColor = "§3";
-            messageColor = "§7";
         } else if (player.hasPermission("rank.mod")) {
-            playerRank = "§2Moderator";
-            playerColor = "§2";
-            messageColor = "§7";
-        } else if (player.hasPermission("rank.sup")) {
-            playerRank = "§aSupporter";
-            playerColor = "§a";
-            messageColor = "§7";
+            playerRank = "§cModerator";
+            playerColor = "§c";
         } else if (player.hasPermission("rank.friend")) {
             playerRank = "§5Freund";
             playerColor = "§5";
-            messageColor = "§7";
+            messageColor = "§d";
         }
 
         String chatFormat = (playerRank + " §8┃ " + playerColor + player.getName() + " §8» " + messageColor + message);
@@ -86,16 +84,9 @@ public class Chat implements Listener {
         /*
         MESSAGE SENDING
          */
-        if (chatEnabled) {
-            AchievementAPI.activateAchievement(player, "ERSTE_NACHRICHT");
-            Bukkit.broadcastMessage(chatFormat);
-        } else {
-            if (player.hasPermission("core.globalmute.bypass")) {
-                Bukkit.broadcastMessage(chatFormat);
-            } else {
-                player.sendMessage(Main.PREFIX + "Der Chat ist aktuell §cStummgeschaltet§7.");
-            }
-        }
+        AchievementAPI.activateAchievement(player, "ERSTE_NACHRICHT");
+        // Nicht broadcasten! Funktion:    event.setFormat(); inkl. .replace("(vorher)", "(nachher)"); nutzen!
+        Bukkit.broadcastMessage(chatFormat);
     }
 }
 

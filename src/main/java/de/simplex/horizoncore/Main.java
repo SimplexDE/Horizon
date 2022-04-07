@@ -5,9 +5,7 @@ import de.simplex.horizoncore.commands.moderation.*;
 import de.simplex.horizoncore.commands.utility.*;
 import de.simplex.horizoncore.systems.Chat;
 import de.simplex.horizoncore.systems.Connection;
-import de.simplex.horizoncore.systems.Sb;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,19 +20,12 @@ public final class Main extends JavaPlugin {
     public static Main INSTANCE;
 
     /**
-     * Der Standard Prefix
+     * Der Standard Nachrichten
      */
-    public static String PREFIX;
-
-    /**
-     * Die Standard NP Nachricht
-     */
-    public static String NO_PERMISSION;
-
-    /**
-     * Die Standard CNF Nachricht
-     */
-    public static String COMMAND_NOT_FOUND;
+    public static final String PREFIX = "§8» §bSystem §8┃ §7",
+            NO_PERMISSION = "Du hast §4keinen Zugriff §7auf diesen Befehl.",
+            COMMAND_NOT_FOUND = "Dieser Befehl existiert nicht.",
+            NOT_A_PLAYER = "Dieser Befehl ist nur für Spieler:innen zulässig.";
 
     /**
      * Aktivierungslogik
@@ -43,10 +34,6 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
 
         INSTANCE = this;
-
-        PREFIX = "§8» §bSystem §8┃ §7";
-        NO_PERMISSION = "Du hast §4keinen Zugriff §7auf diesen Befehl.";
-        COMMAND_NOT_FOUND = "Dieser Befehl existiert nicht.";
 
         getCommand("broadcast").setExecutor(new Broadcast());
         getCommand("whisper").setExecutor(new Whisper());
@@ -58,6 +45,7 @@ public final class Main extends JavaPlugin {
         getCommand("difficulty").setExecutor(new Difficulty());
         getCommand("achievements").setExecutor(new Achievements());
         getCommand("spawn").setExecutor(new Spawn());
+        getCommand("Enderchest").setExecutor(new Enderchest());
 
         getCommand("eban").setExecutor(new Ban());
         getCommand("eunban").setExecutor(new Unban());
@@ -72,9 +60,6 @@ public final class Main extends JavaPlugin {
         saveDefaultConfig();
         getConfig().options().copyDefaults(true);
 
-        for (Player all : Bukkit.getOnlinePlayers()) {
-            Sb.defaultSb(all);
-        }
 
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
     }
@@ -84,10 +69,14 @@ public final class Main extends JavaPlugin {
      */
     @Override
     public void onDisable() {
-        for (Player all : Bukkit.getOnlinePlayers()) {
-            Sb.unsetScoreboard(all);
-        }
-
         Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore deaktiviert!");
+    }
+
+    /**
+     * Plugin extern erhalten
+     * Wieso auch immer das fehlte lmao
+     */
+    public static Main getPlugin() {
+        return INSTANCE;
     }
 }
