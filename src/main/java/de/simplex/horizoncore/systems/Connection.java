@@ -66,7 +66,7 @@ public class Connection implements Listener {
 		pC.set("uuid", player.getUniqueId().toString());
 		pC.set("online", true);
 		pC.set("kicked", null);
-		pC.set("ip-address", player.getAddress());
+		pC.set("ip-address", player.getAddress().getHostString());
 		pC.save();
 		AchievementAPI.activateAchievement(player, "JOIN_HORIZON");
 	}
