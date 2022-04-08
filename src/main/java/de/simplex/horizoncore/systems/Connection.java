@@ -49,13 +49,13 @@ public class Connection implements Listener {
 			player.sendMessage(Main.PREFIX + "Da du das erste Mal gejoined bist, erhälst du §e1000§7 Tokens!");
 
 			PlayerInventory i = player.getInventory();
-			i.addItem(new ItemStack(Material.COOKED_BEEF));
 			i.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
 			i.addItem(new ItemStack(Material.STONE_SWORD));
 			i.addItem(new ItemStack(Material.STONE_PICKAXE));
 			i.addItem(new ItemStack(Material.STONE_AXE));
 			i.addItem(new ItemStack(Material.STONE_SHOVEL));
 			i.addItem(new ItemStack(Material.STONE_HOE));
+			i.addItem(new ItemStack(Material.COOKED_BEEF));
 			player.sendMessage(Main.PREFIX + "Da du das erste Mal gejoined bist, hast du das standard Kit erhalten!");
 		}
 

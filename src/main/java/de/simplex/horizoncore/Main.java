@@ -6,6 +6,7 @@ import de.simplex.horizoncore.commands.utility.*;
 import de.simplex.horizoncore.systems.Chat;
 import de.simplex.horizoncore.systems.Connection;
 import de.simplex.horizoncore.systems.PConfig;
+import de.simplex.horizoncore.systems.WorldChanged;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -58,6 +59,7 @@ public final class Main extends JavaPlugin {
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);
 		pM.registerEvents(new Chat(), this);
+		pM.registerEvents(new WorldChanged(), this);
 		pM.registerEvents(new Enderchest(), this);
 
 		saveDefaultConfig();

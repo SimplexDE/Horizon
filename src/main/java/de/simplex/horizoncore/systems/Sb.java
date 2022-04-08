@@ -7,48 +7,63 @@ import org.bukkit.scoreboard.*;
 
 public class Sb {
 
-    public static void defaultSb(Player p) {
-        Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective o = sb.registerNewObjective("hor", "hor", "§9§lH§9orizon");
-        o.setDisplaySlot(DisplaySlot.SIDEBAR);
+	public static void defaultSb(Player p) {
+		Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
+		Objective o = sb.registerNewObjective("hor", "hor", "§9§lH§9orizon");
+		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 
-        PConfig pC = PConfig.loadConfig(p);
+		PConfig pC = PConfig.loadConfig(p);
 
-        Score s1 = o.getScore(" §0 "),
-                playerName = o.getScore("§7Dein Name§8: "),
+		Score s1 = o.getScore(" §0 "),
+				playerName = o.getScore("§7Dein Name§8: "),
 
-                s2 = o.getScore(" §1 "),
-                tokens = o.getScore("§6Tokens§8: ");
+				s2 = o.getScore(" §1 "),
+				tokens = o.getScore("§6Tokens§8: "),
 
-        s1.setScore(20);
-        playerName.setScore(19);
+				s3 = o.getScore(" §2 "),
+				world = o.getScore("§3Welt§8: ");
 
-        s2.setScore(17);
-        tokens.setScore(16);
+		s1.setScore(20);
+		playerName.setScore(19);
 
-        Team pName = sb.registerNewTeam("pName");
-        Team tTeam = sb.registerNewTeam("tokens");
+		s2.setScore(17);
+		tokens.setScore(16);
 
-        pName.addEntry("" + ChatColor.GREEN);
-        tTeam.addEntry("" + ChatColor.GOLD);
+		s3.setScore(14);
+		world.setScore(13);
 
-        pName.setPrefix("   §8» §7" + p.getName());
-        tTeam.setPrefix("   §8» §6" + pC.getTokens());
+		Team pName = sb.registerNewTeam("pName"),
+				tTeam = sb.registerNewTeam("tokens"),
+				dWorld = sb.registerNewTeam("dWorld");
 
-        o.getScore("" + ChatColor.GREEN).setScore(18);
-        o.getScore("" + ChatColor.GOLD).setScore(15);
+		pName.addEntry("" + ChatColor.GREEN);
+		tTeam.addEntry("" + ChatColor.GOLD);
+		dWorld.addEntry("" + ChatColor.DARK_AQUA);
 
-        p.setScoreboard(sb);
-    }
+		pName.setPrefix("   §8» §7" + p.getName());
+		tTeam.setPrefix("   §8» §6" + pC.getTokens());
+		tTeam.setPrefix("   §8» §b" + p.getWorld());
 
-    public static void updateTokens(Player p) {
-        Scoreboard sb = p.getScoreboard();
-        sb.getTeam("tokens").setPrefix("   §8» §6" + PConfig.loadConfig(p).getTokens());
-    }
+		o.getScore("" + ChatColor.GREEN).setScore(18);
+		o.getScore("" + ChatColor.GOLD).setScore(15);
+		o.getScore("" + ChatColor.DARK_AQUA).setScore(12);
 
-    public static void unsetScoreboard(Player p) {
-        Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective o = sb.registerNewObjective("hor", "hor", "§9§lH§9orizon");
-        p.setScoreboard(sb);
-    }
+		p.setScoreboard(sb);
+	}
+
+	public static void updateTokens(Player p) {
+		Scoreboard sb = p.getScoreboard();
+		sb.getTeam("tokens").setPrefix("   §8» §6" + PConfig.loadConfig(p).getTokens());
+	}
+
+	public static void updateWorld(Player p) {
+		Scoreboard sb = p.getScoreboard();
+		sb.getTeam("dWorld").setPrefix("   §8» §b" + p.getWorld());
+	}
+
+	public static void unsetScoreboard(Player p) {
+		Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
+		Objective o = sb.registerNewObjective("hor", "hor", "§9§lH§9orizon");
+		p.setScoreboard(sb);
+	}
 }

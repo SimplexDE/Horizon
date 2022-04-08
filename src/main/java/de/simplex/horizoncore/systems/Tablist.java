@@ -22,6 +22,10 @@ public class Tablist {
     private static final File file = new File("plugins/Horizon/playerData.yml");
     private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
 
+    /**
+     * Bitte überarbeiten!
+     */
+
     public static void setSb() {
         /**
          * Ich wüsste nicht, das Scoreboards Tablists sind? Bitte anpassen, bei Fragen @TearsDontFall
