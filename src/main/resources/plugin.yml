@@ -1,9 +1,12 @@
 name: Horizoncore
 version: '${project.version}'
 main: de.simplex.horizoncore.Main
-api-version: 1.18
+load: STARTUP
+
 author: WillyButz
-authors: [ TearsDontFall, WillyButz ]
+authors: [ TearsDontFall ]
+description: Ein Plugin für Horizon.
+website: https://discord.gg/gw8nKNxCxE
 
 commands:
   sethome:
