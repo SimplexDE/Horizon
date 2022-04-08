@@ -53,6 +53,7 @@ public final class Main extends JavaPlugin {
 		getCommand("eban").setExecutor(new Ban());
 		getCommand("eunban").setExecutor(new Unban());
 		getCommand("ekick").setExecutor(new Kick());
+		getCommand("clearChat").setExecutor(new ClearChat());
 
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);
