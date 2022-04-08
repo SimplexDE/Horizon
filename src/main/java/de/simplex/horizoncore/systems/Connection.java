@@ -46,7 +46,6 @@ public class Connection implements Listener {
 
 		if (!player.hasPlayedBefore()) {
 			pC.setTokens(1000);
-			player.sendMessage(Main.PREFIX + "Da du das erste Mal gejoined bist, erhälst du §e1000§7 Tokens!");
 
 			PlayerInventory i = player.getInventory();
 			i.setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
@@ -56,7 +55,8 @@ public class Connection implements Listener {
 			i.addItem(new ItemStack(Material.STONE_SHOVEL));
 			i.addItem(new ItemStack(Material.STONE_HOE));
 			i.addItem(new ItemStack(Material.COOKED_BEEF));
-			player.sendMessage(Main.PREFIX + "Da du das erste Mal gejoined bist, hast du das standard Kit erhalten!");
+
+			player.sendMessage(Main.PREFIX + "Willkommen auf Horizon! Du hast §e1000§7 Tokens und das §eStarter-Kit§7 erhalten!");
 		}
 
 		Sb.defaultSb(player);
