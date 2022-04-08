@@ -22,6 +22,10 @@ import java.io.IOException;
 
 public class ModerationAPI {
 
+    /*
+     * FIXME: Hier eh, ist alles kaputt durch die neue Config, müsste man sich mal angucken.
+     */
+
     private static final File file = new File("plugins/Horizon/playerData.yml");
     private static final YamlConfiguration pD = YamlConfiguration.loadConfiguration(file);
     private static final File file2 = new File("plugins/Horizon/bannedData.yml");

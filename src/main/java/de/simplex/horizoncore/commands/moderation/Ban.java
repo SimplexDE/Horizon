@@ -17,6 +17,10 @@ import org.bukkit.command.CommandSender;
  */
 public class Ban implements CommandExecutor {
 
+    /*
+     * Aktuell nicht funktionsfähig. Siehe ModerationAPI.
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 

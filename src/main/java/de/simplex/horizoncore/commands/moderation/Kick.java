@@ -17,6 +17,10 @@ import org.bukkit.entity.Player;
  */
 public class Kick implements CommandExecutor {
 
+    /*
+     * Aktuell nicht funktionsfähig. Siehe ModerationAPI.
+     */
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 

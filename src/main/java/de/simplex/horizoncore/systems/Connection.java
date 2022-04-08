@@ -63,9 +63,10 @@ public class Connection implements Listener {
 		Tablist.setSb();
 		event.setJoinMessage("§8» §a+ §8┃ §e" + player.getName() + "§7 ist Beigetreten.");
 
-		pC.set(player.getUniqueId() + ".ONLINE", true);
-		pC.set(player.getUniqueId() + ".KICKED", null);
-		pC.set(player.getUniqueId() + ".IP-ADDRESS", player.getAddress().getHostName());
+		pC.set("uuid", player.getUniqueId().toString());
+		pC.set("online", true);
+		pC.set("kicked", null);
+		pC.set("ip-address", player.getAddress());
 		pC.save();
 		AchievementAPI.activateAchievement(player, "JOIN_HORIZON");
 	}
@@ -81,9 +82,9 @@ public class Connection implements Listener {
 		DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);
 
 
-		pC.set(player.getUniqueId() + ".ONLINE", false);
-		pC.set(player.getUniqueId() + ".LAST_KNOWN_NAME", player.getName());
-		pC.set(player.getUniqueId() + ".LAST_SEEN", (date.format(now)));
+		pC.set("online", false);
+		pC.set("last_known_name", player.getName());
+		pC.set("last_seen", (date.format(now)));
 		pC.save();
 
 	}
