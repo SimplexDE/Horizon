@@ -104,3 +104,10 @@ commands:
       - cclear
       - chatc
       - chatleeren
+  Profil:
+    description: Öffne das Profil.
+    aliases:
+      - Profile
+      - Stats
+      - FriendsGui
+      - RolePlayRole

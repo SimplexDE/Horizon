@@ -56,6 +56,8 @@ public final class Main extends JavaPlugin {
 		getCommand("ekick").setExecutor(new Kick());
 		getCommand("clearChat").setExecutor(new ClearChat());
 
+		getCommand("Profil").setExecutor(new ClearChat());
+
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);
 		pM.registerEvents(new Chat(), this);
@@ -67,6 +69,7 @@ public final class Main extends JavaPlugin {
 
 		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
 
+		Profil.fillProfil();
 		genCurrentBalance();
 	}
 
