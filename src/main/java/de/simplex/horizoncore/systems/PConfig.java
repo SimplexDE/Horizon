@@ -137,6 +137,14 @@ public class PConfig {
 		return (float) this.con.getDouble(string);
 	}
 
+	public void addOne(final String string) {
+		con.set(string, (con.getInt(string) + 1));
+	}
+
+	public int getSafeInt(final String string) {
+		return con.isSet(string) ? con.getInt(string) : 0;
+	}
+
 	public int getInt(final String string) {
 		return this.con.getInt(string);
 	}

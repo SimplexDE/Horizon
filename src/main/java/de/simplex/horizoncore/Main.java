@@ -3,10 +3,7 @@ package de.simplex.horizoncore;
 import de.simplex.horizoncore.commands.fun.Friede;
 import de.simplex.horizoncore.commands.moderation.*;
 import de.simplex.horizoncore.commands.utility.*;
-import de.simplex.horizoncore.systems.Chat;
-import de.simplex.horizoncore.systems.Connection;
-import de.simplex.horizoncore.systems.PConfig;
-import de.simplex.horizoncore.systems.WorldChanged;
+import de.simplex.horizoncore.systems.*;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -63,6 +60,8 @@ public final class Main extends JavaPlugin {
 		pM.registerEvents(new Chat(), this);
 		pM.registerEvents(new WorldChanged(), this);
 		pM.registerEvents(new Enderchest(), this);
+		pM.registerEvents(new Profil(), this);
+		pM.registerEvents(new StatsListener(), this);
 
 		saveDefaultConfig();
 		getConfig().options().copyDefaults(true);
