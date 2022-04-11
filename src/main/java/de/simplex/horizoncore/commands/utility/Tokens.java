@@ -20,7 +20,7 @@ public class Tokens implements CommandExecutor {
 			} else if (args.length == 1) {
 
 				if (args[0].equalsIgnoreCase("help")) {
-					String s = "/Tokens [<help%s>]";
+					String s = "/Tokens [<help%s>] [<Zahl; Name>] [<Name>]";
 					if (p.hasPermission("core.manageTokens")) {
 						p.sendMessage(Main.PREFIX + String.format(s, "; reset; set; take; give"));
 						return true;

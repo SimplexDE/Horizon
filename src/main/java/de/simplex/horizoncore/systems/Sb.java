@@ -42,7 +42,7 @@ public class Sb {
 
 		pName.setPrefix("   §8» §7" + p.getName());
 		tTeam.setPrefix("   §8» §6" + pC.getTokens());
-		tTeam.setPrefix("   §8» §b" + p.getWorld().getName());
+		dWorld.setPrefix("   §8» §b" + p.getWorld().getName());
 
 		o.getScore("" + ChatColor.GREEN).setScore(18);
 		o.getScore("" + ChatColor.GOLD).setScore(15);

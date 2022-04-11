@@ -20,6 +20,7 @@ public class StatsListener implements Listener {
 	@EventHandler
 	public void handle(EntityDeathEvent e) {
 		Player p = e.getEntity().getKiller();
+		if (p == null) return;
 		PConfig pc = PConfig.loadConfig(p);
 
 		if (e.getEntity() instanceof Player) {
