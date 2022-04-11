@@ -21,6 +21,7 @@ public class Profil implements CommandExecutor, Listener {
 
 	public static final Inventory pi = Bukkit.createInventory(null, 5 * 9, "Profil-Copy");
 	public static final String profileInvTitle = "§9Dein Profil";
+	public static final ItemStack filler = IB.lore(IB.name(new ItemStack(Material.BLUE_STAINED_GLASS_PANE), " §0 "), " §0 ");
 
 	/**
 	 * WIP -> TearsDontFall
@@ -44,7 +45,7 @@ public class Profil implements CommandExecutor, Listener {
 
 	public static void fillProfil() {
 
-		IB.invFiller(pi, new ItemStack(Material.BLUE_STAINED_GLASS_PANE));
+		IB.invFiller(pi, filler);
 		pi.setItem(8, new ItemStack(Material.RED_CANDLE));
 
 		pi.setItem(6, new ItemStack(Material.PLAYER_HEAD));
@@ -82,7 +83,6 @@ public class Profil implements CommandExecutor, Listener {
 					default:
 						break;
 				}
-
 			}
 		}
 	}
