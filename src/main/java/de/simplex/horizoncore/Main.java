@@ -7,6 +7,7 @@ import de.simplex.horizoncore.systems.*;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -71,6 +72,8 @@ public final class Main extends JavaPlugin {
 
 		Profil.fillProfil();
 		genCurrentBalance();
+		for (Player ap : Bukkit.getOnlinePlayers())
+			Sb.defaultSb(ap);
 	}
 
 	/**
@@ -79,6 +82,8 @@ public final class Main extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore deaktiviert!");
+		for (Player ap : Bukkit.getOnlinePlayers())
+			Sb.unsetScoreboard(ap);
 	}
 
 	public static Main getPlugin() {

@@ -52,9 +52,17 @@ public class Enderchest implements CommandExecutor, Listener {
 					p.sendMessage(Main.PREFIX + "Tipp: Mit  \"/Enderchest upgrade\" kannst du deine Enderchest upgraden!");
 				}
 			} else if (args.length == 1) {
-				if (args[0].equalsIgnoreCase("upgrade")) {
-					int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
+				int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
 
+				if (args[0].equalsIgnoreCase("upgradeInfo")) {
+					int tokens = pC.getTokens(),
+							cost = (int) Math.round(20 * size * 1.2);
+					p.sendMessage(Main.PREFIX + String.format("Das Upgrade kostet %s.", cost));
+					if (cost > tokens) {
+						p.sendMessage(Main.PREFIX + String.format("Dir fehlen %s Tokens.", (cost - tokens)));
+					}
+
+				} else if (args[0].equalsIgnoreCase("upgrade")) {
 					if (size >= 6) {
 						p.sendMessage(Main.PREFIX + "Deine Enderchest ist bereits auf dem höchsten Level!");
 						return true;
@@ -70,7 +78,7 @@ public class Enderchest implements CommandExecutor, Listener {
 						p.sendMessage(Main.PREFIX + "Du hast nicht genügend Tokens.");
 					}
 				} else if (args[0].equalsIgnoreCase("help")) {
-					p.sendMessage(Main.PREFIX + "Nutzung: /enderchest [<upgrade; help>]");
+					p.sendMessage(Main.PREFIX + "Nutzung: /enderchest [<upgradeInfo; upgrade; help>]");
 				} else {
 					p.sendMessage(Main.PREFIX + "Dieses Argument konnte nicht gefunden werden.");
 				}
