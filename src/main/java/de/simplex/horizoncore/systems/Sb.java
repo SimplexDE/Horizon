@@ -51,6 +51,13 @@ public class Sb {
 		p.setScoreboard(sb);
 	}
 
+	public static void updateAll(Player p) {
+		Scoreboard sb = p.getScoreboard();
+		sb.getTeam("tokens").setPrefix("   §8» §6" + PConfig.loadConfig(p).getTokens());
+		sb.getTeam("dWorld").setPrefix("   §8» §b" + p.getWorld());
+		sb.getTeam("pName").setPrefix("   §8» §b" + p.getName());
+	}
+
 	public static void updateTokens(Player p) {
 		Scoreboard sb = p.getScoreboard();
 		sb.getTeam("tokens").setPrefix("   §8» §6" + PConfig.loadConfig(p).getTokens());

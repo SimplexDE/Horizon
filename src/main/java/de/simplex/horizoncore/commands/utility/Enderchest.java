@@ -14,6 +14,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Random;
+
 public class Enderchest implements CommandExecutor, Listener {
 
 	public static final String EC_INV_NAME = "§9Enderchest";
@@ -38,13 +40,17 @@ public class Enderchest implements CommandExecutor, Listener {
 				 *
 				 *  Zum Abgleich wird zunächst erstmal nur der Inv-Content gespeichert. (-> InventoryCloseEvent)
 				 */
-				ItemStack[] content = null; //(ItemStack[]) pC.get("Player.enderChest.content");
-
-				if (content != null) {
-					i.setContents(content);
-				}
+				if (pC.isSet("Player.enderChest.content.0"))
+					for (String s : pC.getConfigurationSection("Player.enderChest.content").getKeys(false)) {
+						i.setItem(Integer.parseInt(s), pC.getItemStack("Player.enderChest.content." + s));
+					}
 
 				p.openInventory(i);
+
+				Random r = new Random();
+				if (r.nextInt(6) >= 5) {
+					p.sendMessage(Main.PREFIX + "Tipp: Mit  \"/Enderchest upgrade\" kannst du deine Enderchest upgraden!");
+				}
 			} else if (args.length == 1) {
 				if (args[0].equalsIgnoreCase("upgrade")) {
 					int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
@@ -63,6 +69,8 @@ public class Enderchest implements CommandExecutor, Listener {
 					} else {
 						p.sendMessage(Main.PREFIX + "Du hast nicht genügend Tokens.");
 					}
+				} else if (args[0].equalsIgnoreCase("help")) {
+					p.sendMessage(Main.PREFIX + "Nutzung: /enderchest [<upgrade; help>]");
 				} else {
 					p.sendMessage(Main.PREFIX + "Dieses Argument konnte nicht gefunden werden.");
 				}
@@ -83,7 +91,11 @@ public class Enderchest implements CommandExecutor, Listener {
 				PConfig pC = PConfig.loadConfig(p);
 
 				ItemStack[] content = oi.getTopInventory().getContents();
-				pC.set("Player.enderChest.content", content);
+				int i = 0;
+				for (ItemStack is : content) {
+					pC.set("Player.enderChest.content." + i, is);
+					i++;
+				}
 				pC.save();
 			}
 		}

@@ -2,6 +2,7 @@ name: Horizoncore
 version: '${project.version}'
 main: de.simplex.horizoncore.Main
 load: STARTUP
+api-version: 1.18
 
 author: WillyButz
 authors: [ TearsDontFall ]
@@ -111,3 +112,5 @@ commands:
       - Stats
       - FriendsGui
       - RolePlayRole
+  UpdateVisuals:
+    description: Debug Command

@@ -1,9 +1,11 @@
 package de.simplex.horizoncore.systems;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -161,4 +163,7 @@ public class PConfig {
 		return this.con.getDouble(string);
 	}
 
+	public ItemStack getItemStack(final String s) {
+		return con.isSet(s) ? con.getItemStack(s) : new ItemStack(Material.AIR);
+	}
 }

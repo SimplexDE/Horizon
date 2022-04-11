@@ -53,7 +53,8 @@ public final class Main extends JavaPlugin {
 		getCommand("ekick").setExecutor(new Kick());
 		getCommand("clearChat").setExecutor(new ClearChat());
 
-		getCommand("Profil").setExecutor(new ClearChat());
+		getCommand("Profil").setExecutor(new Profil());
+		getCommand("UpdateVisuals").setExecutor(new UpdateVisuals());
 
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);

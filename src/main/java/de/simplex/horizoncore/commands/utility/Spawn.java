@@ -24,7 +24,7 @@ public class Spawn implements CommandExecutor {
 
 			FileConfiguration c = Main.getPlugin().getConfig();
 
-			Location loc = null;
+			Location loc;
 			if (!c.isSet("Lobby.spawn") || c.getLocation("Lobby.spawn") == null) {
 				c.set("Lobby.spawn", new Location(Bukkit.getWorld("LOBBY"), 780, 4, 105));
 				Main.getPlugin().saveConfig();
