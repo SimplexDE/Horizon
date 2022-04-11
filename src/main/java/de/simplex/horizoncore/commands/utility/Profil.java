@@ -64,13 +64,14 @@ public class Profil implements CommandExecutor, Listener {
 			String title = p.getOpenInventory().getTitle();
 			if (title.equals(profileInvTitle)) {
 				e.setCancelled(true);
-
+				if (IB.loreContains(item, "»")) return;
 				switch (item.getType()) {
 					case RED_CANDLE:
 						p.closeInventory();
 						break;
 					case PLAYER_HEAD:
 						p.sendMessage("Friend System");
+						cleanProfile(p);
 						break;
 					case SPYGLASS:
 						p.sendMessage("Statistics");
@@ -79,6 +80,7 @@ public class Profil implements CommandExecutor, Listener {
 						break;
 					case WITHER_ROSE:
 						p.sendMessage("Role-Play Menü");
+						cleanProfile(p);
 						break;
 					default:
 						break;
@@ -89,30 +91,30 @@ public class Profil implements CommandExecutor, Listener {
 
 	public void statisticsTab(Player p) {
 		Inventory in = p.getOpenInventory().getTopInventory();
-		in.setItem(10, IB.name(playerSkull(new ItemStack(Material.PLAYER_HEAD), p), "§7Dies ist dein Profil:"));
+		in.setItem(10, playerSkull(IB.lore(IB.name(new ItemStack(Material.PLAYER_HEAD),
+				"§7Dies ist dein Profil:"), " §0» "), p));
 
 		PConfig pc = PConfig.loadConfig(p);
 		in.setItem(20, IB.lore(IB.name(new ItemStack(Material.DIAMOND_SWORD),
-				"§bKills sn Spieler:innen"), String.format("§b§o%s", pc.getSafeInt("Player.stats.playerKills"))));
+				"§bKills an Spieler:innen"), String.format("§b§o%s", pc.getSafeInt("Player.stats.playerKills"))));
 		in.setItem(21, IB.lore(IB.name(new ItemStack(Material.IRON_SWORD),
-				"§3Kills"), String.format("§3§o%s", pc.getSafeInt("Player.stats.mobKills"))));
+				"§3Mob Kills"), String.format("§3§o%s", pc.getSafeInt("Player.stats.mobKills"))));
 		in.setItem(22, IB.lore(IB.name(new ItemStack(Material.SHIELD),
 				"§6Deaths"), String.format("§6§o%s", pc.getSafeInt("Player.stats.deaths"))));
 	}
 
 	public void cleanProfile(Player p) {
 		if (p.getOpenInventory().getTitle().equals(profileInvTitle)) {
-			p.getOpenInventory().getTopInventory().setContents(pi.getContents());
+			ItemStack[] contents = Profil.pi.getContents();
+			p.getOpenInventory().getTopInventory().setContents(contents);
 		}
 	}
 
 	public static ItemStack playerSkull(ItemStack i, OfflinePlayer t) {
-		ItemStack ic = i.clone();
-		ic.setType(Material.PLAYER_HEAD);
-		SkullMeta sm = (SkullMeta) ic.getItemMeta();
-		sm.setOwningPlayer(t);
-		if (sm.getOwningPlayer() == null) return i;
-		return ic;
+		if (i.getType() != Material.PLAYER_HEAD) i.setType(Material.PLAYER_HEAD);
+		SkullMeta sm = (SkullMeta) i.getItemMeta();
+		if (sm.setOwningPlayer(t)) return i;
+		return new ItemStack(Material.PLAYER_HEAD);
 	}
 }
 

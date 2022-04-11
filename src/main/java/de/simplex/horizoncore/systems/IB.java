@@ -33,6 +33,12 @@ public class IB {
 		return item.getItemMeta().getLore();
 	}
 
+	public static boolean loreContains(final ItemStack item, final String s) {
+		if (item.hasItemMeta() && item.getItemMeta().hasLore()
+				&& item.getItemMeta().getLore().toString().contains(s)) return true;
+		return false;
+	}
+
 	public static ItemStack lore(final ItemStack item, final List<String> lore) {
 		final ItemMeta itemM = item.getItemMeta();
 		itemM.setLore(lore);

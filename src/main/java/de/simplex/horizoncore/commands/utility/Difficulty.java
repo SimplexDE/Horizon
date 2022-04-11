@@ -7,8 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Locale;
-
 /**
  * Der Difficulty Befehl
  *
@@ -29,10 +27,12 @@ public class Difficulty implements CommandExecutor {
 
 			World w = p.getLocation().getWorld();
 
-			if (args.length == 1) {
-				org.bukkit.Difficulty d = org.bukkit.Difficulty.valueOf(args[0]);
+			if (args.length == 0) {
+				p.sendMessage(Main.PREFIX + String.format("Derzeitige difficulty: %s", w.getDifficulty().toString().toLowerCase()));
+			} else if (args.length == 1) {
+				org.bukkit.Difficulty d = org.bukkit.Difficulty.valueOf(args[0].toUpperCase());
 				if (d == null)
-					d = org.bukkit.Difficulty.getByValue(Integer.parseInt(args[0]));
+					d = org.bukkit.Difficulty.getByValue(Integer.parseInt(args[0].toUpperCase()));
 				if (d == null) {
 					p.sendMessage(Main.PREFIX + "Dieser Schwierigkeitsgrad existiert nicht!");
 					return true;
@@ -45,7 +45,7 @@ public class Difficulty implements CommandExecutor {
 				p.sendMessage(Main.PREFIX + String.format("Der Schwierigkeitsgrad ist nun §a%s§8.", d.toString().toLowerCase()));
 
 			} else {
-				p.sendMessage(Main.PREFIX + "Diese Argumentenlänge ist ungültig.");
+				p.sendMessage(Main.PREFIX + "Diese Argumenten Länge ist ungültig.");
 			}
 		} else {
 			sender.sendMessage(Main.PREFIX + "Dieser Befehl ist nur für Spieler:innen zugänglich.");
