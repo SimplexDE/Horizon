@@ -42,7 +42,7 @@ public class Sb {
 
 		pName.setPrefix("   §8» §7" + p.getName());
 		tTeam.setPrefix("   §8» §6" + pC.getTokens());
-		tTeam.setPrefix("   §8» §b" + p.getWorld());
+		tTeam.setPrefix("   §8» §b" + p.getWorld().getName());
 
 		o.getScore("" + ChatColor.GREEN).setScore(18);
 		o.getScore("" + ChatColor.GOLD).setScore(15);
@@ -54,7 +54,7 @@ public class Sb {
 	public static void updateAll(Player p) {
 		Scoreboard sb = p.getScoreboard();
 		sb.getTeam("tokens").setPrefix("   §8» §6" + PConfig.loadConfig(p).getTokens());
-		sb.getTeam("dWorld").setPrefix("   §8» §b" + p.getWorld());
+		sb.getTeam("dWorld").setPrefix("   §8» §b" + p.getWorld().getName());
 		sb.getTeam("pName").setPrefix("   §8» §b" + p.getName());
 	}
 
@@ -65,7 +65,7 @@ public class Sb {
 
 	public static void updateWorld(Player p) {
 		Scoreboard sb = p.getScoreboard();
-		sb.getTeam("dWorld").setPrefix("   §8» §b" + p.getWorld());
+		sb.getTeam("dWorld").setPrefix("   §8» §b" + p.getWorld().getName());
 	}
 
 	public static void unsetScoreboard(Player p) {

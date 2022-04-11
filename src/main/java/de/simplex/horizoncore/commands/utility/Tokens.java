@@ -18,12 +18,27 @@ public class Tokens implements CommandExecutor {
 			if (args.length == 0) {
 				p.sendMessage(Main.PREFIX + String.format("Du hast §e%s §7Tokens.", pC.getTokens()));
 			} else if (args.length == 1) {
+
+				if (args[0].equalsIgnoreCase("help")) {
+					String s = "/Tokens [<help%s>]";
+					if (p.hasPermission("core.manageTokens")) {
+						p.sendMessage(Main.PREFIX + String.format(s, "; reset; set; take; give"));
+						return true;
+					}
+					p.sendMessage(Main.PREFIX + String.format(s, ""));
+					return true;
+				}
+
 				if (!p.hasPermission("core.manageTokens.viewOthers")) {
 					p.sendMessage(Main.PREFIX + "Diese Argumenten länge ist ungültig.");
 					return true;
 				}
 
 				Player t = Bukkit.getPlayer(args[0]);
+				if (t == null) {
+					p.sendMessage(Main.PREFIX + "Das Target existiert nicht.");
+					return true;
+				}
 				PConfig tC = PConfig.loadConfig(t);
 				p.sendMessage(Main.PREFIX + String.format("%s hat %s Tokens.", t.getName(), tC.getTokens()));
 
