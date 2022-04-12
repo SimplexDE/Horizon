@@ -119,10 +119,6 @@ public class PConfig {
 		return this.con.getBoolean(string);
 	}
 
-	public boolean hasWorldID() {
-		return this.con.isSet("pWorld.OwningID");
-	}
-
 	public String getString(final String string) {
 		return this.con.getString(string);
 	}
