@@ -4,6 +4,8 @@ import de.simplex.horizoncore.commands.fun.Friede;
 import de.simplex.horizoncore.commands.moderation.*;
 import de.simplex.horizoncore.commands.utility.*;
 import de.simplex.horizoncore.systems.*;
+import de.simplex.horizoncore.systems.materialLists.BMp;
+import de.simplex.horizoncore.systems.materialLists.Mp;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -56,6 +58,7 @@ public final class Main extends JavaPlugin {
 
 		getCommand("Profil").setExecutor(new Profil());
 		getCommand("UpdateVisuals").setExecutor(new UpdateVisuals());
+		getCommand("ShopNpc").setExecutor(new ShopNpc());
 
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new Connection(), this);
@@ -64,16 +67,33 @@ public final class Main extends JavaPlugin {
 		pM.registerEvents(new Enderchest(), this);
 		pM.registerEvents(new Profil(), this);
 		pM.registerEvents(new StatsListener(), this);
+		pM.registerEvents(new ShopNpc(), this);
 
 		saveDefaultConfig();
 		getConfig().options().copyDefaults(true);
 
-		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
-
 		Profil.fillProfil();
 		genCurrentBalance();
+
+		ShopNpc.fillSHopNpcInv();;
+
 		for (Player ap : Bukkit.getOnlinePlayers())
 			Sb.defaultSb(ap);
+
+		if (!BMp.BMpExists()) {
+			BMp.createBMp();
+			BMp bp = new BMp();
+			bp.setDefaults();
+			bp.saveBMp();
+		}
+		if (!Mp.mpExists()) {
+			Mp.createMp();
+			Mp mp = new Mp();
+			mp.setDefaults();
+			mp.saveMp();
+		}
+
+		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
 	}
 
 	/**

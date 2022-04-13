@@ -114,3 +114,5 @@ commands:
       - RolePlayRole
   UpdateVisuals:
     description: Debug Command
+  ShopNpc:
+    description: Spawne den Shop Npc.
