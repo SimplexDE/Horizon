@@ -18,11 +18,12 @@ public class Mp {
 	public static List<Material> materials = new ArrayList<>();
 
 	public static void genMaterialList() {
-		if (mpExists())
+		if (mpExists()) {
+			Mp.loadMp();
 			for (String s : con.getConfigurationSection("Materials").getKeys(false)) {
 				materials.add(Material.getMaterial(s.toUpperCase()));
 			}
-		else {
+		} else {
 			Mp.createMp();
 			System.out.println("§6[Horizon] Die Material-List wurde generiert. Bitte starte das Plugin neu!");
 		}
@@ -46,8 +47,7 @@ public class Mp {
 		if (!mpExists()) {
 			createMp();
 		}
-		final Mp Mpc = new Mp();
-		return Mpc;
+		return new Mp();
 	}
 
 	public static boolean mpExists() {
@@ -68,8 +68,7 @@ public class Mp {
 				e.printStackTrace();
 			}
 		}
-		final Mp Mpc = new Mp();
-		return Mpc;
+		return new Mp();
 	}
 
 	public void setDefaults() {
@@ -77,7 +76,11 @@ public class Mp {
 		for (final Material mat : Material.values()) {
 			if (mat.isBlock()) {
 				final String s = mat.toString();
-				if (!s.contains("SLAB") && !s.contains("STRIPPED") && !s.contains("PRESSURE_PLATE") && !s.contains("FENCE") && !s.contains("DOOR") && !s.contains("COMMAND") && !s.contains("WALL") && !s.contains("PANE") && !s.contains("BANNER") && !s.contains("AIR") && !s.contains("BUTTON") && !s.contains("STAIR") && !s.contains("INFESTED") && !s.contains("CONCRETE") && !s.contains("CARPET")) {
+				if (!s.contains("SLAB") && !s.contains("STRIPPED") && !s.contains("PRESSURE_PLATE")
+						&& !s.contains("FENCE") && !s.contains("DOOR") && !s.contains("COMMAND") &&
+						!s.contains("WALL") && !s.contains("PANE") && !s.contains("BANNER") &&
+						!s.contains("AIR") && !s.contains("BUTTON") && !s.contains("STAIR") &&
+						!s.contains("INFESTED") && !s.contains("CONCRETE") && !s.contains("CARPET")) {
 					mp.add(mat);
 				}
 			}

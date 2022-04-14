@@ -21,7 +21,8 @@ public class Sb {
 				tokens = o.getScore("§6Tokens§8: "),
 
 				s3 = o.getScore(" §2 "),
-				world = o.getScore("§3Welt§8: ");
+				world = o.getScore("§3Welt§8: "),
+				sl = o.getScore(" §3 ");
 
 		s1.setScore(20);
 		playerName.setScore(19);
@@ -31,6 +32,8 @@ public class Sb {
 
 		s3.setScore(14);
 		world.setScore(13);
+
+		sl.setScore(11);
 
 		Team pName = sb.registerNewTeam("pName"),
 				tTeam = sb.registerNewTeam("tokens"),

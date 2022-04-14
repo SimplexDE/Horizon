@@ -30,7 +30,7 @@ public class AchievementAPI {
 	 * "Player.stats.achievementData.<Name>.<Wert>"
 	 */
 
-    private static final File AchievementConfig = new File("plugins/Horizon/achievementData.yml");
+    private static final File AchievementConfig = new File("plugins/Horizoncore/achievementData.yml");
     private static final YamlConfiguration AConfig = YamlConfiguration.loadConfiguration(AchievementConfig);
 
     /**

@@ -92,8 +92,10 @@ public final class Main extends JavaPlugin {
 			mp.setDefaults();
 			mp.saveMp();
 		}
+		Mp.loadMp();
+		Mp.genMaterialList();
 
-		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore aktiviert!");
+		Bukkit.getConsoleSender().sendMessage(PREFIX + "§2Core aktiviert!");
 	}
 
 	/**
