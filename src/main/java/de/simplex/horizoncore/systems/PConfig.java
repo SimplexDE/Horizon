@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 public class PConfig {
-	private static final String path = "plugins/Horizon/players/%s.yml",
+	private static final String path = "plugins/Horizoncore/players/%s.yml",
 			tP = "token";
 	YamlConfiguration con;
 	File file;
@@ -38,7 +38,7 @@ public class PConfig {
 		if (!file.exists()) {
 			try {
 				if (!file.exists()) {
-					final File folder = new File("plugins/Horizon/players");
+					final File folder = new File("plugins/Horizoncore/players");
 					folder.createNewFile();
 				}
 				file.createNewFile();
