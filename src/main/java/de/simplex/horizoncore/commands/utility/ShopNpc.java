@@ -2,6 +2,7 @@ package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.systems.IB;
+import de.simplex.horizoncore.systems.Utils;
 import de.simplex.horizoncore.systems.materialLists.Mp;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -128,14 +129,15 @@ public class ShopNpc implements CommandExecutor, Listener {
 				case GRAY_STAINED_GLASS_PANE:
 					break;
 				default:
-					Mp mp = Mp.loadMp();
-					p.sendMessage("§e§oPreis§8: §e" + mp.getMatPrice(mat));
+					if (i.hasItemMeta() && i.getItemMeta().hasLore() && i.getItemMeta().getLore().toString().contains("Preis")) {
+						Mp mp = Mp.loadMp();
+						Utils.buyMat(p, mp, mat, e.getClick());
+					}
 					break;
 
 			}
 		}
 	}
-
 
 	public static void fillSHopNpcInv() {
 		IB.invFiller(i, IB.getFiller(Material.GRAY_STAINED_GLASS_PANE, true, false, " §0 ", " §0 "));
@@ -143,6 +145,10 @@ public class ShopNpc implements CommandExecutor, Listener {
 		i.setItem(9, IB.name(new ItemStack(Material.RED_CANDLE), "§cInventar schließen"));
 		i.setItem(18, IB.name(new ItemStack(Material.YELLOW_DYE), "§eVorherige Reihe"));
 		i.setItem(27, IB.name(new ItemStack(Material.LIME_DYE), "§aNächste Reihe"));
+
+		i.setItem(i.getSize() - 4, IB.lore(IB.name(new ItemStack(Material.SPYGLASS), "§9§oTipp§8: "),
+				"§7Linksklick§8: §a§oKaufe x1", "§7Rechtsklick§8: §a§oKaufe x8",
+				"§7Mausradklick§8: §a§oKaufe x64", "§7Drop§8: §a§oKaufe x128"));
 	}
 
 	public static boolean allowedSlot(final int i, final int size) {
