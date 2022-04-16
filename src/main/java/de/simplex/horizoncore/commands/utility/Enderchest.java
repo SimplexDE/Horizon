@@ -48,18 +48,17 @@ public class Enderchest implements CommandExecutor, Listener {
 				p.openInventory(i);
 
 				Random r = new Random();
-				if (r.nextInt(6) >= 5) {
-					p.sendMessage(Main.PREFIX + "Tipp: Mit  \"/Enderchest upgrade\" kannst du deine Enderchest upgraden!");
-				}
+				if (r.nextInt(9) >= 8)
+					p.sendMessage(Main.PREFIX + "Tipp: Mit \"/Enderchest help\" kannst du deine Enderchest anpassen.");
 			} else if (args.length == 1) {
 				int size = pC.isSet("Player.enderChest.getSize") ? pC.getInt("Player.enderChest.getSize") : 1;
 
 				if (args[0].equalsIgnoreCase("upgradeInfo")) {
 					int tokens = pC.getTokens(),
 							cost = (int) Math.round(20 * size * 1.2);
-					p.sendMessage(Main.PREFIX + String.format("Das Upgrade kostet %s.", cost));
+					p.sendMessage(Main.PREFIX + String.format("Das Upgrade kostet §e%s.", cost));
 					if (cost > tokens) {
-						p.sendMessage(Main.PREFIX + String.format("Dir fehlen %s Tokens.", (cost - tokens)));
+						p.sendMessage(Main.PREFIX + String.format("Dir fehlen §e%s §7Tokens.", (cost - tokens)));
 					}
 
 				} else if (args[0].equalsIgnoreCase("upgrade")) {

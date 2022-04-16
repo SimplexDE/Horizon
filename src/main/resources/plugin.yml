@@ -4,8 +4,7 @@ main: de.simplex.horizoncore.Main
 load: STARTUP
 api-version: 1.18
 
-author: WillyButz
-authors: [ TearsDontFall ]
+authors: [ WillyButz, TearsDontFall ]
 description: Ein Plugin für Horizon.
 website: https://discord.gg/gw8nKNxCxE
 
@@ -58,9 +57,7 @@ commands:
     description: Eine Serverweite Nachricht senden
     aliases:
       - bc
-      - alert
       - rundfunk
-      - rf
   whisper:
     description: Einem Spieler etwas zu Flüstern
     aliases:
@@ -70,14 +67,11 @@ commands:
     description: Serverwartungen umschalten
     aliases:
       - wartungen
-      - wartung
-      - serverwartung
       - servermaintenance
   gamemode:
     description: Verändert deinen Spielmodus
     aliases:
       - gm
-      - spielmodus
       - gmc
   tokens:
     description: Verwalte das Token System.
@@ -85,33 +79,24 @@ commands:
     description: Siehe eine Top-Liste der reichsten Spieler:innen.
     aliases:
       - baltop
-      - btop
       - topbalance
   Enderchest:
-    description: Gain acces to your own Enderchest and upgrade it.
+    description: Greife auf deine Enderchest zu und upgrade sie.
     aliases:
       - ec
       - echest
-      - enderkiste
       - backpack
-      - rucksack
   ClearChat:
     description: Leere den Chat (für Spieler:innen)
     aliases:
       - cc
-      - clearc
       - cchat
       - chatclear
       - cclear
-      - chatc
-      - chatleeren
   Profil:
     description: Öffne das Profil.
     aliases:
       - Profile
-      - Stats
-      - FriendsGui
-      - RolePlayRole
   UpdateVisuals:
     description: Debug Command
   ShopNpc:

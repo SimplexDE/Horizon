@@ -2,6 +2,7 @@ package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.systems.PConfig;
+import de.simplex.horizoncore.systems.Sb;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -68,13 +69,13 @@ public class Tokens implements CommandExecutor {
 					PConfig tC = PConfig.loadConfig(t);
 					tC.setTokens(0);
 					tC.save();
+					Sb.updateTokens(t);
+
 					t.sendMessage(Main.PREFIX + "Deine Tokens wurden resettet!");
 					p.sendMessage(Main.PREFIX + t.getName() + "'s Tokens wurden zu 0 gesetzt.");
-				} else {
+				} else
 					p.sendMessage(Main.PREFIX + "Dieses Argument existiert nicht.");
-				}
 			} else {
-
 				Player t = Bukkit.getPlayer(args[2]);
 
 				if (t == null) {
@@ -97,7 +98,6 @@ public class Tokens implements CommandExecutor {
 						p.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
 						return true;
 					}
-
 					tC.setTokens(i);
 
 				} else if (args[0].equalsIgnoreCase("remove") || args[0].equalsIgnoreCase("take")) {
@@ -105,7 +105,6 @@ public class Tokens implements CommandExecutor {
 						p.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
 						return true;
 					}
-
 					tC.removeTokens(i);
 
 				} else if (args[0].equalsIgnoreCase("add") || args[0].equalsIgnoreCase("give")) {
@@ -113,16 +112,16 @@ public class Tokens implements CommandExecutor {
 						p.sendMessage(Main.PREFIX + Main.NO_PERMISSION);
 						return true;
 					}
-
 					tC.addTokens(i);
 				}
 
 				tC.save();
-				p.sendMessage(Main.PREFIX + t.getName() + String.format("'s Tokens wurden zu §e%s §7gesetzt.", tC.getTokens()));
+				Sb.updateTokens(t);
+				p.sendMessage(Main.PREFIX + String.format("%s's Tokens wurden zu §e%s §7gesetzt.", t.getName(), tC.getTokens()));
+				t.sendMessage(Main.PREFIX + String.format("Deine Tokens wurden zu §e%s §7gesetzt.", tC.getTokens()));
 			}
-		} else {
+		} else
 			sender.sendMessage(Main.NOT_A_PLAYER);
-		}
 		return false;
 	}
 }

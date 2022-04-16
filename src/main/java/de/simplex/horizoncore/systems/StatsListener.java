@@ -26,7 +26,8 @@ public class StatsListener implements Listener {
 		if (e.getEntity() instanceof Player) {
 			pc.addOne("Player.stats.playerKills");
 		} else {
-			pc.addOne("Player.stats.mobKills");
+			if (Utils.isMonster(e.getEntity()))
+				pc.addOne("Player.stats.mobKills");
 		}
 		pc.save();
 	}

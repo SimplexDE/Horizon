@@ -89,6 +89,11 @@ public class FriendEngine {
 		return con.getStringList("Friends.byUuid");
 	}
 
+	public List<String> getFriendsName() {
+		if (!hasFriends()) return null;
+		return con.getStringList("Friends.byName");
+	}
+
 	public int getFriendAmount() {
 		if (!hasFriends()) return 0;
 		return getFriends().size();

@@ -3,14 +3,18 @@ package de.simplex.horizoncore.systems;
 import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.systems.materialLists.Mp;
 import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nullable;
 
 public class Utils {
 
@@ -135,8 +139,20 @@ public class Utils {
 					0.5f, 0.6f, Sound.BLOCK_NOTE_BLOCK_GUITAR);
 	}
 
+	public static boolean isMonster(final Entity e) {
+		return (e instanceof Creature || e.getType() == EntityType.SLIME) && (e instanceof Monster || e.getType() == EntityType.SLIME);
+	}
+	
 	public static void actionBar(final Player p, final String msg, final float vol, final float pit, final Sound s) {
 		p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Main.PREFIX + msg));
 		if (s != null) p.playSound(p.getLocation(), s, vol, pit);
+	}
+
+	public static TextComponent getClickable(String msg, ClickEvent.Action a, String clickMsg, @Nullable String hover) {
+		TextComponent message = new TextComponent(msg);
+		message.setClickEvent(new ClickEvent(a, clickMsg));
+		if (hover != null)
+			message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hover).create()));
+		return message;
 	}
 }

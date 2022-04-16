@@ -4,6 +4,7 @@ import de.simplex.horizoncore.systems.materialLists.BMp;
 import de.simplex.horizoncore.systems.materialLists.Mp;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.PluginDisableEvent;
@@ -15,6 +16,8 @@ public class DisableEvent implements Listener {
 	@EventHandler
 	public void handle(PluginDisableEvent e) {
 		if (e.getPlugin() == Main.getPlugin()) {
+			for (Player ap : Bukkit.getOnlinePlayers())
+				ap.closeInventory();
 			if (Mp.mpExists() && BMp.BMpExists()) {
 				BMp bp = new BMp();
 				Mp mp = new Mp();

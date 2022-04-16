@@ -110,14 +110,27 @@ public class AchievementAPI {
 		}
 	}
 
-	public static void getAchievements(Player target) {
-		List<String> List = null;
+	public static List<String> getAchievements(Player target) {
+		List<String> ach = new ArrayList<>();
 		for (String allowedAchievement : allowedAchievements) {
 			if (getBoolean(target.getUniqueId() + "." + allowedAchievement)) {
-				target.sendMessage(allowedAchievement);
+				ach.add(allowedAchievement);
 			}
 		}
+		return ach;
 	}
 
+	public static void sendAchieved(Player target) {
 
+		List<String> ach = getAchievements(target);
+		if (ach == null || ach.isEmpty()) {
+			target.sendMessage(Main.PREFIX + "Du hast noch keine Achievements.");
+			return;
+		}
+		target.sendMessage(Main.PREFIX + String.format("Du hast folgende Achievements §8[§b%s§8]: ", ach.size()));
+		for (String s : ach) {
+			target.sendMessage(String.format("  §a%s", s));
+		}
+
+	}
 }

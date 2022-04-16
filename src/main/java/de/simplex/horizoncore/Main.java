@@ -68,6 +68,7 @@ public final class Main extends JavaPlugin {
 		pM.registerEvents(new Profil(), this);
 		pM.registerEvents(new StatsListener(), this);
 		pM.registerEvents(new ShopNpc(), this);
+		pM.registerEvents(new DisableEvent(), this);
 
 		saveDefaultConfig();
 		getConfig().options().copyDefaults(true);
@@ -75,7 +76,7 @@ public final class Main extends JavaPlugin {
 		Profil.fillProfil();
 		genCurrentBalance();
 
-		ShopNpc.fillSHopNpcInv();;
+		ShopNpc.fillSHopNpcInv();
 
 		for (Player ap : Bukkit.getOnlinePlayers())
 			Sb.defaultSb(ap);

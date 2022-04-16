@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
 public class Maintenance implements CommandExecutor {
 
 	Main main = Main.getPlugin();
-	String MAINTENANCE_ANNOUNCE = "Main.PREFIX + \"Der Server hat den §cWartungsmodus §7%s.";
+	String MAINTENANCE_ANNOUNCE = Main.PREFIX + "Der Server hat den §cWartungsmodus §7%s.";
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {

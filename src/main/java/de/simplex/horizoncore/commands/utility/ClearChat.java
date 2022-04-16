@@ -18,18 +18,16 @@ public class ClearChat implements CommandExecutor {
 				return true;
 			}
 
-			for (int i = 0; i <= 400; i++) {
-				Bukkit.broadcastMessage(" §0» \n §0» ");
-			}
+			for (int i = 0; i <= 400; i++)
+				Bukkit.broadcastMessage("  §0» \n §0» ");
 			Bukkit.broadcastMessage(Main.PREFIX + "Der Chat wurde von " + sen.getName() + " geleert.");
 
 			/**
 			 * Alternativ, sollte die Console von dem Clear ausgeschlossen sein (vmtl. weniger performant):
 			 *
 			 * for(Player ap : Bukkit.getOnlinePlayers()){
-			 *      for(int i =0; i <= 400; i++) {
+			 *      for(int i =0; i <= 400; i++)
 			 * 			ap.sendMessage(" §0» \n §0» ");
-			 *      }
 			 * 		ap.sendMessage(Main.PREFIX + "Der Chat wurde von " + sen.getName() + " geleert.");
 			 *  }
 			 *  Bukkit.getConsoleSender().sendMessage(Main.PREFIX + "Der Chat wurde von " + sen.getName() + " geleert.");
@@ -39,11 +37,11 @@ public class ClearChat implements CommandExecutor {
 			boolean b = false;
 			int i = 100;
 			try {
-				b = Boolean.parseBoolean(args[0]);
-			} catch (Exception e) {
+				i = Integer.parseInt(args[0]);
+			} catch (NumberFormatException e1) {
 				try {
-					i = Integer.parseInt(args[0]);
-				} catch (NumberFormatException e1) {
+					b = Boolean.parseBoolean(args[0]);
+				} catch (Exception e) {
 					sen.sendMessage(Main.PREFIX + "Die angegebene Variable ist kein erwarteter Boolean/Integer-Wert.");
 					return true;
 				}
@@ -52,21 +50,18 @@ public class ClearChat implements CommandExecutor {
 			if (b) {
 				for (Player ap : Bukkit.getOnlinePlayers()) {
 					if (!ap.hasPermission("core.ignoreWlClearChat"))
-						for (int c = 0; c <= 400; c++) {
-							ap.sendMessage(" §0» \n §0» ");
-						}
+						for (int c = 0; c <= 400; c++)
+							ap.sendMessage("  §0» \n §0» ");
 					// Clear msg trotzdem ausgeben, damit auch alle Spieler:innen / Teammitglieder bescheid wissen
 					ap.sendMessage(Main.PREFIX + "Der Chat wurde von " + sen.getName() + " geleert.");
 				}
 			} else {
-				for (int c1 = 0; c1 <= i; c1++) {
-					Bukkit.broadcastMessage(" §0» \n §0» ");
-				}
+				for (int c1 = 0; c1 <= i; c1++)
+					Bukkit.broadcastMessage("  §0» \n §0» ");
 				Bukkit.broadcastMessage(Main.PREFIX + "Der Chat wurde von " + sen.getName() + " geleert.");
 			}
-		} else {
+		} else
 			sen.sendMessage("Diese Argumenten Länge ist ungültig.");
-		}
 		return false;
 	}
 }

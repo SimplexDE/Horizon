@@ -4,6 +4,11 @@ import de.simplex.horizoncore.Main;
 import de.simplex.horizoncore.commands.api.FriendEngine;
 import de.simplex.horizoncore.systems.IB;
 import de.simplex.horizoncore.systems.PConfig;
+import de.simplex.horizoncore.systems.Utils;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -50,11 +55,11 @@ public class Profil implements CommandExecutor, Listener {
 	public static void fillProfil() {
 
 		IB.invFiller(pi, filler);
-		pi.setItem(8, new ItemStack(Material.RED_CANDLE));
+		pi.setItem(8, IB.name(new ItemStack(Material.RED_CANDLE), "§cInventar schließen"));
 
-		pi.setItem(6, new ItemStack(Material.PLAYER_HEAD));
-		pi.setItem(5, new ItemStack(Material.SPYGLASS));
-		pi.setItem(4, new ItemStack(Material.WITHER_ROSE));
+		pi.setItem(6, IB.name(new ItemStack(Material.PLAYER_HEAD), "§3Freunde Menü"));
+		pi.setItem(5, IB.name(new ItemStack(Material.SPYGLASS), "§6Stats"));
+		pi.setItem(4, IB.name(new ItemStack(Material.WITHER_ROSE), "§5Roleplay Verwaltung"));
 	}
 
 	@EventHandler
@@ -68,25 +73,33 @@ public class Profil implements CommandExecutor, Listener {
 			String title = p.getOpenInventory().getTitle();
 			if (title.equals(profileInvTitle)) {
 				e.setCancelled(true);
-				if (IB.loreContains(item, "»")) return;
+				if (IB.loreContains(item, "»")) {
+					switch (item.getType()) {
+						case CREEPER_HEAD:
+							p.closeInventory();
+							p.spigot().sendMessage(Utils.getClickable(Main.PREFIX +
+											"Du möchtest Freunde hinzufügen§8? [§a§lKlick§8]", ClickEvent.Action.SUGGEST_COMMAND,
+									"/friend add <name>", "§7§oKlicke hier, um ein Command Preview zu erhalten."));
+						default:
+							return;
+					}
+				}
 				switch (item.getType()) {
-					case RED_CANDLE:
-						p.closeInventory();
-						break;
-					case PLAYER_HEAD:
+					case RED_CANDLE -> p.closeInventory();
+					case PLAYER_HEAD -> {
 						cleanProfile(p);
 						friendTab(p);
-						break;
-					case SPYGLASS:
+					}
+					case SPYGLASS -> {
 						cleanProfile(p);
 						statisticsTab(p);
-						break;
-					case WITHER_ROSE:
+					}
+					case WITHER_ROSE -> {
 						p.sendMessage("Role-Play Menü");
 						cleanProfile(p);
-						break;
-					default:
-						break;
+					}
+					default -> {
+					}
 				}
 			}
 		}
@@ -96,26 +109,25 @@ public class Profil implements CommandExecutor, Listener {
 		Inventory in = p.getOpenInventory().getTopInventory();
 
 		FriendEngine fe = FriendEngine.loadCon(p);
-		List<String> friends = fe.getFriends();
+		List<String> friends = fe.getFriends(),
+				friendsName = fe.getFriendsName();
 
-		if (friends.size() <= 0) {
-			in.setItem(in.getSize() / 2 - 1, IB.lore(IB.name(new ItemStack(Material.CREEPER_HEAD),
-					"§c§oDu hast keine Freunde"), "§eFüge doch welche hinzu!", "  §8→ §6/friend add <name>"));
+		if (friends == null || friends.size() <= 0) {
+			in.setItem(in.getSize() / 2, IB.lore(IB.name(new ItemStack(Material.CREEPER_HEAD),
+					"§c§oDu hast keine Freunde"), " ", "§eFüge doch welche hinzu!", "  §8» §6/friend add <name>"));
 			return;
 		}
 
 		int i = 0;
 		for (int z = 0; z < in.getSize(); z++) {
 			if (allowedSlot(z, in.getSize())) {
-				Player tar = Bukkit.getPlayer(UUID.fromString(friends.get(i)));
-				if (tar != null)
-					in.setItem(z, playerSkull(IB.name(new ItemStack(Material.PLAYER_HEAD), "§7" + tar.getName()), tar));
+				OfflinePlayer tar = Bukkit.getOfflinePlayer(UUID.fromString(friends.get(i)));
+				if (tar.getName() != null)
+					in.setItem(z, IB.name(playerSkull(new ItemStack(Material.PLAYER_HEAD), tar), "§7" + tar.getName()));
 				else
-					in.setItem(z, IB.name(new ItemStack(Material.SKELETON_SKULL), "§8" + friends.get(i)));
+					in.setItem(z, IB.name(new ItemStack(Material.SKELETON_SKULL), "§8" + friendsName.get(i)));
 				i++;
-			}
-			if (i >= friends.size()) {
-				continue;
+				if (i >= friends.size() || i >= friendsName.size()) return;
 			}
 		}
 	}
@@ -148,8 +160,9 @@ public class Profil implements CommandExecutor, Listener {
 	public static ItemStack playerSkull(ItemStack i, OfflinePlayer t) {
 		if (i.getType() != Material.PLAYER_HEAD) i.setType(Material.PLAYER_HEAD);
 		SkullMeta sm = (SkullMeta) i.getItemMeta();
-		if (sm.setOwningPlayer(t)) return i;
-		return new ItemStack(Material.PLAYER_HEAD);
+		if (sm.setOwningPlayer(t))
+			if (i.setItemMeta(sm)) return i;
+		return new ItemStack(Material.SKELETON_SKULL);
 	}
 }
 
