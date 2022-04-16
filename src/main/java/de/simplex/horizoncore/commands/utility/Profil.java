@@ -1,6 +1,7 @@
 package de.simplex.horizoncore.commands.utility;
 
 import de.simplex.horizoncore.Main;
+import de.simplex.horizoncore.commands.api.FriendEngine;
 import de.simplex.horizoncore.systems.IB;
 import de.simplex.horizoncore.systems.PConfig;
 import org.bukkit.Bukkit;
@@ -16,6 +17,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+
+import java.util.List;
+import java.util.UUID;
 
 public class Profil implements CommandExecutor, Listener {
 
@@ -70,11 +74,10 @@ public class Profil implements CommandExecutor, Listener {
 						p.closeInventory();
 						break;
 					case PLAYER_HEAD:
-						p.sendMessage("Friend System");
 						cleanProfile(p);
+						friendTab(p);
 						break;
 					case SPYGLASS:
-						p.sendMessage("Statistics");
 						cleanProfile(p);
 						statisticsTab(p);
 						break;
@@ -87,6 +90,38 @@ public class Profil implements CommandExecutor, Listener {
 				}
 			}
 		}
+	}
+
+	public void friendTab(Player p) {
+		Inventory in = p.getOpenInventory().getTopInventory();
+
+		FriendEngine fe = FriendEngine.loadCon(p);
+		List<String> friends = fe.getFriends();
+
+		if (friends.size() <= 0) {
+			in.setItem(in.getSize() / 2 - 1, IB.lore(IB.name(new ItemStack(Material.CREEPER_HEAD),
+					"§c§oDu hast keine Freunde"), "§eFüge doch welche hinzu!", "  §8→ §6/friend add <name>"));
+			return;
+		}
+
+		int i = 0;
+		for (int z = 0; z < in.getSize(); z++) {
+			if (allowedSlot(z, in.getSize())) {
+				Player tar = Bukkit.getPlayer(UUID.fromString(friends.get(i)));
+				if (tar != null)
+					in.setItem(z, playerSkull(IB.name(new ItemStack(Material.PLAYER_HEAD), "§7" + tar.getName()), tar));
+				else
+					in.setItem(z, IB.name(new ItemStack(Material.SKELETON_SKULL), "§8" + friends.get(i)));
+				i++;
+			}
+			if (i >= friends.size()) {
+				continue;
+			}
+		}
+	}
+
+	public boolean allowedSlot(final int i, final int size) {
+		return i < size && ((i >= 10 && i < 17) || (i >= 19 && i < 26) || (i >= 28 && i < 35));
 	}
 
 	public void statisticsTab(Player p) {

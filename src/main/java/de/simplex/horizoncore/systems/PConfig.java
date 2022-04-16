@@ -13,11 +13,9 @@ import java.util.List;
 import java.util.Set;
 
 public class PConfig {
-	private static final String path = "plugins/Horizoncore/players/%s.yml",
-			tP = "token";
+	private static final String path = "plugins/Horizoncore/players/%s.yml", tP = "token";
 	YamlConfiguration con;
 	File file;
-
 
 	public PConfig(final OfflinePlayer p) {
 		final String uuid = p.getUniqueId().toString();
@@ -37,10 +35,6 @@ public class PConfig {
 		final File file = new File(String.format(path, uuid));
 		if (!file.exists()) {
 			try {
-				if (!file.exists()) {
-					final File folder = new File("plugins/Horizoncore/players");
-					folder.createNewFile();
-				}
 				file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
