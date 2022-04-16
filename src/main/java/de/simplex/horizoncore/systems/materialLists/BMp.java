@@ -1,6 +1,7 @@
 package de.simplex.horizoncore.systems.materialLists;
 
 import de.simplex.horizoncore.systems.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -45,7 +46,7 @@ public class BMp {
 			try {
 				file.createNewFile();
 				if (!file.exists()) {
-					System.out.println("§c[Horizon] Beim Erstellen der Backup Material-List ist ein Fehler aufgetreten. [0]");
+					Bukkit.getConsoleSender().sendMessage("§c[Horizon] Beim Erstellen der Backup Material-List ist ein Fehler aufgetreten. [0]");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -71,14 +72,14 @@ public class BMp {
 			con.set("Materials." + s.toString().toLowerCase() + ".dName", "\u00A7" + Utils.genSetColor(i) + s.toString().toLowerCase());
 			i++;
 		}
-		System.out.println("§e[Horizon] Die standard Werte für die Backup Material-List wurden generiert.");
+		Bukkit.getConsoleSender().sendMessage("§e[Horizon] Die standard Werte für die Backup Material-List wurden generiert.");
 	}
 
 	public void saveBMp() {
 		try {
 			BMp.con.save(this.file);
 		} catch (IOException e) {
-			System.out.println("§c[Horizon] Ein Fehler ist beim Speichern der Backup Material-List aufgetreten. " +
+			Bukkit.getConsoleSender().sendMessage("§c[Horizon] Ein Fehler ist beim Speichern der Backup Material-List aufgetreten. " +
 					"Überprüfe die Datei, um dich zu vergewissern, dass diese Nachricht nicht fehlerhaft ist. [2]");
 		}
 	}

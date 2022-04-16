@@ -1,6 +1,7 @@
 package de.simplex.horizoncore.systems.materialLists;
 
 import de.simplex.horizoncore.systems.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -25,7 +26,7 @@ public class Mp {
 			}
 		} else {
 			Mp.createMp();
-			System.out.println("§6[Horizon] Die Material-List wurde generiert. Bitte starte das Plugin neu!");
+			Bukkit.getConsoleSender().sendMessage("§6[Horizon] Die Material-List wurde generiert. Bitte starte das Plugin neu!");
 		}
 	}
 
@@ -62,7 +63,7 @@ public class Mp {
 			try {
 				file.createNewFile();
 				if (!file.exists()) {
-					System.out.println("§c[Horizon] Beim Erstellen der Material-List ist ein Fehler aufgetreten. [0]");
+					Bukkit.getConsoleSender().sendMessage("§c[Horizon] Beim Erstellen der Material-List ist ein Fehler aufgetreten. [0]");
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -92,14 +93,14 @@ public class Mp {
 			con.set("Materials." + s.toString().toLowerCase() + ".dName", "\u00A7" + Utils.genSetColor(i) + s.toString().toLowerCase());
 			i++;
 		}
-		System.out.println("§e[Horizon] Die standard Werte für die Material-List wurden generiert.");
+		Bukkit.getConsoleSender().sendMessage("§e[Horizon] Die standard Werte für die Material-List wurden generiert.");
 	}
 
 	public void saveMp() {
 		try {
 			Mp.con.save(this.file);
 		} catch (IOException e) {
-			System.out.println("§c[Horizon] Ein Fehler ist beim Speichern der Material-List aufgetreten. " +
+			Bukkit.getConsoleSender().sendMessage("§c[Horizon] Ein Fehler ist beim Speichern der Material-List aufgetreten. " +
 					"Überprüfe die Datei, um dich zu vergewissern, dass diese Nachricht nicht fehlerhaft ist. [2]");
 		}
 	}

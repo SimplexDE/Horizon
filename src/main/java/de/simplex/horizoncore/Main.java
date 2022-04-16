@@ -131,8 +131,8 @@ public final class Main extends JavaPlugin {
 		Collections.sort(sort1);
 
 		if (sort1.size() < 5) {
-			Bukkit.getConsoleSender().sendMessage(PREFIX + "§6BalTop konnte nicht ermittelt werden!" +
-					" Zu wenig Daten.!");
+			Bukkit.getConsoleSender().sendMessage(PREFIX + "§6Bal-Top konnte nicht ermittelt werden." +
+					" Zu wenig Daten!");
 			return;
 		}
 

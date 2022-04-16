@@ -27,7 +27,8 @@ public class Connection implements Listener {
 
 	@EventHandler(ignoreCancelled = true)
 	public void onLogin(PlayerLoginEvent event) {
-		String message = "\n§9Horizon §7befindet sich aktuell in §cWartungsarbeiten§7.\n\n§7Mehr §6Informationen \n§7auf unserem §9Discord§7:\n§ahttps://discord.gg/meCh4S2MJy";
+		String message = "\n§9Horizon §7befindet sich aktuell in §cWartungsarbeiten§7.\n\n§7Mehr §6Informationen" +
+				" \n§7auf unserem §9Discord§7:\n§ahttps://discord.gg/meCh4S2MJy";
 
 		if (Main.getPlugin().getConfig().getBoolean("MAINTENANCE")) {
 			Player p = event.getPlayer();
@@ -61,7 +62,6 @@ public class Connection implements Listener {
 		}
 
 		Sb.defaultSb(player);
-//		Tablist.setSb();
 		event.setJoinMessage("§8» §a+ §8┃ §e" + player.getName() + "§7 ist Beigetreten.");
 
 		pC.set("Info.uuid", player.getUniqueId().toString());
