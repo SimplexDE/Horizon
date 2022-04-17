@@ -35,6 +35,7 @@ public class PConfig {
 		final File file = new File(String.format(path, uuid));
 		if (!file.exists()) {
 			try {
+				Utils.createFolder("plugins/Horizoncore/players");
 				file.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();

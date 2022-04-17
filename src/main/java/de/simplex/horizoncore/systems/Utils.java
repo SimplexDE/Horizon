@@ -15,6 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nullable;
+import java.io.File;
 
 public class Utils {
 
@@ -139,10 +140,20 @@ public class Utils {
 					0.5f, 0.6f, Sound.BLOCK_NOTE_BLOCK_GUITAR);
 	}
 
+	public static void createFolder(String path) {
+		if (path == null)
+			path = "plugins/Horizoncore/players";
+		File f1 = new File(path);
+		if (f1.isDirectory())
+			Bukkit.getConsoleSender().sendMessage("Der Ordner existiert bereits!");
+		if (!f1.mkdir())
+			Bukkit.getConsoleSender().sendMessage("Der Ordner konnte nicht erstellt werden.");
+	}
+
 	public static boolean isMonster(final Entity e) {
 		return (e instanceof Creature || e.getType() == EntityType.SLIME) && (e instanceof Monster || e.getType() == EntityType.SLIME);
 	}
-	
+
 	public static void actionBar(final Player p, final String msg, final float vol, final float pit, final Sound s) {
 		p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(Main.PREFIX + msg));
 		if (s != null) p.playSound(p.getLocation(), s, vol, pit);
