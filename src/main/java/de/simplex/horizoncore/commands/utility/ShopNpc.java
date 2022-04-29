@@ -8,6 +8,7 @@ import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -17,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -27,13 +29,8 @@ public class ShopNpc implements CommandExecutor, Listener {
 
 	public static Inventory i = Bukkit.createInventory(null, 5 * 9, s);
 
-	/**
-	 * UNGETESTET
-	 */
-
 	@Override
 	public boolean onCommand(CommandSender sen, Command cmd, String lab, String[] args) {
-
 		if (sen instanceof Player p) {
 
 			if (!p.hasPermission("core.shopNpc.spawn")) {
@@ -68,17 +65,13 @@ public class ShopNpc implements CommandExecutor, Listener {
 		return false;
 	}
 
-	/**
-	 * Fehlend:
-	 * Kauf Logik
-	 */
-
 	@EventHandler
 	public void handle(PlayerInteractAtEntityEvent e) {
+
 		Player p = e.getPlayer();
 		Entity en = e.getRightClicked();
-		if (en.getType() == EntityType.VILLAGER) {
 
+		if (en.getType() == EntityType.VILLAGER) {
 			Villager v = (Villager) en;
 
 			if (v.getName().equals(s)) {
@@ -103,8 +96,10 @@ public class ShopNpc implements CommandExecutor, Listener {
 
 	@EventHandler
 	public void handle(InventoryClickEvent e) {
+
 		if (e.isCancelled()) return;
 		if (e.getWhoClicked() instanceof Player p) {
+
 			if (e.getClickedInventory() != p.getOpenInventory().getTopInventory()) return;
 			if (!p.getOpenInventory().getTitle().equals(s)) return;
 
@@ -114,25 +109,70 @@ public class ShopNpc implements CommandExecutor, Listener {
 			ItemStack i = e.getCurrentItem();
 			Material mat = i.getType();
 
+			Mp mp = Mp.loadMp();
+			Inventory in = p.getOpenInventory().getTopInventory();
+
+			int size = in.getSize();
+			int z = 0;
+
 			switch (mat) {
 
 				case RED_CANDLE:
 					p.playSound(p.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 0.4f, 0.8f);
 					p.closeInventory();
 					break;
+
 				case LIME_DYE:
-					// Nächste Seite
+					if (!in.getItem(27).hasItemMeta() || !in.getItem(27).getItemMeta().hasEnchant(Enchantment.SILK_TOUCH))
+						return;
+
+					if (in.getItem(in.getSize() - 10).getType().toString().contains("PANE")) {
+						p.sendMessage("§7Letzte Reihe§8.");
+						return;
+					}
+
+					p.playSound(p.getLocation(), Sound.ENTITY_GHAST_SHOOT, 0.4f, 1.4f);
+					in.setItem(e.getSlot(), IB.flag(IB.ench(i, Enchantment.SILK_TOUCH,
+							i.getEnchantmentLevel(Enchantment.SILK_TOUCH) + 1), ItemFlag.HIDE_ENCHANTS));
+
+					for (int c = 0; c <= size - 1; c++) {
+						if (allowedSlot(c, size)) {
+							Material m = Mp.materials.get(z);
+							in.setItem(c, IB.lore(IB.name(new ItemStack(m), mp.getMatName(m)), "§6Preis§8: §6" + mp.getMatPrice(m)));
+							z++;
+						}
+					}
 					break;
 				case YELLOW_DYE:
-					// Vorherige Seite
+					if (!in.getItem(27).hasItemMeta() || !in.getItem(27).getItemMeta().hasEnchant(Enchantment.SILK_TOUCH))
+						return;
+
+					if (in.getItem(18).getEnchantmentLevel(Enchantment.SILK_TOUCH) <= 0) {
+						p.sendMessage("§7Letzte Reihe§8.");
+						return;
+					}
+
+					p.playSound(p.getLocation(), Sound.ENTITY_GHAST_SHOOT, 0.4f, 0.6f);
+					in.setItem(e.getSlot() + 9, IB.flag(IB.ench(in.getItem(e.getSlot() + 9), Enchantment.SILK_TOUCH,
+							in.getItem(e.getSlot() + 9).getEnchantmentLevel(Enchantment.SILK_TOUCH) - 1), ItemFlag.HIDE_ENCHANTS));
+
+					z = 9 * (in.getItem(18).getItemMeta().hasEnchant(Enchantment.SILK_TOUCH) ?
+							in.getItem(18).getEnchantmentLevel(Enchantment.SILK_TOUCH) : 1);
+
+					for (int c = 0; c <= size - 1; c++) {
+						if (allowedSlot(c, size)) {
+							Material m = Mp.materials.get(z);
+							in.setItem(c, IB.lore(IB.name(new ItemStack(m), mp.getMatName(m)), "§6Preis§8: §6" + mp.getMatPrice(m)));
+							z++;
+						}
+					}
 					break;
+
 				case GRAY_STAINED_GLASS_PANE:
 					break;
 				default:
-					if (i.hasItemMeta() && i.getItemMeta().hasLore() && i.getItemMeta().getLore().toString().contains("Preis")) {
-						Mp mp = Mp.loadMp();
+					if (i.hasItemMeta() && i.getItemMeta().hasLore() && i.getItemMeta().getLore().toString().contains("Preis"))
 						Utils.buyMat(p, mp, mat, e.getClick());
-					}
 					break;
 
 			}
