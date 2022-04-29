@@ -107,18 +107,22 @@ public class Utils {
 
 	public static void removeMaterial(final Material mat, int amount, final Inventory inv) {
 		final ItemStack item = new ItemStack(mat), air = new ItemStack(Material.AIR);
+
 		for (int times = 0; times <= inv.getSize(); ++times) {
 			if (inv.getItem(times) != null && inv.getItem(times).getType() == mat) {
 				if (inv.getItem(times).getAmount() >= amount) {
+
 					final int amo = inv.getItem(times).getAmount() - amount;
 					item.setAmount(amo);
 					inv.setItem(times, item);
 					return;
 				}
+
 				if (inv.getItem(times).getAmount() <= amount) {
 					amount -= inv.getItem(times).getAmount();
 					inv.setItem(times, air);
 				}
+
 			}
 		}
 	}
@@ -144,6 +148,7 @@ public class Utils {
 		if (path == null)
 			path = "plugins/Horizoncore/players";
 		File f1 = new File(path);
+
 		if (f1.isDirectory())
 			Bukkit.getConsoleSender().sendMessage("Der Ordner existiert bereits!");
 		if (!f1.mkdir())
@@ -162,6 +167,7 @@ public class Utils {
 	public static TextComponent getClickable(String msg, ClickEvent.Action a, String clickMsg, @Nullable String hover) {
 		TextComponent message = new TextComponent(msg);
 		message.setClickEvent(new ClickEvent(a, clickMsg));
+
 		if (hover != null)
 			message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(hover).create()));
 		return message;

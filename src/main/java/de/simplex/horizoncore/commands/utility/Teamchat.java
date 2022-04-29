@@ -39,8 +39,8 @@ public class Teamchat implements CommandExecutor {
 				playerColor = "§7",
 				messageColor = "§7";
 
-        /*
-        RANK ASSIGNING
+        /**
+         * Biite die Permission manager API nutzen!!
          */
 		if (operator.hasPermission("rank.admin")) {
 			playerRank = "§4Administrator";

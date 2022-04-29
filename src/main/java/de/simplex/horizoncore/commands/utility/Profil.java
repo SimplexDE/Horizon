@@ -29,16 +29,11 @@ import java.util.UUID;
 public class Profil implements CommandExecutor, Listener {
 
 	public static final Inventory pi = Bukkit.createInventory(null, 5 * 9, "Profil-Copy");
-	public static final String profileInvTitle = "§9Dein Profil";
 	public static final ItemStack filler = IB.lore(IB.name(new ItemStack(Material.BLUE_STAINED_GLASS_PANE), " §0 "), " §0 ");
-
-	/**
-	 * WIP -> TearsDontFall
-	 */
+	public static final String profileInvTitle = "§9Dein Profil";
 
 	@Override
 	public boolean onCommand(CommandSender sen, Command cmd, String lab, String[] args) {
-
 		if (sen instanceof Player p) {
 
 			ItemStack[] piClone = pi.getContents().clone();
@@ -46,9 +41,9 @@ public class Profil implements CommandExecutor, Listener {
 
 			i.setContents(piClone);
 			p.openInventory(i);
-		} else {
+
+		} else
 			sen.sendMessage(Main.NOT_A_PLAYER);
-		}
 		return false;
 	}
 
@@ -73,6 +68,7 @@ public class Profil implements CommandExecutor, Listener {
 			String title = p.getOpenInventory().getTitle();
 			if (title.equals(profileInvTitle)) {
 				e.setCancelled(true);
+
 				if (IB.loreContains(item, "»")) {
 					switch (item.getType()) {
 						case CREEPER_HEAD:
@@ -84,20 +80,24 @@ public class Profil implements CommandExecutor, Listener {
 							return;
 					}
 				}
+
 				switch (item.getType()) {
 					case RED_CANDLE -> p.closeInventory();
 					case PLAYER_HEAD -> {
 						cleanProfile(p);
 						friendTab(p);
 					}
+
 					case SPYGLASS -> {
 						cleanProfile(p);
 						statisticsTab(p);
 					}
+
 					case WITHER_ROSE -> {
 						p.sendMessage("Role-Play Menü");
 						cleanProfile(p);
 					}
+
 					default -> {
 					}
 				}
@@ -120,12 +120,15 @@ public class Profil implements CommandExecutor, Listener {
 
 		int i = 0;
 		for (int z = 0; z < in.getSize(); z++) {
+
 			if (allowedSlot(z, in.getSize())) {
 				OfflinePlayer tar = Bukkit.getOfflinePlayer(UUID.fromString(friends.get(i)));
+
 				if (tar.getName() != null)
 					in.setItem(z, IB.name(playerSkull(new ItemStack(Material.PLAYER_HEAD), tar), "§7" + tar.getName()));
 				else
 					in.setItem(z, IB.name(new ItemStack(Material.SKELETON_SKULL), "§8" + friendsName.get(i)));
+
 				i++;
 				if (i >= friends.size() || i >= friendsName.size()) return;
 			}
@@ -158,10 +161,13 @@ public class Profil implements CommandExecutor, Listener {
 	}
 
 	public static ItemStack playerSkull(ItemStack i, OfflinePlayer t) {
+
 		if (i.getType() != Material.PLAYER_HEAD) i.setType(Material.PLAYER_HEAD);
 		SkullMeta sm = (SkullMeta) i.getItemMeta();
+
 		if (sm.setOwningPlayer(t))
 			if (i.setItemMeta(sm)) return i;
+
 		return new ItemStack(Material.SKELETON_SKULL);
 	}
 }

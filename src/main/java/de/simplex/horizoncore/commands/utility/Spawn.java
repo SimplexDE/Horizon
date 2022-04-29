@@ -14,7 +14,6 @@ public class Spawn implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-
 		if (sender instanceof Player p) {
 
 			if (Bukkit.getServer().getWorld("LOBBY") == null) {
@@ -23,15 +22,14 @@ public class Spawn implements CommandExecutor {
 			}
 
 			FileConfiguration c = Main.getPlugin().getConfig();
-
 			Location loc;
+
 			if (!c.isSet("Lobby.spawn") || c.getLocation("Lobby.spawn") == null) {
-				c.set("Lobby.spawn", new Location(Bukkit.getWorld("LOBBY"), 780, 4, 105));
+				c.set("Lobby.spawn", new Location(Bukkit.getWorld("LOBBY") != null ?
+						Bukkit.getWorld("LOBBY") : Bukkit.getWorld("world"), 780, 4, 105));
 				Main.getPlugin().saveConfig();
-				loc = c.getLocation("Lobby.spawn");
-			} else {
-				loc = c.getLocation("Lobby.spawn");
 			}
+			loc = c.getLocation("Lobby.spawn");
 
 			p.teleport(loc);
 			p.sendMessage(Main.PREFIX + "Du wurdest zur Lobby teleportiert!");

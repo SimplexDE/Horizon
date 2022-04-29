@@ -8,6 +8,7 @@ import de.simplex.horizoncore.systems.materialLists.BMp;
 import de.simplex.horizoncore.systems.materialLists.Mp;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -31,8 +32,9 @@ public final class Main extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
 		INSTANCE = this;
+
+		ConsoleCommandSender cs = Bukkit.getConsoleSender();
 
 		getCommand("friede").setExecutor(new Friede());
 
@@ -69,6 +71,7 @@ public final class Main extends JavaPlugin {
 		pM.registerEvents(new StatsListener(), this);
 		pM.registerEvents(new ShopNpc(), this);
 		pM.registerEvents(new DisableEvent(), this);
+		pM.registerEvents(new EntityDamage(), this);
 
 		saveDefaultConfig();
 		getConfig().options().copyDefaults(true);
@@ -86,22 +89,21 @@ public final class Main extends JavaPlugin {
 			BMp bp = new BMp();
 			bp.setDefaults();
 			bp.saveBMp();
+			cs.sendMessage(PREFIX + "§9Generiere Backup Material-List!");
 		}
 		if (!Mp.mpExists()) {
 			Mp.createMp();
 			Mp mp = new Mp();
 			mp.setDefaults();
 			mp.saveMp();
+			cs.sendMessage(PREFIX + "§9Generiere Main Material-List!");
 		}
 		Mp.loadMp();
 		Mp.genMaterialList();
 
-		Bukkit.getConsoleSender().sendMessage(PREFIX + "§2Core aktiviert!");
+		cs.sendMessage(PREFIX + "§2Core aktiviert!");
 	}
 
-	/**
-	 * Deaktivierungslogik
-	 */
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage(PREFIX + "§cCore deaktiviert!");
@@ -113,9 +115,6 @@ public final class Main extends JavaPlugin {
 		return INSTANCE;
 	}
 
-	/**
-	 * Ungetestet!
-	 */
 	public void genCurrentBalance() {
 		FileConfiguration c = INSTANCE.getConfig();
 
