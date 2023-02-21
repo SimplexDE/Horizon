@@ -17,7 +17,7 @@ public class BMp {
 	File file;
 
 	public BMp() {
-		this.file = new File("plugins/Horizoncore/Materials_Backup.yml");
+		this.file = new File("plugins/Horizon/Materials_Backup.yml");
 		BMp.con = YamlConfiguration.loadConfiguration(this.file);
 	}
 
@@ -37,11 +37,11 @@ public class BMp {
 	}
 
 	public static boolean BMpExists() {
-		return new File("plugins/Horizoncore/Materials_Backup.yml").exists();
+		return new File("plugins/Horizon/Materials_Backup.yml").exists();
 	}
 
 	public static BMp createBMp() {
-		final File file = new File("plugins/Horizoncore/Materials_Backup.yml");
+		final File file = new File("plugins/Horizon/Materials_Backup.yml");
 		if (!file.exists()) {
 			try {
 				file.createNewFile();

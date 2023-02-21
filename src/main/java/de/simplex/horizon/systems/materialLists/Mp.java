@@ -32,7 +32,7 @@ public class Mp {
 
 
 	public Mp() {
-		this.file = new File("plugins/Horizoncore/Materials.yml");
+		this.file = new File("plugins/Horizon/Materials.yml");
 		Mp.con = YamlConfiguration.loadConfiguration(this.file);
 	}
 
@@ -54,11 +54,11 @@ public class Mp {
 	public static boolean mpExists() {
 		if (!BMp.BMpExists())
 			BMp.createBMp();
-		return new File("plugins/Horizoncore/Materials.yml").exists();
+		return new File("plugins/Horizon/Materials.yml").exists();
 	}
 
 	public static Mp createMp() {
-		final File file = new File("plugins/Horizoncore/Materials.yml");
+		final File file = new File("plugins/Horizon/Materials.yml");
 		if (!file.exists()) {
 			try {
 				file.createNewFile();

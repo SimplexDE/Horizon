@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class FriendEngine {
 
-	private static final String path = "plugins/Horizoncore/players/%s_friends.yml";
+	private static final String path = "plugins/Horizon/players/%s_friends.yml";
 	YamlConfiguration con;
 	File file;
 

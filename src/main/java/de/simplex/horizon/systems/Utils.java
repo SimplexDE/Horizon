@@ -136,7 +136,7 @@ public class Utils {
 
 	public static void createFolder(String path) {
 		if (path == null)
-			path = "plugins/Horizoncore/players";
+			path = "plugins/Horizon/players";
 		File f1 = new File(path);
 
 		if (f1.isDirectory())
