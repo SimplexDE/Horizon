@@ -28,11 +28,8 @@ public class AchievementEngine {
 	 * "Player.stats.achievementData.<Name>.<Wert>"
 	 */
 
-	private static Main Main;
+	static Main main = Main.getPlugin();
 
-	public AchievementEngine(de.simplex.horizon.Main main) {
-		Main = main;
-	}
 	private static final YamlConfiguration AConfig = YamlConfiguration.loadConfiguration(AchievementConfig);
 
 
@@ -74,7 +71,6 @@ public class AchievementEngine {
 		return out;
 	}
 
-
 	public static String[] allowedAchievements =
 			{
 					"JOIN_HORIZON",
@@ -84,7 +80,7 @@ public class AchievementEngine {
 
 	public static void announceAchievement(Player target, String achievement) {
 
-		MessageEngine ME = new MessageEngine(Main);
+		MessageEngine ME = new MessageEngine(main);
 
 		String achievementName = "",
 				formatMsg = "<dark_grey>» <light_purple>✯ <dark_grey>┃ <yellow>%s <grey>hat die Errungenschaft <gold>[<rainbow>%s</rainbow><gold>] <gray>freigeschaltet!";
