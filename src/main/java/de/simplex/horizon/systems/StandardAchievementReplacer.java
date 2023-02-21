@@ -17,6 +17,10 @@ public class StandardAchievementReplacer implements Listener {
     public void handle(@NonNull PlayerAdvancementDoneEvent e) {
         MessageEngine ME = new MessageEngine(main);
 
+        if (e.getAdvancement().getKey().toString().contains("minecraft:recipes")) {
+            return;
+        }
+
         String formatMsg = "<dark_grey>» <light_purple>✯ <dark_grey>┃ <yellow>%s <grey>hat die Errungenschaft <gold>[<rainbow><hover:show_text:'<green>%s'>%s</hover></rainbow><gold>] <gray>freigeschaltet!";
 
 
