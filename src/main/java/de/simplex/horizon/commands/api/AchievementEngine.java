@@ -22,11 +22,6 @@ import java.util.List;
 public class AchievementEngine {
 
 	private static final File AchievementConfig = new File("plugins/Horizon/achievementData.yml");
-	/**
-	 * pConfig anwenden!
-	 * Beispiel für einen möglichen String:
-	 * "Player.stats.achievementData.<Name>.<Wert>"
-	 */
 
 	static Main main = Main.getPlugin();
 
