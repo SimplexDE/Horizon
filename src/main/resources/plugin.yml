@@ -1,12 +1,13 @@
-name: Horizoncore
+name: Horizon
 version: '${project.version}'
-main: de.simplex.horizoncore.Main
+main: de.simplex.horizon.Main
 load: STARTUP
-api-version: 1.18
+api-version: 1.19
 
-authors: [ WillyButz, TearsDontFall ]
+
+authors: [ WillyButz, TearsDontFall(LEFT) ]
 description: Ein Plugin für Horizon.
-website: https://discord.gg/gw8nKNxCxE
+website: https://discord.gg/
 
 commands:
   sethome:
@@ -63,22 +64,25 @@ commands:
     aliases:
       - emsg
       - tell
+      - msg
+      - message
   maintenance:
     description: Serverwartungen umschalten
     aliases:
       - wartungen
+      - wartung
       - servermaintenance
   gamemode:
     description: Verändert deinen Spielmodus
     aliases:
       - gm
-      - gmc
   tokens:
     description: Verwalte das Token System.
   BalanceTop:
     description: Siehe eine Top-Liste der reichsten Spieler:innen.
     aliases:
       - baltop
+      - topbal
       - topbalance
   Enderchest:
     description: Greife auf deine Enderchest zu und upgrade sie.
@@ -86,6 +90,7 @@ commands:
       - ec
       - echest
       - backpack
+      - rucksack
   ClearChat:
     description: Leere den Chat (für Spieler:innen)
     aliases:
