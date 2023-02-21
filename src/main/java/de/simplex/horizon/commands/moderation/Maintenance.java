@@ -47,8 +47,8 @@ public class Maintenance implements CommandExecutor {
 							"\nMehr Informationen: https://discord.gg/gw8nKNxCxE");
 				}
 			}
-            System.out.println(Main.PREFIX + "Alle Spieler:innen wurden auf Grund des Wartungsmoduses gekickt.");
-            ME.broadcast(String.format(MAINTENANCE_ANNOUNCE, "betreten"));
+            ME.sendTo(Main.PREFIX + "Alle Spieler:innen wurden auf Grund des Wartungsmoduses gekickt.", this.main.adventure().console());
+			ME.broadcast(String.format(MAINTENANCE_ANNOUNCE, "betreten"));
 		} else {
             maintenance = false;
             ME.broadcast(String.format(MAINTENANCE_ANNOUNCE, "verlassen"));
