@@ -82,6 +82,7 @@ public final class Main extends JavaPlugin {
 		pM.registerEvents(new Profil(), this);
 		pM.registerEvents(new StatsListener(), this);
 		pM.registerEvents(new ShopNpc(), this);
+		pM.registerEvents(new StandardAchievementReplacer(), this);
 		pM.registerEvents(new DisableEvent(), this);
 
 		saveDefaultConfig();
