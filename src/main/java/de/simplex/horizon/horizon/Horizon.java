@@ -1,35 +1,62 @@
 package de.simplex.horizon.horizon;
 
-import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
+import de.simplex.horizon.commands.Maintenance;
+import de.simplex.horizon.commands.utility.MessageSender;
+import de.simplex.horizon.methods.ServerConfig;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class Horizon extends JavaPlugin {
 
     public static Horizon horizon;
 
-    public static String VERSION = "";
+    public static String VERSION = "",
+            PREFIX = "",
+            PREFIXCOLOR = "",
+            NO_PERMS = "<red>You have no permission to use this command";
 
     public static Horizon getHorizon() {
         return horizon;
     }
 
+    private BukkitAudiences adventure;
+
+    public static @NonNull BukkitAudiences adventure() {
+        if (Horizon.getHorizon().adventure == null) {
+            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+        }
+        return Horizon.getHorizon().adventure;
+    }
+
     @Override
     public void onEnable() {
         horizon = this;
-        VERSION = getPluginMeta().getVersion();
+        VERSION = getDescription().getVersion();
+        PREFIX = getDescription().getPrefix();
+        PREFIXCOLOR = "<rainbow>Horizon</rainbow> <dark_gray>| <gray>";
 
-        LanguageFramework.loadMessages();
-        LanguageFramework.PRE = LanguageFramework.getMessage("en", "Prefix");
+        this.adventure = BukkitAudiences.create(Horizon.getHorizon());
 
-        ConsoleCommandSender cs = Bukkit.getConsoleSender();
+        MessageSender ms = new MessageSender();
 
+        getCommand("maintenance").setExecutor(new Maintenance());
 
-        cs.sendMessage(LanguageFramework.getMessage(LanguageFramework.getServerLang(), "PluginStarted"));
+        ServerConfig.createConfig();
+        ServerConfig.loadConfig();
+
+        ms.sendToConsole(PREFIXCOLOR + "Horizon loaded successfully");
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        if (this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
+
+        MessageSender ms = new MessageSender();
+
+        ms.sendToConsole(PREFIXCOLOR + "Horizon unloaded successfully");
     }
 }

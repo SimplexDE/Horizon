@@ -1,12 +1,18 @@
 name: Horizon
 version: '${project.version}'
+prefix: "Horizon | "
 main: de.simplex.horizon.horizon.Horizon
 load: STARTUP
 api-version: 1.19
 
 author: WillyButz
 authors: [ ]
-description: Ein Plugin für Horizon.
+description: Plugin for Horizon
 website: https://discord.gg/
 
+default-permission: op
+
 commands:
+  maintenance:
+    description: Enables the server-maintenance.
+    #aliases:
