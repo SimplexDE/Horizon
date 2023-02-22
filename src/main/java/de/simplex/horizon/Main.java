@@ -64,6 +64,7 @@ public final class Main extends JavaPlugin {
 		getCommand("Tokens").setExecutor(new Tokens());
 		getCommand("BalanceTop").setExecutor(new BalanceTop());
 		getCommand("sethome").setExecutor(new SetHome());
+		getCommand("home").setExecutor(new Home());
 
 		getCommand("eban").setExecutor(new Ban());
 		getCommand("eunban").setExecutor(new Unban());

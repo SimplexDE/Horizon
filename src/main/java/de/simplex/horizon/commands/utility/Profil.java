@@ -31,13 +31,18 @@ public class Profil implements CommandExecutor, Listener {
 
 	public static void fillProfil() {
 
-        ItemBase.invFiller(pi, filler);
-        pi.setItem(8, ItemBase.name(new ItemStack(Material.BARRIER), "§cSchließen"));
+		ItemBase.invFiller(pi, filler);
+		pi.setItem(8, ItemBase.name(new ItemStack(Material.BARRIER), "§cSchließen"));
 
-        pi.setItem(1, ItemBase.name(new ItemStack(Material.AXOLOTL_BUCKET), "§5Freunde"));
-        pi.setItem(2, ItemBase.name(new ItemStack(Material.KNOWLEDGE_BOOK), "§5Stats"));
-        // pi.setItem(4, IB.name(new ItemStack(Material.WITHER_ROSE), "§5Roleplay Verwaltung"));
-    }
+		pi.setItem(1, ItemBase.name(new ItemStack(Material.APPLE), "§9Dein Profil"));
+		pi.setItem(2, ItemBase.name(new ItemStack(Material.KNOWLEDGE_BOOK), "§5Stats"));
+		pi.setItem(3, ItemBase.name(new ItemStack(Material.PAPER), "§cSoon..."));
+		pi.setItem(4, ItemBase.name(new ItemStack(Material.PAPER), "§cSoon..."));
+		pi.setItem(5, ItemBase.name(new ItemStack(Material.PAPER), "§cSoon..."));
+		pi.setItem(6, ItemBase.name(new ItemStack(Material.PAPER), "§cSoon..."));
+
+		// pi.setItem(4, IB.name(new ItemStack(Material.WITHER_ROSE), "§5Roleplay Verwaltung"));
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sen, Command cmd, String lab, String[] args) {

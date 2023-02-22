@@ -1,6 +1,7 @@
 package de.simplex.horizon.commands.utility;
 
 import de.simplex.horizon.Main;
+import de.simplex.horizon.commands.api.MessageEngine;
 import de.simplex.horizon.systems.PlayerConfig;
 import de.simplex.horizon.systems.Scoreboard;
 import org.bukkit.Bukkit;
@@ -12,8 +13,13 @@ import org.bukkit.entity.Player;
 
 public class Tokens implements CommandExecutor {
 
+	Main main = Main.getPlugin();
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+		MessageEngine ME = new MessageEngine(main);
+
 		if (sender instanceof Player p) {
 			PlayerConfig pC = PlayerConfig.loadConfig(p);
 			if (args.length == 0) {
@@ -56,7 +62,7 @@ public class Tokens implements CommandExecutor {
 					if (t == null) {
 						OfflinePlayer ot = Bukkit.getOfflinePlayer(args[1]);
 						if (!ot.hasPlayedBefore() || !PlayerConfig.hasConfig(ot)) {
-							p.sendMessage(Main.PREFIX + args[1] + " war noch nie auf dem Server, oder hat keine config.");
+							p.sendMessage(Main.PREFIX + args[1] + " war noch nie auf dem Server, oder hat keine PlayerConfig.");
 							return true;
 						}
 						PlayerConfig otC = PlayerConfig.loadConfig(ot);

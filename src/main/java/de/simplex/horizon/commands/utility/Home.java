@@ -11,7 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class SetHome implements CommandExecutor {
+public class Home implements CommandExecutor {
 
     Main main = Main.getPlugin();
 
@@ -23,7 +23,7 @@ public class SetHome implements CommandExecutor {
         if (sender instanceof Player p) {
             PlayerConfig pC = PlayerConfig.loadConfig(p);
 
-            if (!p.hasPermission("core.sethome")) {
+            if (!p.hasPermission("core.home")) {
                 ME.sendTo(Main.PREFIX + Main.NO_PERMISSION, (Audience) p);
                 return false;
             }
@@ -31,37 +31,25 @@ public class SetHome implements CommandExecutor {
             if (args.length == 1) {
                 Location loc = p.getLocation();
                 World w = loc.getWorld();
-                int homes = pC.getSafeInt("homelist." + w.getName() + ".homes");
                 String name = args[0];
-                if (!p.hasPermission("core.sethome.limitbypass"))
-                    if (homes == 3) {
-                        ME.sendTo(Main.PREFIX + "Du kannst nicht mehr als 3 Homes setzen!", (Audience) p);
-                        return false;
-                    }
-                /**
-                 * Die vorherige Abfrage hätte nur teilw. gemacht, was sie soll
-                 */
-                if (pC.isSet("homelist." + w.getName() + "." + name + ".used")) {
-                    ME.sendTo(Main.PREFIX + "Es gibt bereits ein Home unter diesem Namen", (Audience) p);
+
+                if (pC.isSet("homelist." + w.getName() + name + ".used")) {
+                    Location locate = pC.getLocation("homelist." + w.getName() + "." + name + ".location");
+                    p.teleport(locate);
+                    ME.sendTo(Main.PREFIX + "Du wurdest zu <yellow>\"%s\" <gray>teleportiert.", (Audience) p);
+                    return true;
+                } else {
+                    ME.sendTo(Main.PREFIX + "<red>Home wurde nicht gefunden. <gray>" + pC.getLocation("homelist." + w.getName() + "." + name + ".location"), (Audience) p);
                     return false;
                 }
-
-                pC.set("homelist." + w.getName() + ".homes", homes += 1);
-                pC.set("homelist." + w.getName() + "." + name + ".used", true);
-                pC.set("homelist." + w.getName() + "." + name + ".location", loc.clone().add(0, 0.02, 0));
-
-                pC.save();
-                ME.sendTo(Main.PREFIX + String.format("Home <yellow>\"%s\" <grey>wurde gesetzt.", name), (Audience) p);
-
             } else {
-                ME.sendTo(Main.PREFIX + "<red>Nutzung: /sethome <Name>", (Audience) p);
+                ME.sendTo(Main.PREFIX + "<red>Nutzung: /home <Name>", (Audience) p);
                 return false;
             }
         } else {
             ME.sendTo(Main.PREFIX + Main.NOT_A_PLAYER, (Audience) sender);
             return false;
         }
-        return true;
     }
 
 }

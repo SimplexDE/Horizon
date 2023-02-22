@@ -1,6 +1,8 @@
 package de.simplex.horizon.commands.utility;
 
 import de.simplex.horizon.Main;
+import de.simplex.horizon.commands.api.MessageEngine;
+import net.kyori.adventure.audience.Audience;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -11,12 +13,17 @@ import org.bukkit.entity.Player;
 
 public class Spawn implements CommandExecutor {
 
+	Main main = Main.getPlugin();
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+
+		MessageEngine ME = new MessageEngine(main);
+
 		if (sender instanceof Player p) {
 
 			if (Bukkit.getServer().getWorld("LOBBY") == null) {
-				sender.sendMessage(Main.PREFIX + "Die Lobby-Welt konnte nicht gefunden werden. Bitte wende dich an ein Teammitglied.");
+				ME.sendTo(Main.PREFIX + "Die Lobby-Welt konnte nicht gefunden werden. Bitte wende dich an ein Teammitglied.", (Audience) p);
 				return false;
 			}
 
@@ -31,9 +38,10 @@ public class Spawn implements CommandExecutor {
 			loc = c.getLocation("Lobby.spawn");
 
 			p.teleport(loc);
-			p.sendMessage(Main.PREFIX + "Du wurdest zur Lobby teleportiert!");
+			ME.sendTo(Main.PREFIX + "Du wurdest zur Lobby teleportiert!", (Audience) p);
 		} else {
-			sender.sendMessage(Main.PREFIX + "Dieser Befehl ist nur für Spieler:innen zugänglich.");
+			ME.sendTo(Main.PREFIX + Main.NOT_A_PLAYER, this.main.adventure().console());
+			return false;
 		}
 		return true;
 	}

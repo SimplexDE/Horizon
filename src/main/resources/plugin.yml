@@ -4,12 +4,14 @@ main: de.simplex.horizon.Main
 load: STARTUP
 api-version: 1.19
 
-
-authors: [ WillyButz, TearsDontFall(LEFT) ]
+author: WillyButz
+authors: [ TearsDontFall(Resignation) ]
 description: Ein Plugin für Horizon.
 website: https://discord.gg/
 
 commands:
+  home:
+    description: Teleportiert dich zu einem Zuhause.
   sethome:
     description: Setzt dein Zuhause.
   spawn:
@@ -40,16 +42,27 @@ commands:
     description: Teamchat
     aliases:
       - tc
-  eban:
+  ban:
     description: .
-  eunban:
+    aliases:
+      - eban
+  unban:
     description: .
-  ekick:
+    aliases:
+      - eunban
+      - pardon
+  kick:
     description: .
-  ewarn:
+    aliases:
+      - ekick
+  warn:
     description: .
-  emute:
+    aliases:
+      - ewarn
+  mute:
     description: .
+    aliases:
+      - emute
   globalmute:
     description: Globalmute verwalten
     aliases:
@@ -58,14 +71,12 @@ commands:
     description: Eine Serverweite Nachricht senden
     aliases:
       - bc
-      - rundfunk
   whisper:
     description: Einem Spieler etwas zu Flüstern
     aliases:
       - emsg
       - tell
       - msg
-      - message
   maintenance:
     description: Serverwartungen umschalten
     aliases:
@@ -78,31 +89,31 @@ commands:
       - gm
   tokens:
     description: Verwalte das Token System.
-  BalanceTop:
+  balancetop:
     description: Siehe eine Top-Liste der reichsten Spieler:innen.
     aliases:
       - baltop
       - topbal
       - topbalance
-  Enderchest:
+  enderchest:
     description: Greife auf deine Enderchest zu und upgrade sie.
     aliases:
       - ec
       - echest
       - backpack
       - rucksack
-  ClearChat:
+  clearchat:
     description: Leere den Chat (für Spieler:innen)
     aliases:
       - cc
       - cchat
       - chatclear
       - cclear
-  Profil:
+  profil:
     description: Öffne das Profil.
     aliases:
-      - Profile
-  UpdateVisuals:
+      - profile
+  updatevisuals:
     description: Debug Command
-  ShopNpc:
+  shopnpc:
     description: Spawne den Shop Npc.
