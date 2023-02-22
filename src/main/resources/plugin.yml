@@ -1,108 +1,12 @@
 name: Horizon
 version: '${project.version}'
-main: de.simplex.horizon.Main
+main: de.simplex.horizon.horizon.Horizon
 load: STARTUP
 api-version: 1.19
 
-
-authors: [ WillyButz, TearsDontFall(LEFT) ]
+author: WillyButz
+authors: [ ]
 description: Ein Plugin für Horizon.
 website: https://discord.gg/
 
 commands:
-  sethome:
-    description: Setzt dein Zuhause.
-  spawn:
-    description: Teleportiert dich zum Spawn
-  achievements:
-    description: Zeigt deine Errungenschaften
-  profile:
-    description: Öffnet dein Profil
-    aliases:
-      - profil
-  difficulty:
-    description: Den Schwierigkeitsgrad ändern
-    aliases:
-      - diffi
-      - diff
-      - schwierigkeitsgrad
-  flight:
-    description: Erlaubt dir/oder einem Spieler zu fliegen!
-    aliases:
-      - fly
-      - fliegen
-  friede:
-    description: Friede, Freude, Eierkuchen!
-    aliases:
-      - freude
-      - eierkuchen
-  teamchat:
-    description: Teamchat
-    aliases:
-      - tc
-  eban:
-    description: .
-  eunban:
-    description: .
-  ekick:
-    description: .
-  ewarn:
-    description: .
-  emute:
-    description: .
-  globalmute:
-    description: Globalmute verwalten
-    aliases:
-      - chatmute
-  broadcast:
-    description: Eine Serverweite Nachricht senden
-    aliases:
-      - bc
-      - rundfunk
-  whisper:
-    description: Einem Spieler etwas zu Flüstern
-    aliases:
-      - emsg
-      - tell
-      - msg
-      - message
-  maintenance:
-    description: Serverwartungen umschalten
-    aliases:
-      - wartungen
-      - wartung
-      - servermaintenance
-  gamemode:
-    description: Verändert deinen Spielmodus
-    aliases:
-      - gm
-  tokens:
-    description: Verwalte das Token System.
-  BalanceTop:
-    description: Siehe eine Top-Liste der reichsten Spieler:innen.
-    aliases:
-      - baltop
-      - topbal
-      - topbalance
-  Enderchest:
-    description: Greife auf deine Enderchest zu und upgrade sie.
-    aliases:
-      - ec
-      - echest
-      - backpack
-      - rucksack
-  ClearChat:
-    description: Leere den Chat (für Spieler:innen)
-    aliases:
-      - cc
-      - cchat
-      - chatclear
-      - cclear
-  Profil:
-    description: Öffne das Profil.
-    aliases:
-      - Profile
-  UpdateVisuals:
-    description: Debug Command
-  ShopNpc:
-    description: Spawne den Shop Npc.
