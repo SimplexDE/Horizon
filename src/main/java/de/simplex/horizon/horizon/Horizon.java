@@ -46,7 +46,7 @@ public final class Horizon extends JavaPlugin {
         getCommand("maintenance").setExecutor(new Maintenance());
 
         final PluginManager pM = Bukkit.getPluginManager();
-        pM.registerEvents(new Welcomer(), getHorizon());
+        pM.registerEvents(new Connection(), getHorizon());
 
         ServerConfig.createConfig();
         ServerConfig.loadConfig();
