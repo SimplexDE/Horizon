@@ -2,8 +2,11 @@ package de.simplex.horizon.horizon;
 
 import de.simplex.horizon.commands.Maintenance;
 import de.simplex.horizon.commands.utility.MessageSender;
+import de.simplex.horizon.listeners.Welcomer;
 import de.simplex.horizon.methods.ServerConfig;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
@@ -41,6 +44,9 @@ public final class Horizon extends JavaPlugin {
         MessageSender ms = new MessageSender();
 
         getCommand("maintenance").setExecutor(new Maintenance());
+
+        final PluginManager pM = Bukkit.getPluginManager();
+        pM.registerEvents(new Welcomer(), getHorizon());
 
         ServerConfig.createConfig();
         ServerConfig.loadConfig();

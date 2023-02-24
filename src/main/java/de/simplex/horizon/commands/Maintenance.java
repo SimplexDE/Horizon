@@ -37,9 +37,11 @@ public class Maintenance implements CommandExecutor {
                 }
             }
             ms.sendToConsole(Horizon.PREFIXCOLOR + "Alle Spieler wurden gekickt aufgrund des aktiven Wartungsmodus.");
+            Bukkit.setWhitelist(true);
             ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "betreten"));
         } else {
             maintenance = false;
+            Bukkit.setWhitelist(false);
             ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "verlassen"));
         }
 
