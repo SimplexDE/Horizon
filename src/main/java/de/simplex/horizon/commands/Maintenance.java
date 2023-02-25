@@ -8,20 +8,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 
 public class Maintenance implements CommandExecutor {
     String MAINTENANCE_ANNOUNCE = "<newline>" + Horizon.PREFIXCOLOR + "Der Server hat den <#de4040>Wartungsmodus <grey>%s.<newline>";
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         MessageSender ms = new MessageSender();
-
-        if (!sender.hasPermission("server.maintenance")) {
-            ms.sendToSender(sender, Horizon.PREFIXCOLOR + Horizon.NO_PERMS);
-            return false;
-        }
 
         ServerConfig c = ServerConfig.loadConfig();
         boolean maintenance = c.isSet("server.maintenance") && c.getBoolean("server.maintenance");

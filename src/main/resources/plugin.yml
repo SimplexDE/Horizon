@@ -12,11 +12,55 @@ website: https://discord.gg/
 
 default-permission: op
 
+depend:
+  - LuckPerms
+
 softdepend:
   - ViaVersion
 
 commands:
   maintenance:
     description: Toggles the server-maintenance, replaces the default whitelist.
+    usage: maintenance
+    permission: server.maintenance
     aliases:
       - whitelist
+
+  kick:
+    description: Kicks a player.
+    usage: kick <player> [reason]
+    permission: server.kick
+    aliases:
+      - ekick
+
+  dev:
+    description: Debug command.
+    usage: dev <option>
+    permission: developer
+    aliases:
+      - developer
+
+awareness:
+  -
+
+permissions:
+  "*":
+    description: Access all commands
+    default: op
+    children:
+      - server.*
+  "server.*":
+    description: Access all commands for the Server.
+    default: false
+    children:
+      - server.kick
+  "server.kick":
+    description: Access to the Kick command
+    default: false
+    #children:
+    #  -
+  "developer":
+    description: Access to the /dev commands
+    default: false
+    #children:
+    #  -

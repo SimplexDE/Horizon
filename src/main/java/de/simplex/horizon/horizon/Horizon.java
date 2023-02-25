@@ -1,8 +1,11 @@
 package de.simplex.horizon.horizon;
 
+import de.simplex.horizon.commands.Kick;
 import de.simplex.horizon.commands.Maintenance;
+import de.simplex.horizon.commands.utility.Debug;
 import de.simplex.horizon.commands.utility.MessageSender;
-import de.simplex.horizon.listeners.Welcomer;
+import de.simplex.horizon.listeners.Chat;
+import de.simplex.horizon.listeners.Connection;
 import de.simplex.horizon.methods.ServerConfig;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.Bukkit;
@@ -43,10 +46,13 @@ public final class Horizon extends JavaPlugin {
 
         MessageSender ms = new MessageSender();
 
+        getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
+        getCommand("dev").setExecutor(new Debug());
 
         final PluginManager pM = Bukkit.getPluginManager();
         pM.registerEvents(new Connection(), getHorizon());
+        pM.registerEvents(new Chat(), getHorizon());
 
         ServerConfig.createConfig();
         ServerConfig.loadConfig();
@@ -56,13 +62,13 @@ public final class Horizon extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        MessageSender ms = new MessageSender();
+
+        ms.sendToConsole(PREFIXCOLOR + "Horizon unloaded successfully");
+
         if (this.adventure != null) {
             this.adventure.close();
             this.adventure = null;
         }
-
-        MessageSender ms = new MessageSender();
-
-        ms.sendToConsole(PREFIXCOLOR + "Horizon unloaded successfully");
     }
 }
