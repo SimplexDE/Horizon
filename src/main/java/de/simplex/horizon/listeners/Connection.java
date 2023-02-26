@@ -1,12 +1,12 @@
 package de.simplex.horizon.listeners;
 
 import de.simplex.horizon.commands.utility.MessageSender;
+import de.simplex.horizon.commands.utility.RankAssigning;
 import de.simplex.horizon.commands.utility.TabListCompiler;
 import de.simplex.horizon.horizon.Horizon;
 import de.simplex.horizon.methods.PlayerConfig;
+import de.simplex.horizon.methods.Scoreboard;
 import de.simplex.horizon.methods.ServerConfig;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,10 +33,14 @@ public class Connection implements Listener {
         Player p = e.getPlayer();
         e.setJoinMessage("");
 
+        RankAssigning.assignRank(p);
+        tc.setNameTag(e.getPlayer(), Horizon.getHorizon().PlayerRanks.get(e.getPlayer().getUniqueId()));
+
+        Scoreboard.defaultSb(p);
+
         for (Player player : Bukkit.getOnlinePlayers()) {
-            final Component header = MiniMessage.miniMessage().deserialize("<newline>  <rainbow>ʜᴏʀɪᴢᴇɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>  <newline> <grey>Du befindest dich auf <yellow>" + player.getWorld().getName() + "<grey>.<newline>");
-            final Component footer = MiniMessage.miniMessage().deserialize("<newline><green>" + Bukkit.getOnlinePlayers().size() + "<grey>/<red>" + Bukkit.getMaxPlayers());
-            tc.setTabListHeaderAndFooter(Horizon.adventure().players(), header, footer);
+            tc.setTabListHeaderAndFooter(Horizon.adventure().players());
+            Scoreboard.updatePlayers(player);
         }
 
         Date now = new Date();
@@ -50,7 +54,9 @@ public class Connection implements Listener {
 
         pc.save();
 
-        ms.sendToAll("<green>+ <dark_gray>┃ <yellow>" + p.getName() + " <gray>hat den Server betreten.");
+        String rankColor = Horizon.getHorizon().RankColors.get(Horizon.getHorizon().PlayerRanks.get(p.getUniqueId()));
+
+        ms.sendToAll("<green>+ <dark_gray>┃ " + rankColor + p.getName() + " <gray>hat den Server betreten.");
 
     }
 
@@ -78,8 +84,10 @@ public class Connection implements Listener {
         Player p = e.getPlayer();
         e.setQuitMessage("");
 
-        final Component footer = MiniMessage.miniMessage().deserialize("<newline><green>" + Bukkit.getOnlinePlayers().size() + "<grey>/<red>" + Bukkit.getMaxPlayers());
-        tc.setTabListFooter(Horizon.adventure().players(), footer);
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            tc.setTabListHeaderAndFooter(Horizon.adventure().players());
+            Scoreboard.updatePlayers(player);
+        }
 
         Date now = new Date();
         DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);
@@ -88,7 +96,11 @@ public class Connection implements Listener {
         pc.set("last_seen", (date.format(now)));
         pc.save();
 
-        ms.sendToAll("<red>- <dark_gray>┃ <yellow>" + p.getName() + " <gray>hat den Server verlassen.");
+        String rankColor = Horizon.getHorizon().RankColors.get(Horizon.getHorizon().PlayerRanks.get(p.getUniqueId()));
+
+        ms.sendToAll("<red>- <dark_gray>┃ " + rankColor + p.getName() + " <gray>hat den Server verlassen.");
+
+        Horizon.getHorizon().PlayerRanks.remove(p.getUniqueId());
     }
 
 

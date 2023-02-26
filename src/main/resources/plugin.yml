@@ -26,22 +26,19 @@ commands:
     aliases:
       - whitelist
 
+  vanish:
+    description: Toggles an invisibility mode.
+    usage: vanish [player]
+    permission: server.vanish
+    aliases:
+      - v
+
   kick:
     description: Kicks a player.
     usage: kick <player> [reason]
     permission: server.kick
     aliases:
       - ekick
-
-  dev:
-    description: Debug command.
-    usage: dev <option>
-    permission: developer
-    aliases:
-      - developer
-
-awareness:
-  -
 
 permissions:
   "*":
@@ -56,11 +53,6 @@ permissions:
       - server.kick
   "server.kick":
     description: Access to the Kick command
-    default: false
-    #children:
-    #  -
-  "developer":
-    description: Access to the /dev commands
     default: false
     #children:
     #  -

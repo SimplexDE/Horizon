@@ -2,16 +2,23 @@ package de.simplex.horizon.horizon;
 
 import de.simplex.horizon.commands.Kick;
 import de.simplex.horizon.commands.Maintenance;
-import de.simplex.horizon.commands.utility.Debug;
+import de.simplex.horizon.commands.Vanish;
 import de.simplex.horizon.commands.utility.MessageSender;
+import de.simplex.horizon.commands.utility.RankAssigning;
 import de.simplex.horizon.listeners.Chat;
 import de.simplex.horizon.listeners.Connection;
+import de.simplex.horizon.listeners.RankListener;
 import de.simplex.horizon.methods.ServerConfig;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 public final class Horizon extends JavaPlugin {
 
@@ -21,6 +28,9 @@ public final class Horizon extends JavaPlugin {
             PREFIX = "",
             PREFIXCOLOR = "",
             NO_PERMS = "<red>You have no permission to use this command";
+
+    public HashMap<UUID, String> PlayerRanks = new HashMap<UUID, String>();
+    public HashMap<String, String> RankColors = new HashMap<String, String>();
 
     public static Horizon getHorizon() {
         return horizon;
@@ -45,26 +55,36 @@ public final class Horizon extends JavaPlugin {
         this.adventure = BukkitAudiences.create(Horizon.getHorizon());
 
         MessageSender ms = new MessageSender();
+        new RankListener(LuckPermsProvider.get());
 
         getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
-        getCommand("dev").setExecutor(new Debug());
+        getCommand("vanish").setExecutor(new Vanish());
 
         final PluginManager pM = Bukkit.getPluginManager();
         pM.registerEvents(new Connection(), getHorizon());
         pM.registerEvents(new Chat(), getHorizon());
 
+        RankAssigning.setupColors();
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            RankAssigning.assignRank(player);
+        }
+
         ServerConfig.createConfig();
         ServerConfig.loadConfig();
 
-        ms.sendToConsole(PREFIXCOLOR + "Horizon loaded successfully");
+        ms.sendToConsole(PREFIXCOLOR + "Loaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
     }
 
     @Override
     public void onDisable() {
         MessageSender ms = new MessageSender();
 
-        ms.sendToConsole(PREFIXCOLOR + "Horizon unloaded successfully");
+        PlayerRanks.clear();
+        RankColors.clear();
+
+        ms.sendToConsole(PREFIXCOLOR + "Unloaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
 
         if (this.adventure != null) {
             this.adventure.close();
