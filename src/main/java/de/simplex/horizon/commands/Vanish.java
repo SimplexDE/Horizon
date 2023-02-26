@@ -1,8 +1,10 @@
 package de.simplex.horizon.commands;
 
-import de.simplex.horizon.commands.utility.MessageSender;
 import de.simplex.horizon.horizon.Horizon;
-import de.simplex.horizon.methods.PlayerConfig;
+import de.simplex.horizon.method.PlayerConfig;
+import de.simplex.horizon.util.MessageSender;
+import net.luckperms.api.node.Node;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
@@ -11,6 +13,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
+
+import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
 
 public class Vanish implements TabExecutor {
     @Override
@@ -21,7 +26,7 @@ public class Vanish implements TabExecutor {
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
                 ms.sendToSender(sender, Horizon.PREFIXCOLOR + "Nur für Spieler ausführbar");
-                return false;
+                return true;
             }
             Player p = (Player) sender;
 
@@ -30,17 +35,31 @@ public class Vanish implements TabExecutor {
             boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
 
             if (!vanished) {
-                p.hidePlayer(Horizon.getHorizon(), p);
+                for (Player ap : Bukkit.getOnlinePlayers()) {
+                    if (ap.canSee(p)) {
+                        if (ap.hasPermission("server.vanish.see")) {
+                            break;
+                        }
+                        ap.hidePlayer(Horizon.getHorizon(), p);
+                    }
+                }
+                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100.<#d21ddb>[V]").build());
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
                 ms.sendToPlayer(p, Horizon.PREFIXCOLOR + "Du bist nun Unsichtbar.");
             } else {
-                p.showPlayer(Horizon.getHorizon(), p);
+                for (Player ap : Bukkit.getOnlinePlayers()) {
+                    if (!ap.canSee(p)) {
+                        ap.showPlayer(Horizon.getHorizon(), p);
+                    }
+                }
+                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().remove(Node.builder("suffix.100.<#d21ddb>[V]").build());
                 p.setSilent(false);
                 pc.set("staff.vanish", false);
                 ms.sendToPlayer(p, Horizon.PREFIXCOLOR + "Du bist nun Sichtbar.");
             }
             pc.save();
+            return true;
         }
         return false;
     }
