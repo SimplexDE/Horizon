@@ -1,4 +1,4 @@
-package de.simplex.horizon.methods;
+package de.simplex.horizon.method;
 
 import org.bukkit.ChatColor;
 
@@ -12,7 +12,8 @@ public class HexConverter {
     public static String getColString(String string) {
         Matcher matcher = HEX_PATTERN.matcher(string);
         while (matcher.find()) {
-            final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
+            final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1,
+                    matcher.group().length() - 1));
             final String before = string.substring(0, matcher.start());
             final String after = string.substring(matcher.end());
             string = before + hexColor + after;
