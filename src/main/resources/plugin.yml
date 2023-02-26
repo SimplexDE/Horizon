@@ -51,8 +51,35 @@ permissions:
     default: false
     children:
       - server.kick
+      - server.vanish
+      - server.vanish.others
+      - server.vanish.see
   "server.kick":
-    description: Access to the Kick command
+    description: Access to the Kick command.
     default: false
     #children:
     #  -
+  "server.vanish.*":
+    default: false
+    children:
+      - server.vanish
+  "server.vanish":
+    description: Access to the Vanish command.
+    default: false
+    children:
+      - server.vanish.others
+      - server.vanish.see
+  "server.vanish.others":
+    description: Allows to Vanish other Players.
+    default: false
+  "server.vanish.see":
+    description: See vanished Players.
+    default: false
+  "server.maintenance":
+    description: ...
+    default: false
+    children:
+      - server.maintenance.bypass
+  "server.maintenance.bypass":
+    description: ...
+    default: false
