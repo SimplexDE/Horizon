@@ -3,12 +3,12 @@ package de.simplex.horizon.horizon;
 import de.simplex.horizon.commands.Kick;
 import de.simplex.horizon.commands.Maintenance;
 import de.simplex.horizon.commands.Vanish;
-import de.simplex.horizon.commands.utility.MessageSender;
-import de.simplex.horizon.commands.utility.RankAssigning;
-import de.simplex.horizon.listeners.Chat;
-import de.simplex.horizon.listeners.Connection;
-import de.simplex.horizon.listeners.RankListener;
-import de.simplex.horizon.methods.ServerConfig;
+import de.simplex.horizon.listener.ChatListener;
+import de.simplex.horizon.listener.ConnectionListener;
+import de.simplex.horizon.listener.LuckPermsListener;
+import de.simplex.horizon.method.ServerConfig;
+import de.simplex.horizon.util.MessageSender;
+import de.simplex.horizon.util.RankManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
@@ -28,9 +28,6 @@ public final class Horizon extends JavaPlugin {
             PREFIX = "",
             PREFIXCOLOR = "",
             NO_PERMS = "<red>You have no permission to use this command";
-
-    public HashMap<UUID, String> PlayerRanks = new HashMap<UUID, String>();
-    public HashMap<String, String> RankColors = new HashMap<String, String>();
 
     public static Horizon getHorizon() {
         return horizon;
@@ -55,7 +52,7 @@ public final class Horizon extends JavaPlugin {
         this.adventure = BukkitAudiences.create(Horizon.getHorizon());
 
         MessageSender ms = new MessageSender();
-        new RankListener(LuckPermsProvider.get());
+        new LuckPermsListener(LuckPermsProvider.get());
 
         getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
@@ -68,7 +65,7 @@ public final class Horizon extends JavaPlugin {
         RankAssigning.setupColors();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            RankAssigning.assignRank(player);
+            RankManager.assignRank(player);
         }
 
         ServerConfig.createConfig();
