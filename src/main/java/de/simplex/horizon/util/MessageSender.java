@@ -1,4 +1,4 @@
-package de.simplex.horizon.commands.utility;
+package de.simplex.horizon.util;
 
 
 import de.simplex.horizon.commands.api.AdventureAPI;

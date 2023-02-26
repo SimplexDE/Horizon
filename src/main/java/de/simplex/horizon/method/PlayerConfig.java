@@ -1,4 +1,4 @@
-package de.simplex.horizon.methods;
+package de.simplex.horizon.method;
 
 import org.bukkit.Location;
 import org.bukkit.Material;

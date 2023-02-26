@@ -1,4 +1,4 @@
-package de.simplex.horizon.commands.utility;
+package de.simplex.horizon.util;
 
 
 import net.kyori.adventure.audience.Audience;

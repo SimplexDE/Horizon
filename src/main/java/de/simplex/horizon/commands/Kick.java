@@ -1,7 +1,7 @@
 package de.simplex.horizon.commands;
 
-import de.simplex.horizon.commands.utility.MessageSender;
 import de.simplex.horizon.horizon.Horizon;
+import de.simplex.horizon.util.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

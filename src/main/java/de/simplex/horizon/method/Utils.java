@@ -1,4 +1,4 @@
-package de.simplex.horizon.methods;
+package de.simplex.horizon.method;
 
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.inventory.ClickType;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -39,7 +40,7 @@ public class Utils {
         };
     }
 
-    public static int amountByClickType(ClickType ct) {
+    public static int amountByClickType(@NotNull ClickType ct) {
         return switch (ct) {
             case LEFT -> 1;
             case RIGHT -> 8;
@@ -64,12 +65,12 @@ public class Utils {
         return (e instanceof Creature || e.getType() == EntityType.SLIME) && (e instanceof Monster || e.getType() == EntityType.SLIME);
     }
 
-    public static void actionBar(final Player p, final String msg, final float vol, final float pit, final Sound s) {
+    public static void actionBar(final @NotNull Player p, final String msg, final float vol, final float pit, final Sound s) {
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(msg));
         if (s != null) p.playSound(p.getLocation(), s, vol, pit);
     }
 
-    public static TextComponent getClickable(String msg, ClickEvent.Action a, String clickMsg, @Nullable String hover) {
+    public static @NotNull TextComponent getClickable(String msg, ClickEvent.Action a, String clickMsg, @Nullable String hover) {
         TextComponent message = new TextComponent(msg);
         message.setClickEvent(new ClickEvent(a, clickMsg));
 

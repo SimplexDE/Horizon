@@ -1,7 +1,7 @@
-package de.simplex.horizon.methods;
+package de.simplex.horizon.method;
 
-import de.simplex.horizon.commands.utility.MessageSender;
 import de.simplex.horizon.horizon.Horizon;
+import de.simplex.horizon.util.MessageSender;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
