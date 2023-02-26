@@ -17,12 +17,9 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import java.util.HashMap;
-import java.util.UUID;
-
 public final class Horizon extends JavaPlugin {
 
-    public static Horizon horizon;
+    private static Horizon horizon;
 
     public static String VERSION = "",
             PREFIX = "",
@@ -59,10 +56,8 @@ public final class Horizon extends JavaPlugin {
         getCommand("vanish").setExecutor(new Vanish());
 
         final PluginManager pM = Bukkit.getPluginManager();
-        pM.registerEvents(new Connection(), getHorizon());
-        pM.registerEvents(new Chat(), getHorizon());
-
-        RankAssigning.setupColors();
+        pM.registerEvents(new ConnectionListener(), getHorizon());
+        pM.registerEvents(new ChatListener(), getHorizon());
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             RankManager.assignRank(player);
@@ -77,9 +72,6 @@ public final class Horizon extends JavaPlugin {
     @Override
     public void onDisable() {
         MessageSender ms = new MessageSender();
-
-        PlayerRanks.clear();
-        RankColors.clear();
 
         ms.sendToConsole(PREFIXCOLOR + "Unloaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
 
