@@ -17,23 +17,5 @@ public class RankManager {
         assert u != null;
         new Tablist().setNameTag(p, u);
         Sidebar.updateRank(p);
-
-        /*User u = lpapi.getUserManager().getUser(player.getUniqueId());
-        assert u != null;
-        String primary = u.getPrimaryGroup();
-
-        Horizon.getHorizon().playerRanks.remove(player.getUniqueId());
-
-        Rank rank;
-        try {
-            rank = Rank.valueOf(primary.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            rank = Rank.getDefault();
-        }
-
-
-
-        new Tablist().setNameTag(player, rank);
-        Sidebar.updateRank(player);*/
     }
 }
