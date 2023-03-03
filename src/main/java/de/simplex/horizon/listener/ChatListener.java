@@ -1,5 +1,6 @@
 package de.simplex.horizon.listener;
 
+import de.simplex.horizon.enums.Color;
 import de.simplex.horizon.horizon.Horizon;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -25,13 +26,18 @@ public class ChatListener implements Listener {
 
         assert g != null;
         String prefix = u.getCachedData().getMetaData().getPrefix();
+        if (prefix == null) {
+            prefix = "<#949494>";
+        }
 
         e.setCancelled(true);
 
         Audience everyone = Horizon.adventure().all();
-        Component pre_msg = Component.text("§7" + msg);
+        //Component pre_msg = Component.text(msg);
         Component final_msg = MiniMessage.miniMessage().deserialize(prefix + p.getName()
-                + " <dark_gray>» <gray>").append(pre_msg);
+                + " " + Color.DARK_GRAY.getColor() + "» " + Color.LIGHT_GRAY.getColor() + msg
+                .replace("<", "⏴")
+                .replace(">", "⏵"));
         everyone.sendMessage(final_msg);
 
     }
