@@ -1,5 +1,6 @@
 package de.simplex.horizon.method;
 
+import de.simplex.horizon.enums.Color;
 import de.simplex.horizon.util.MessageSender;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -27,8 +28,12 @@ public class Tablist {
         Component header = null;
         Component footer = null;
         for (Player p : Bukkit.getOnlinePlayers()) {
-            header = MiniMessage.miniMessage().deserialize("<newline> <grey>▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴇɴ ᴍʏsᴇʀᴠᴇʀ</rainbow> <grey>▬▬▬▬▬ <newline>");
-            footer = MiniMessage.miniMessage().deserialize("<newline><green>" + Bukkit.getOnlinePlayers().size() + "<gray> Spieler<newline><newline> <grey>▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴇɴ ᴍʏsᴇʀᴠᴇʀ</rainbow> <grey>▬▬▬▬▬ <newline>");
+            header = MiniMessage.miniMessage().deserialize("<newline>" + Color.GRAY.getColor() +
+                    " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>" + Color.GRAY.getColor() + " ▬▬▬▬▬ <newline>");
+            footer = MiniMessage.miniMessage().deserialize("<newline>" + Color.GREEN.getColor()
+                    + Bukkit.getOnlinePlayers().size() + Color.ORANGE.getColor() + " Spieler<newline><newline>" +
+                    Color.GRAY.getColor() + " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>"
+                    + Color.GRAY.getColor() + " ▬▬▬▬▬ <newline>");
         }
 
         player.sendPlayerListHeader(header);
@@ -46,7 +51,7 @@ public class Tablist {
         Component prefixComponent = MiniMessage.miniMessage().deserialize(prefix + player.getName() + suffix);
         String prefixString = legacySerializer.serialize(prefixComponent);
 
-        String playerListName = HexConverter.getColString(prefixString.replace("null", ""));
+        String playerListName = prefixString.replace("null", "");
         player.setPlayerListName(playerListName);
     }
 }
