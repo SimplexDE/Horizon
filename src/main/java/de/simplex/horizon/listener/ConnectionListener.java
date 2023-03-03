@@ -1,5 +1,7 @@
 package de.simplex.horizon.listener;
 
+import de.simplex.horizon.enums.Color;
+import de.simplex.horizon.enums.NotificationPrefixes;
 import de.simplex.horizon.horizon.Horizon;
 import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.method.ServerConfig;
@@ -75,10 +77,10 @@ public class ConnectionListener implements Listener {
                         ap.hidePlayer(Horizon.getHorizon(), p);
                     }
                 }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100.<#d21ddb>[V]").build());
+                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColor() + "[V]").build());
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
-                ms.sendToPlayer(p, Horizon.PREFIXCOLOR + "Du bist Unsichtbar beigetreten.");
+                ms.sendToPlayer(p, NotificationPrefixes.WARN.getNotification() + "Du bist Versteckt beigetreten.");
             }
         }
 
@@ -93,10 +95,13 @@ public class ConnectionListener implements Listener {
         pc.save();
 
         String color = StringUtils.substring(u.getCachedData().getMetaData().getPrefix(), 0, 9);
+        if (color == null) {
+            color = "<#949494>";
+        }
 
         if (!vanished) {
-            ms.sendToAll("<green>+ <dark_gray>┃ " + color
-                    + p.getName() + " <gray>hat den Server betreten.");
+            ms.sendToAll(Color.GREEN.getColor() + "+" + Color.BLACK.getColor() + " ┃ " + color
+                    + p.getName() + Color.LIGHT_GRAY.getColor() + " hat den Server betreten.");
         }
 
     }
@@ -142,15 +147,16 @@ public class ConnectionListener implements Listener {
         User u = lpapi.getUserManager().getUser(p.getUniqueId());
         Group g = lpapi.getGroupManager().getGroup(u.getPrimaryGroup());
 
-        Bukkit.getConsoleSender().sendMessage(String.valueOf(g.getDistinctNodes()));
-
         String color = StringUtils.substring(u.getCachedData().getMetaData().getPrefix(), 0, 9);
+        if (color == null) {
+            color = "<#949494>";
+        }
 
         boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
 
         if (!vanished) {
-            ms.sendToAll("<red>- <dark_gray>┃ " + color
-                    + p.getName() + " <gray>hat den Server verlassen.");
+            ms.sendToAll(Color.RED.getColor() + "-" + Color.DARK_GRAY.getColor() + "┃ " + color
+                    + p.getName() + Color.GRAY.getColor() + " hat den Server verlassen.");
         }
     }
 
