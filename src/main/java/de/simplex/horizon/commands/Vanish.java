@@ -1,5 +1,7 @@
 package de.simplex.horizon.commands;
 
+import de.simplex.horizon.enums.Color;
+import de.simplex.horizon.enums.NotificationPrefixes;
 import de.simplex.horizon.horizon.Horizon;
 import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.util.MessageSender;
@@ -25,7 +27,7 @@ public class Vanish implements TabExecutor {
 
         if (args.length == 0) {
             if (!(sender instanceof Player)) {
-                ms.sendToSender(sender, Horizon.PREFIXCOLOR + "Nur für Spieler ausführbar");
+                ms.sendToSender(sender, NotificationPrefixes.WARN.getNotification() + "Nur für Spieler ausführbar");
                 return true;
             }
             Player p = (Player) sender;
@@ -46,7 +48,7 @@ public class Vanish implements TabExecutor {
                 Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100.<#d21ddb>[V]").build());
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
-                ms.sendToPlayer(p, Horizon.PREFIXCOLOR + "Du bist nun Unsichtbar.");
+                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun " + Color.AQUA.getColor() + "versteckt" + Color.LIGHT_GRAY.getColor() + ".");
             } else {
                 for (Player ap : Bukkit.getOnlinePlayers()) {
                     if (!ap.canSee(p)) {
@@ -56,7 +58,7 @@ public class Vanish implements TabExecutor {
                 Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().remove(Node.builder("suffix.100.<#d21ddb>[V]").build());
                 p.setSilent(false);
                 pc.set("staff.vanish", false);
-                ms.sendToPlayer(p, Horizon.PREFIXCOLOR + "Du bist nun Sichtbar.");
+                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun nicht mehr " + Color.AQUA.getColor() + "versteckt" + Color.LIGHT_GRAY.getColor() + ".");
             }
             pc.save();
             return true;

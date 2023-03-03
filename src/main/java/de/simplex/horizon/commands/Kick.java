@@ -1,6 +1,6 @@
 package de.simplex.horizon.commands;
 
-import de.simplex.horizon.horizon.Horizon;
+import de.simplex.horizon.enums.NotificationPrefixes;
 import de.simplex.horizon.util.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -20,12 +20,12 @@ public class Kick implements TabExecutor {
         MessageSender ms = new MessageSender();
 
         if (args.length <= 1) {
-            ms.sendToSender(sender, Horizon.PREFIXCOLOR + "<red>Nutzung: /kick <Spieler> <Grund>");
+            ms.sendToSender(sender, NotificationPrefixes.INFO.getNotification() + "<red>Nutzung: /kick <Spieler> <Grund>");
             return false;
         }
 
         if (Bukkit.getPlayer(args[0]) == null) {
-            ms.sendToSender(sender, Horizon.PREFIXCOLOR + "Dieser Spieler ist nicht online.");
+            ms.sendToSender(sender, NotificationPrefixes.INFO.getNotification() + "Dieser Spieler ist nicht online.");
             return false;
         }
 

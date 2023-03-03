@@ -1,6 +1,6 @@
 package de.simplex.horizon.method;
 
-import de.simplex.horizon.horizon.Horizon;
+import de.simplex.horizon.enums.NotificationPrefixes;
 import de.simplex.horizon.util.MessageSender;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -34,13 +34,13 @@ public class ServerConfig {
     public static ServerConfig createConfig() {
         final File file = new File(String.format(path, "config"));
         if (!file.exists()) {
-            ms.sendToConsole(Horizon.PREFIXCOLOR + "Creating Config...");
+            ms.sendToConsole(NotificationPrefixes.HORIZON.getNotification() + "Creating Config...");
             try {
                 Utils.createFolder("plugins/Horizon/");
                 file.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
-                ms.sendToConsole(Horizon.PREFIXCOLOR + "<red>Creation of Config failed!");
+                ms.sendToConsole(NotificationPrefixes.ERROR.getNotification() + "<red>Creation of Config failed!");
             }
         }
         return new ServerConfig();
