@@ -35,7 +35,7 @@ public class ChatListener implements Listener {
         Audience everyone = Horizon.adventure().all();
         //Component pre_msg = Component.text(msg);
         Component final_msg = MiniMessage.miniMessage().deserialize(prefix + p.getName()
-                + " " + Color.DARK_GRAY.getColor() + "» " + Color.LIGHT_GRAY.getColor() + msg
+                + " " + Color.DARK_GRAY.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + msg
                 .replace("<", "⏴")
                 .replace(">", "⏵"));
         everyone.sendMessage(final_msg);

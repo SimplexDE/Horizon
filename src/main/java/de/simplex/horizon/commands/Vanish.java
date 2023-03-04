@@ -45,20 +45,20 @@ public class Vanish implements TabExecutor {
                         ap.hidePlayer(Horizon.getHorizon(), p);
                     }
                 }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100.<#d21ddb>[V]").build());
+                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
-                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun " + Color.AQUA.getColor() + "versteckt" + Color.LIGHT_GRAY.getColor() + ".");
+                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun " + Color.AQUA.getColorMiniMessage() + "versteckt" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
             } else {
                 for (Player ap : Bukkit.getOnlinePlayers()) {
                     if (!ap.canSee(p)) {
                         ap.showPlayer(Horizon.getHorizon(), p);
                     }
                 }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().remove(Node.builder("suffix.100.<#d21ddb>[V]").build());
+                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().remove(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
                 p.setSilent(false);
                 pc.set("staff.vanish", false);
-                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun nicht mehr " + Color.AQUA.getColor() + "versteckt" + Color.LIGHT_GRAY.getColor() + ".");
+                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun nicht mehr " + Color.AQUA.getColorMiniMessage() + "versteckt" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
             }
             pc.save();
             return true;

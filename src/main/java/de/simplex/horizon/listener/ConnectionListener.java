@@ -77,10 +77,10 @@ public class ConnectionListener implements Listener {
                         ap.hidePlayer(Horizon.getHorizon(), p);
                     }
                 }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColor() + "[V]").build());
+                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
-                ms.sendToPlayer(p, NotificationPrefixes.WARN.getNotification() + "Du bist Versteckt beigetreten.");
+                ms.sendToPlayer(p, NotificationPrefixes.WARN.getNotification() + "Du bist " + Color.AQUA.getColorMiniMessage() + "versteckt" + Color.LIGHT_GRAY.getColorMiniMessage() + " beigetreten.");
             }
         }
 
@@ -100,8 +100,8 @@ public class ConnectionListener implements Listener {
         }
 
         if (!vanished) {
-            ms.sendToAll(Color.GREEN.getColor() + "+" + Color.BLACK.getColor() + " ┃ " + color
-                    + p.getName() + Color.LIGHT_GRAY.getColor() + " hat den Server betreten.");
+            ms.sendToAll(Color.GREEN.getColorMiniMessage() + "+" + Color.BLACK.getColorMiniMessage() + " ┃ " + color
+                    + p.getName() + Color.LIGHT_GRAY.getColorMiniMessage() + " hat den Server " + Color.LIGHT_GREEN.getColorMiniMessage() + "betreten" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
         }
 
     }
@@ -155,8 +155,8 @@ public class ConnectionListener implements Listener {
         boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
 
         if (!vanished) {
-            ms.sendToAll(Color.RED.getColor() + "-" + Color.DARK_GRAY.getColor() + "┃ " + color
-                    + p.getName() + Color.GRAY.getColor() + " hat den Server verlassen.");
+            ms.sendToAll(Color.RED.getColorMiniMessage() + "-" + Color.DARK_GRAY.getColorMiniMessage() + " ┃ " + color
+                    + p.getName() + Color.LIGHT_GRAY.getColorMiniMessage() + " hat den Server " + Color.LIGHT_RED.getColorMiniMessage() + "verlassen" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
         }
     }
 

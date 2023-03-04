@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class Maintenance implements CommandExecutor {
-    String MAINTENANCE_ANNOUNCE = "<newline>" + NotificationPrefixes.SYSTEM.getNotification() + "Der Server hat den <#de4040>Wartungsmodus <grey>%s.<newline>";
+    String MAINTENANCE_ANNOUNCE = "<newline>" + NotificationPrefixes.SYSTEM.getNotification() + "Der Server hat den " + Color.RED.getColorMiniMessage() + "Wartungsmodus " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s.<newline>";
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {

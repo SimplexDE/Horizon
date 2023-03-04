@@ -28,12 +28,12 @@ public class Tablist {
         Component header = null;
         Component footer = null;
         for (Player p : Bukkit.getOnlinePlayers()) {
-            header = MiniMessage.miniMessage().deserialize("<newline>" + Color.GRAY.getColor() +
-                    " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>" + Color.GRAY.getColor() + " ▬▬▬▬▬ <newline>");
-            footer = MiniMessage.miniMessage().deserialize("<newline>" + Color.GREEN.getColor()
-                    + Bukkit.getOnlinePlayers().size() + Color.ORANGE.getColor() + " Spieler<newline><newline>" +
-                    Color.GRAY.getColor() + " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>"
-                    + Color.GRAY.getColor() + " ▬▬▬▬▬ <newline>");
+            header = MiniMessage.miniMessage().deserialize("<newline>" + Color.GRAY.getColorMiniMessage() +
+                    " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>" + Color.GRAY.getColorMiniMessage() + " ▬▬▬▬▬ <newline>");
+            footer = MiniMessage.miniMessage().deserialize("<newline>" + Color.GREEN.getColorMiniMessage()
+                    + Bukkit.getOnlinePlayers().size() + Color.ORANGE.getColorMiniMessage() + " Spieler<newline><newline>" +
+                    Color.GRAY.getColorMiniMessage() + " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>"
+                    + Color.GRAY.getColorMiniMessage() + " ▬▬▬▬▬ <newline>");
         }
 
         player.sendPlayerListHeader(header);

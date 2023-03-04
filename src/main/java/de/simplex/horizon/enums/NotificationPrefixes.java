@@ -3,11 +3,11 @@ package de.simplex.horizon.enums;
 public enum NotificationPrefixes {
     // sʏsᴛᴇᴍ ʜᴏʀɪᴢᴏɴ ɪɴғᴏ ᴡᴀʀɴᴜɴɢ ғᴇʜʟᴇʀ
 
-    SYSTEM(Color.AQUA.getColor() + "sʏsᴛᴇᴍ " + Color.DARK_GRAY.getColor() + "| " + Color.LIGHT_GRAY.getColor()),
-    HORIZON("<rainbow>ʜᴏʀɪᴢᴏɴ</rainbow> " + Color.DARK_GRAY.getColor() + "| " + Color.LIGHT_GRAY.getColor()),
-    INFO(Color.LIGHT_BLUE.getColor() + "ɪɴғᴏ " + Color.DARK_GRAY.getColor() + "| " + Color.LIGHT_GRAY.getColor()),
-    WARN(Color.ORANGE.getColor() + "ᴡᴀʀɴᴜɴɢ " + Color.DARK_GRAY.getColor() + "| " + Color.LIGHT_GRAY.getColor()),
-    ERROR(Color.RED.getColor() + "ғᴇʜʟᴇʀ " + Color.DARK_GRAY.getColor() + "| " + Color.LIGHT_GRAY.getColor());
+    SYSTEM(Color.AQUA.getColorMiniMessage() + "sʏsᴛᴇᴍ " + Color.DARK_GRAY.getColorMiniMessage() + "| " + Color.LIGHT_GRAY.getColorMiniMessage()),
+    HORIZON("<rainbow>ʜᴏʀɪᴢᴏɴ</rainbow> " + Color.DARK_GRAY.getColorMiniMessage() + "| " + Color.LIGHT_GRAY.getColorMiniMessage()),
+    INFO(Color.LIGHT_BLUE.getColorMiniMessage() + "ɪɴғᴏ " + Color.DARK_GRAY.getColorMiniMessage() + "| " + Color.LIGHT_GRAY.getColorMiniMessage()),
+    WARN(Color.ORANGE.getColorMiniMessage() + "ᴡᴀʀɴᴜɴɢ " + Color.DARK_GRAY.getColorMiniMessage() + "| " + Color.LIGHT_GRAY.getColorMiniMessage()),
+    ERROR(Color.RED.getColorMiniMessage() + "ғᴇʜʟᴇʀ " + Color.DARK_GRAY.getColorMiniMessage() + "| " + Color.LIGHT_GRAY.getColorMiniMessage());
 
     private String c;
 

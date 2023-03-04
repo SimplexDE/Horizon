@@ -39,11 +39,11 @@ public class Sidebar {
                 s4 = o.getScore(" §3 ");
 
         Component rangtitleComponent = MiniMessage.miniMessage()
-                .deserialize(Color.YELLOW.getColor() + "» " + Color.LIGHT_GRAY.getColor() + "Dein Rang");
+                .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + "Dein Rang");
         Component worldtitleComponent = MiniMessage.miniMessage()
-                .deserialize(Color.YELLOW.getColor() + "» " + Color.LIGHT_GRAY.getColor() + "Aktuelle Welt");
+                .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + "Aktuelle Welt");
         Component playertitleComponent = MiniMessage.miniMessage()
-                .deserialize(Color.YELLOW.getColor() + "» " + Color.LIGHT_GRAY.getColor() + "Aktuelle Spieler");
+                .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + "Aktuelle Spieler");
 
         String rangtitleRow = legacySerializer.serialize(rangtitleComponent);
         String worldtitleRow = legacySerializer.serialize(worldtitleComponent);
@@ -71,10 +71,10 @@ public class Sidebar {
 
         Component rangComponent = MiniMessage.miniMessage().deserialize(color + g.getDisplayName());
         Component worldComponent = MiniMessage.miniMessage()
-                .deserialize(Color.LIGHT_GREEN.getColor() + StringUtils.capitalize(p.getWorld().getName()));
+                .deserialize(Color.GREEN.getColorMiniMessage() + StringUtils.capitalize(p.getWorld().getName()));
         Component playerComponent = MiniMessage.miniMessage()
-                .deserialize(Color.LIGHT_GREEN.getColor() +
-                        Bukkit.getOnlinePlayers().size() + Color.DARK_GRAY.getColor() + " / " + Color.GREEN.getColor()
+                .deserialize(Color.GREEN.getColorMiniMessage() +
+                        Bukkit.getOnlinePlayers().size() + Color.DARK_GRAY.getColorMiniMessage() + "/" + Color.LIGHT_GREEN.getColorMiniMessage()
                         + Bukkit.getMaxPlayers());
 
         String rangRow = legacySerializer.serialize(rangComponent);
@@ -117,10 +117,10 @@ public class Sidebar {
 
         Component rangComponent = MiniMessage.miniMessage().deserialize(color + DisplayName);
         Component worldComponent = MiniMessage.miniMessage()
-                .deserialize(Color.LIGHT_GREEN.getColor() + StringUtils.capitalize(p.getWorld().getName()));
+                .deserialize(Color.GREEN.getColorMiniMessage() + StringUtils.capitalize(p.getWorld().getName()));
         Component playerComponent = MiniMessage.miniMessage()
-                .deserialize(Color.LIGHT_GREEN.getColor() +
-                        Bukkit.getOnlinePlayers().size() + Color.DARK_GRAY.getColor() + " / " + Color.GREEN.getColor()
+                .deserialize(Color.GREEN.getColorMiniMessage() +
+                        Bukkit.getOnlinePlayers().size() + Color.DARK_GRAY.getColorMiniMessage() + "/" + Color.LIGHT_GREEN.getColorMiniMessage()
                         + Bukkit.getMaxPlayers());
         String rangRow = legacySerializer.serialize(rangComponent);
         String worldRow = legacySerializer.serialize(worldComponent);
@@ -134,7 +134,7 @@ public class Sidebar {
 
     public static void updateWorld(@NotNull Player p) {
 
-        Component worldComponent = MiniMessage.miniMessage().deserialize(Color.LIGHT_GREEN.getColor() + StringUtils.capitalize(p.getWorld().getName()));
+        Component worldComponent = MiniMessage.miniMessage().deserialize(Color.GREEN.getColorMiniMessage() + StringUtils.capitalize(p.getWorld().getName()));
         String worldRow = legacySerializer.serialize(worldComponent);
 
         Scoreboard sb = p.getScoreboard();
@@ -168,8 +168,8 @@ public class Sidebar {
     }
 
     public static void updatePlayers(@NotNull Player p) {
-        Component playerComponent = MiniMessage.miniMessage().deserialize(Color.LIGHT_GREEN.getColor() +
-                Bukkit.getOnlinePlayers().size() + Color.DARK_GRAY.getColor() + " / " + Color.GREEN.getColor()
+        Component playerComponent = MiniMessage.miniMessage().deserialize(Color.GREEN.getColorMiniMessage() +
+                Bukkit.getOnlinePlayers().size() + Color.DARK_GRAY.getColorMiniMessage() + "/" + Color.LIGHT_GREEN.getColorMiniMessage()
                 + Bukkit.getMaxPlayers());
         String playerRow = legacySerializer.serialize(playerComponent);
 
@@ -180,7 +180,7 @@ public class Sidebar {
 
     public static void unsetScoreboard(@NotNull Player p) {
 
-        Component titleComponent = MiniMessage.miniMessage().deserialize(Color.LIGHT_BLUE.getColor() + "ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ");
+        Component titleComponent = MiniMessage.miniMessage().deserialize(Color.LIGHT_BLUE.getColorMiniMessage() + "ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ");
         String titleRow = legacySerializer.serialize(titleComponent);
 
         Scoreboard sb = Bukkit.getScoreboardManager().getNewScoreboard();
