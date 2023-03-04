@@ -27,7 +27,6 @@ public final class Horizon extends JavaPlugin {
 
     public static String VERSION = "",
             PREFIX = "",
-            PREFIXCOLOR = "",
             NO_PERMS = "<red>You have no permission to use this command";
 
     public static Horizon getHorizon() {
@@ -48,7 +47,6 @@ public final class Horizon extends JavaPlugin {
         horizon = this;
         VERSION = getDescription().getVersion();
         PREFIX = getDescription().getPrefix();
-        PREFIXCOLOR = "<rainbow>Horizon</rainbow> <dark_gray>| <gray>";
 
         this.adventure = BukkitAudiences.create(Horizon.getHorizon());
 
