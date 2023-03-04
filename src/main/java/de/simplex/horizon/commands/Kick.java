@@ -19,11 +19,6 @@ public class Kick implements TabExecutor {
 
         MessageSender ms = new MessageSender();
 
-        if (args.length <= 1) {
-            ms.sendToSender(sender, NotificationPrefixes.INFO.getNotification() + "<red>Nutzung: /kick <Spieler> <Grund>");
-            return false;
-        }
-
         if (Bukkit.getPlayer(args[0]) == null) {
             ms.sendToSender(sender, NotificationPrefixes.INFO.getNotification() + "Dieser Spieler ist nicht online.");
             return false;
