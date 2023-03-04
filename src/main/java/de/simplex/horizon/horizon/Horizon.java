@@ -2,15 +2,18 @@ package de.simplex.horizon.horizon;
 
 import de.simplex.horizon.commands.Kick;
 import de.simplex.horizon.commands.Maintenance;
+import de.simplex.horizon.commands.TeamChat;
 import de.simplex.horizon.commands.Vanish;
 import de.simplex.horizon.enums.NotificationPrefixes;
 import de.simplex.horizon.listener.ChatListener;
 import de.simplex.horizon.listener.ConnectionListener;
 import de.simplex.horizon.listener.LuckPermsListener;
+import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.method.ServerConfig;
 import de.simplex.horizon.util.MessageSender;
 import de.simplex.horizon.util.RankManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.luckperms.api.LuckPermsProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -55,6 +58,7 @@ public final class Horizon extends JavaPlugin {
         getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
         getCommand("vanish").setExecutor(new Vanish());
+        getCommand("teamchat").setExecutor(new TeamChat());
 
         final PluginManager pM = Bukkit.getPluginManager();
         pM.registerEvents(new ConnectionListener(), getHorizon());

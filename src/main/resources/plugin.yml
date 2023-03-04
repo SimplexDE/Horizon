@@ -19,6 +19,13 @@ softdepend:
   - ViaVersion
 
 commands:
+  teamchat:
+    description: Send a message to the Teamchat
+    #usage:
+    permission: server.chat.team
+    #aliases:
+    #  -
+
   maintenance:
     description: Toggles the server-maintenance, replaces the default whitelist.
     usage: maintenance
