@@ -112,7 +112,7 @@ public class ConnectionListener implements Listener {
 
         if (c.isSet("server.maintenance") && c.getBoolean("server.maintenance")) {
             if (!(p.hasPermission("server.maintenance.bypass"))) {
-                e.disallow(PlayerLoginEvent.Result.KICK_WHITELIST, "§cWartungsarbeiten" + " \n§7Wir bitten um Geduld." +
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cWartungsarbeiten" + " \n§7Wir bitten um Geduld." +
                         "\nMehr Informationen: §9" + Horizon.getHorizon().getDescription().getWebsite());
                 p.setWhitelisted(false);
             } else {
