@@ -26,11 +26,10 @@ public class Vanish implements TabExecutor {
         MessageSender ms = new MessageSender();
 
         if (args.length == 0) {
-            if (!(sender instanceof Player)) {
+            if (!(sender instanceof Player p)) {
                 ms.sendToSender(sender, NotificationPrefixes.WARN.getNotification() + "Nur für Spieler ausführbar");
                 return true;
             }
-            Player p = (Player) sender;
 
             PlayerConfig pc = new PlayerConfig(p);
 
