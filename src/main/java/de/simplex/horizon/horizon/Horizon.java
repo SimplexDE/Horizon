@@ -13,8 +13,9 @@ import de.simplex.horizon.method.ServerConfig;
 import de.simplex.horizon.util.MessageSender;
 import de.simplex.horizon.util.RankManager;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.luckperms.api.LuckPermsProvider;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -52,6 +53,24 @@ public final class Horizon extends JavaPlugin {
 
         MessageSender ms = new MessageSender();
         new LuckPermsListener(LuckPermsProvider.get());
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+
+                    for (Player ap : Bukkit.getOnlinePlayers()) {
+                        PlayerConfig pc = new PlayerConfig(ap);
+                        if (pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish")) {
+                            for (Player app : Bukkit.getOnlinePlayers()) {
+                                ap.hidePlayer(getHorizon(), app);
+                                ap.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§dVersteckt"));
+                            }
+                        } else {
+                            for (Player app : Bukkit.getOnlinePlayers()) {
+                                ap.showPlayer(getHorizon(), app);
+                            }
+                        }
+                    }
+                }
+                , 0L, 10L);
 
         getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
