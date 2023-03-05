@@ -8,17 +8,38 @@ api-version: 1.19
 author: WillyButz
 authors: [ ]
 description: Plugin for Horizon
-website: https://discord.gg/
+website: discord.gg/Wry5qqX3GY
 
 default-permission: op
 
 depend:
   - LuckPerms
+  #- ProtocolLib
 
 softdepend:
   - ViaVersion
 
+
 commands:
+  chatspy:
+    description: Spy on other Chat Messages
+    usage: chatspy [<Player>]
+    permission: server.chatspy
+
+  gamemode:
+    description: Gamemode
+    usage: gamemode <Mode> [<Player>]
+    permission: server.gamemode
+    aliases:
+      - gm
+
+  enderchest:
+    description: Opens enderchest
+    usage: enderchest
+    permission: server.enderchest
+    aliases:
+      - ec
+
   teamchat:
     description: Send a message to the Teamchat
     #usage:
@@ -61,6 +82,8 @@ permissions:
       - server.vanish
       - server.vanish.others
       - server.vanish.see
+      - server.maintenance
+      - server.mainteance.bypass
   "server.kick":
     description: Access to the Kick command.
     default: false
