@@ -1,8 +1,8 @@
 package de.simplex.horizon.commands;
 
 import de.simplex.horizon.enums.Color;
-import de.simplex.horizon.enums.NotificationPrefixes;
-import de.simplex.horizon.horizon.Horizon;
+import de.simplex.horizon.enums.Messages;
+import de.simplex.horizon.enums.Notification;
 import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.util.MessageSender;
 import net.luckperms.api.node.Node;
@@ -15,54 +15,67 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 
 import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
 
 public class Vanish implements TabExecutor {
+
+    private MessageSender ms = new MessageSender();
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-
-        MessageSender ms = new MessageSender();
-
         if (args.length == 0) {
-            if (!(sender instanceof Player p)) {
-                ms.sendToSender(sender, NotificationPrefixes.WARN.getNotification() + "Nur für Spieler ausführbar");
+            if (sender instanceof Player p) {
+                PlayerConfig pC = new PlayerConfig(p);
+                Boolean vanished = pC.getBoolean("staff.vanish");
+
+                if (vanished) {
+                    pC.setFalse("staff.vanish");
+                    lpapi.getUserManager().getUser(p.getUniqueId()).data().remove(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+                    ms.sendToPlayer(p, Notification.INFO.getNotification() + Color.LIGHT_RED.getColorMiniMessage() + "Disabled vanish");
+                } else {
+                    pC.setTrue("staff.vanish");
+                    lpapi.getUserManager().getUser(p.getUniqueId()).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+                    ms.sendToPlayer(p, Notification.INFO.getNotification() + Color.LIGHT_GREEN.getColorMiniMessage() + "Enabled vanish");
+                }
+                pC.save();
+                return true;
+            } else {
+                ms.sendToSender(sender, Messages.ONLY_PLAYER.getMsg());
                 return true;
             }
+        } else if (args.length == 1) {
+            if (sender.hasPermission("server.vanish.others")) {
+                if (Bukkit.getPlayer(args[0]) != null) {
+                    Player target = Bukkit.getPlayer(args[0]);
+                    PlayerConfig pC = new PlayerConfig(target);
+                    Boolean vanished = pC.getBoolean("staff.vanish");
 
-            PlayerConfig pc = new PlayerConfig(p);
-
-            boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
-
-            if (!vanished) {
-                for (Player ap : Bukkit.getOnlinePlayers()) {
-                    if (ap.canSee(p)) {
-                        if (ap.hasPermission("server.vanish.see")) {
-                            break;
-                        }
-                        ap.hidePlayer(Horizon.getHorizon(), p);
+                    if (vanished) {
+                        pC.setFalse("staff.vanish");
+                        lpapi.getUserManager().getUser(target.getUniqueId()).data().remove(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+                        ms.sendToPlayer(target, Notification.INFO.getNotification() + Color.LIGHT_RED.getColorMiniMessage() + "Disabled vanish");
+                        ms.sendToSender(sender, Notification.SYSTEM.getNotification() + Color.LIGHT_RED.getColorMiniMessage() + "Disabled vanish for " + target.getName());
+                    } else {
+                        pC.setTrue("staff.vanish");
+                        lpapi.getUserManager().getUser(target.getUniqueId()).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+                        ms.sendToPlayer(target, Notification.INFO.getNotification() + Color.LIGHT_GREEN.getColorMiniMessage() + "Enabled vanish");
+                        ms.sendToSender(sender, Notification.SYSTEM.getNotification() + Color.LIGHT_GREEN.getColorMiniMessage() + "Enabled vanish for " + target.getName());
                     }
+                    pC.save();
+                    return true;
+                } else {
+                    ms.sendToSender(sender, Messages.PLAYER_NOT_ONLINE.getMsg());
+                    return true;
                 }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
-                p.setSilent(true);
-                pc.set("staff.vanish", true);
-                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun " + Color.AQUA.getColorMiniMessage() + "versteckt" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
             } else {
-                for (Player ap : Bukkit.getOnlinePlayers()) {
-                    if (!ap.canSee(p)) {
-                        ap.showPlayer(Horizon.getHorizon(), p);
-                    }
-                }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().remove(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
-                p.setSilent(false);
-                pc.set("staff.vanish", false);
-                ms.sendToPlayer(p, NotificationPrefixes.INFO.getNotification() + "Du bist nun nicht mehr " + Color.AQUA.getColorMiniMessage() + "versteckt" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
+                ms.sendToSender(sender, Messages.NO_PERMISSION.getMsg());
+                return false;
             }
-            pc.save();
-            return true;
+        } else {
+            ms.sendToSender(sender, Messages.INVALID_ARGUMENT_LENGTH.getMsg());
+            return false;
         }
-        return false;
     }
 
     @Nullable
