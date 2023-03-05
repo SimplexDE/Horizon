@@ -1,6 +1,7 @@
 package de.simplex.horizon.commands;
 
-import de.simplex.horizon.enums.NotificationPrefixes;
+import de.simplex.horizon.enums.Color;
+import de.simplex.horizon.enums.Notification;
 import de.simplex.horizon.horizon.Horizon;
 import de.simplex.horizon.method.ServerConfig;
 import de.simplex.horizon.util.MessageSender;
@@ -13,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class Maintenance implements CommandExecutor {
-    String MAINTENANCE_ANNOUNCE = "<newline>" + NotificationPrefixes.SYSTEM.getNotification() + "Der Server hat den " + Color.RED.getColorMiniMessage() + "Wartungsmodus " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s.<newline>";
+    String MAINTENANCE_ANNOUNCE = "<newline>" + Notification.SYSTEM.getNotification() + "Der Server hat den " + Color.RED.getColorMiniMessage() + "Wartungsmodus " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s.<newline>";
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
@@ -33,7 +34,7 @@ public class Maintenance implements CommandExecutor {
                             "\nMehr Informationen: " + Horizon.getHorizon().getDescription().getWebsite());
                 }
             }
-            ms.sendToConsole(NotificationPrefixes.HORIZON.getNotification() + "Alle Spieler wurden gekickt aufgrund des aktiven Wartungsmodus.");
+            ms.sendToConsole(Notification.HORIZON.getNotification() + "Alle Spieler wurden gekickt aufgrund des aktiven Wartungsmodus.");
             Bukkit.setWhitelist(true);
             ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "betreten"));
         } else {
