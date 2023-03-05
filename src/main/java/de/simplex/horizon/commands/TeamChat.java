@@ -45,7 +45,7 @@ public class TeamChat implements TabExecutor {
         }
 
 
-        Component emsg = MiniMessage.miniMessage().deserialize(Color.AQUA.getColorMiniMessage() + "@Teamchat " + Color.DARK_GRAY.getColorMiniMessage() + "┃ " + prefix + sender.getName()
+        Component emsg = MiniMessage.miniMessage().deserialize(Color.AQUA.getColorMiniMessage() + "Teamchat " + Color.DARK_GRAY.getColorMiniMessage() + "┃ " + prefix + sender.getName()
                 + " " + Color.DARK_GRAY.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + msg
                 .replace("<", "⏴")
                 .replace(">", "⏵"));
