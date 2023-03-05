@@ -1,7 +1,7 @@
 package de.simplex.horizon.listener;
 
 import de.simplex.horizon.enums.Color;
-import de.simplex.horizon.enums.NotificationPrefixes;
+import de.simplex.horizon.enums.Notification;
 import de.simplex.horizon.horizon.Horizon;
 import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.method.ServerConfig;
@@ -80,7 +80,9 @@ public class ConnectionListener implements Listener {
                 Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
-                ms.sendToPlayer(p, NotificationPrefixes.WARN.getNotification() + "Du bist " + Color.AQUA.getColorMiniMessage() + "versteckt" + Color.LIGHT_GRAY.getColorMiniMessage() + " beigetreten.");
+                ms.sendToPlayer(p,
+                        Notification.WARN.getNotification()
+                                + "Silently joined the server.");
             }
         }
 
@@ -100,8 +102,15 @@ public class ConnectionListener implements Listener {
         }
 
         if (!vanished) {
-            ms.sendToAll(Color.GREEN.getColorMiniMessage() + "+" + Color.BLACK.getColorMiniMessage() + " ┃ " + color
-                    + p.getName() + Color.LIGHT_GRAY.getColorMiniMessage() + " hat den Server " + Color.LIGHT_GREEN.getColorMiniMessage() + "betreten" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
+            ms.sendToAll(Color.GREEN.getColorMiniMessage()
+                    + "☑"
+                    + Color.DARK_GRAY.getColorMiniMessage()
+                    + " ┃ "
+                    + color
+                    + p.getName()
+                    + Color.LIGHT_GRAY.getColorMiniMessage()
+                    + " joined"
+                    + ".");
         }
 
     }
@@ -112,9 +121,9 @@ public class ConnectionListener implements Listener {
 
         if (c.isSet("server.maintenance") && c.getBoolean("server.maintenance")) {
             if (!(p.hasPermission("server.maintenance.bypass"))) {
-                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cWartungsarbeiten" + " \n§7Wir bitten um Geduld." +
-                        "\nMehr Informationen: §9" + Horizon.getHorizon().getDescription().getWebsite());
                 p.setWhitelisted(false);
+                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cMaintenance" + " \n§7Please hold tight." +
+                        "\nMore information under: §9" + Horizon.getHorizon().getDescription().getWebsite());
             } else {
                 p.setWhitelisted(true);
                 e.allow();
@@ -155,8 +164,15 @@ public class ConnectionListener implements Listener {
         boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
 
         if (!vanished) {
-            ms.sendToAll(Color.RED.getColorMiniMessage() + "-" + Color.DARK_GRAY.getColorMiniMessage() + " ┃ " + color
-                    + p.getName() + Color.LIGHT_GRAY.getColorMiniMessage() + " hat den Server " + Color.LIGHT_RED.getColorMiniMessage() + "verlassen" + Color.LIGHT_GRAY.getColorMiniMessage() + ".");
+            ms.sendToAll(Color.RED.getColorMiniMessage()
+                    + "☒"
+                    + Color.DARK_GRAY.getColorMiniMessage()
+                    + " ┃ "
+                    + color
+                    + p.getName()
+                    + Color.LIGHT_GRAY.getColorMiniMessage()
+                    + " left"
+                    + ".");
         }
     }
 
