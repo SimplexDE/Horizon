@@ -1,21 +1,17 @@
 package de.simplex.horizon.horizon;
 
-import de.simplex.horizon.commands.Kick;
-import de.simplex.horizon.commands.Maintenance;
-import de.simplex.horizon.commands.TeamChat;
-import de.simplex.horizon.commands.Vanish;
-import de.simplex.horizon.enums.NotificationPrefixes;
+import de.simplex.horizon.commands.*;
+import de.simplex.horizon.enums.Notification;
 import de.simplex.horizon.listener.ChatListener;
 import de.simplex.horizon.listener.ConnectionListener;
 import de.simplex.horizon.listener.LuckPermsListener;
-import de.simplex.horizon.method.PlayerConfig;
+import de.simplex.horizon.listener.MOTD;
 import de.simplex.horizon.method.ServerConfig;
 import de.simplex.horizon.util.MessageSender;
 import de.simplex.horizon.util.RankManager;
+import de.simplex.horizon.util.UpdateVisibility;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import net.luckperms.api.LuckPermsProvider;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
@@ -55,23 +51,13 @@ public final class Horizon extends JavaPlugin {
         new LuckPermsListener(LuckPermsProvider.get());
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+            new UpdateVisibility().updateVisibility(this);
+        }, 0L, 5L);
 
-                    for (Player ap : Bukkit.getOnlinePlayers()) {
-                        PlayerConfig pc = new PlayerConfig(ap);
-                        if (pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish")) {
-                            for (Player app : Bukkit.getOnlinePlayers()) {
-                                ap.hidePlayer(getHorizon(), app);
-                                ap.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§dVersteckt"));
-                            }
-                        } else {
-                            for (Player app : Bukkit.getOnlinePlayers()) {
-                                ap.showPlayer(getHorizon(), app);
-                            }
-                        }
-                    }
-                }
-                , 0L, 10L);
 
+        getCommand("enderchest").setExecutor(new Enderchest());
+        getCommand("chatspy").setExecutor(new ChatSpy());
+        getCommand("gamemode").setExecutor(new Gamemode());
         getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
         getCommand("vanish").setExecutor(new Vanish());
@@ -80,6 +66,7 @@ public final class Horizon extends JavaPlugin {
         final PluginManager pM = Bukkit.getPluginManager();
         pM.registerEvents(new ConnectionListener(), getHorizon());
         pM.registerEvents(new ChatListener(), getHorizon());
+        pM.registerEvents(new MOTD(), getHorizon());
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             RankManager.assignRank(player);
@@ -88,14 +75,14 @@ public final class Horizon extends JavaPlugin {
         ServerConfig.createConfig();
         ServerConfig.loadConfig();
 
-        ms.sendToConsole(NotificationPrefixes.HORIZON.getNotification() + "Loaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
+        ms.sendToConsole(Notification.HORIZON.getNotification() + "Loaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
     }
 
     @Override
     public void onDisable() {
         MessageSender ms = new MessageSender();
 
-        ms.sendToConsole(NotificationPrefixes.HORIZON.getNotification() + "Unloaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
+        ms.sendToConsole(Notification.HORIZON.getNotification() + "Unloaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
 
         if (this.adventure != null) {
             this.adventure.close();
