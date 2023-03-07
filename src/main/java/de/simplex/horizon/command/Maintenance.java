@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class Maintenance implements CommandExecutor {
 
-    String MAINTENANCE_ANNOUNCE =
-          "<newline>" + ResponseMessage.SYSTEM.getNotification() + "Der Server hat den " + Color.RED.getColorMiniMessage() + "Wartungsmodus " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s.<newline>";
+    final String MAINTENANCE_ANNOUNCE =
+          "<newline>" + ResponseMessage.SYSTEM.getNotification() + Color.RED.getColorMiniMessage() + "Maintenance" + Color.AQUA.getColorMiniMessage() + " was %s" + "<newline>";
     private MessageSender ms = new MessageSender();
 
     @Override
@@ -32,18 +32,18 @@ public class Maintenance implements CommandExecutor {
 
             for (Player ap : Bukkit.getOnlinePlayers()) {
                 if (!ap.hasPermission("server.maintenance.bypass")) {
-                    ap.kickPlayer(String.format(MAINTENANCE_ANNOUNCE, "betreten") + " \nWir bitten um Geduld." +
-                          "\nMehr Informationen: " + Horizon.getHorizon().getDescription().getWebsite());
+                    ap.kickPlayer(String.format(MAINTENANCE_ANNOUNCE, "activated") +
+                          "\nMore Information: " + Horizon.getHorizon().getDescription().getWebsite());
                 }
             }
-            ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Alle Spieler wurden gekickt aufgrund des " +
-                  "aktiven Wartungsmodus.");
+            ms.sendToConsole(ResponseMessage.HORIZON.getNotification()
+                  + "All players were kicked due to the activation of maintenance.");
             Bukkit.setWhitelist(true);
-            ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "betreten"));
+            ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "activated"));
         } else {
             newMaintenanceState = false;
             Bukkit.setWhitelist(false);
-            ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "verlassen"));
+            ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "deactivated"));
         }
 
         c.set("server.maintenance", newMaintenanceState);
