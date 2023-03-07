@@ -5,6 +5,7 @@ import de.simplex.horizon.enums.Color;
 import de.simplex.horizon.enums.ResponseMessage;
 import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.util.MessageSender;
+import net.luckperms.api.node.Node;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,6 +16,8 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class Vanish implements TabExecutor {
 
@@ -29,10 +32,12 @@ public class Vanish implements TabExecutor {
 
         if (isVanished(player)) {
             targetPlayerConfig.set("staff.vanish", false);
+            lpapi.getUserManager().getUser(player.getUniqueId()).data().remove(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
             ms.sendToPlayer(player, ResponseMessage.INFO.getNotification() + "Vanish"
                   + Color.LIGHT_RED.getColorMiniMessage() + " deactivated");
         } else {
             targetPlayerConfig.set("staff.vanish", true);
+            lpapi.getUserManager().getUser(player.getUniqueId()).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
             ms.sendToPlayer(player, ResponseMessage.INFO.getNotification() + "Vanish"
                   + Color.LIGHT_GREEN.getColorMiniMessage() + " activated");
         }
@@ -58,7 +63,7 @@ public class Vanish implements TabExecutor {
 
         // Check for correct argument length
         if (args.length > 1) {
-            ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT_LENGTH.getMsg());
+            ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT_LENGTH.getMessage());
             return true;
         }
 
@@ -67,7 +72,7 @@ public class Vanish implements TabExecutor {
 
             // Check if the Sender has the Permission to toggle Vanish for others
             if (!sender.hasPermission(commandPermission + ".others")) {
-                ms.sendToSender(sender, AlertMessage.NO_PERMISSION.getMsg());
+                ms.sendToSender(sender, AlertMessage.NO_PERMISSION.getMessage());
                 return true;
             }
 
@@ -75,11 +80,11 @@ public class Vanish implements TabExecutor {
 
             if (isVanished(targetPlayer)) {
                 ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Vanish"
-                      + Color.LIGHT_RED.getColorMiniMessage() + " deactivated" + Color.LIGHT_GRAY + " for "
+                      + Color.LIGHT_RED.getColorMiniMessage() + " deactivated" + Color.LIGHT_BLUE.getColorMiniMessage() + " for "
                       + targetPlayer.getName());
             } else {
                 ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Vanish"
-                      + Color.LIGHT_GREEN.getColorMiniMessage() + " activated" + Color.LIGHT_GRAY + " for "
+                      + Color.LIGHT_GREEN.getColorMiniMessage() + " activated" + Color.LIGHT_BLUE.getColorMiniMessage() + " for "
                       + targetPlayer.getName());
             }
 
@@ -88,7 +93,7 @@ public class Vanish implements TabExecutor {
         }
 
         if (!(sender instanceof Player player)) {
-            ms.sendToSender(sender, AlertMessage.ONLY_PLAYER.getMsg());
+            ms.sendToSender(sender, AlertMessage.ONLY_PLAYER.getMessage());
             return true;
         }
 
