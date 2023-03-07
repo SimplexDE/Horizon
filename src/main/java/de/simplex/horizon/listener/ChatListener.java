@@ -52,8 +52,14 @@ public class ChatListener implements Listener {
         e.setCancelled(true);
 
         if (message.startsWith("!")) {
+            if (message.substring(1).length() < 1) {
+                return;
+            }
             ms.sendToSender(sender, ShoutMessage.formatted(sender.getName(), message.substring(1)));
         } else if (message.startsWith("@")) {
+            if (message.substring(1).length() < 1) {
+                return;
+            }
             ms.sendToSender(sender, GlobalMessage.formatted(prefix + sender.getName(), message.substring(1)));
         } else {
             ms.sendToSender(sender, LocalMessage.formatted(sender.getName(), message));
@@ -67,12 +73,18 @@ public class ChatListener implements Listener {
             PlayerConfig pC = new PlayerConfig(receiver);
 
             if (message.startsWith("@")) {
+                if (message.substring(1).length() < 1) {
+                    return;
+                }
                 ms.sendToSender(receiver, GlobalMessage.formatted(prefix + sender.getName(), message.substring(1)));
                 ms.sendToConsole(GlobalMessage.formatted(prefix + sender.getName(), message.substring(1)));
                 continue;
             }
 
             if (message.startsWith("!") && sender.getLocation().distance(receiver.getLocation()) < ShoutRange) {
+                if (message.substring(1).length() < 1) {
+                    return;
+                }
                 ms.sendToPlayer(receiver, ShoutMessage.formatted(sender.getName(), message.substring(1)));
                 ms.sendToConsole(ShoutMessage.formatted(sender.getName(), message.substring(1)));
                 continue;
