@@ -22,7 +22,8 @@ public class UpdateVisibility {
             }
             PlayerConfig pC = new PlayerConfig(targetPlayer);
             if (pC.isSet("staff.vanish") && pC.getBoolean("staff.vanish") && !player.hasPermission("server.vanish.see")) {
-                targetPlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§cHidden for other players"));
+                targetPlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("§cHidden from other " +
+                      "players"));
                 player.hidePlayer(plugin, targetPlayer);
                 continue;
             }
