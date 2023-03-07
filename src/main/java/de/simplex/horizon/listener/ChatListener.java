@@ -18,19 +18,22 @@ public class ChatListener implements Listener {
     private final double ChatRange = 50.0;
     private final double ShoutRange = 100.0;
 
-    private final String LocalMessage = Color.LIGHT_GRAY.getColorMiniMessage() + "Local " + Color.DARK_GRAY.getColorMiniMessage()
-            + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
-            + Color.LIGHT_GRAY.getColorMiniMessage() + "%s";
+    private final String LocalMessage =
+          Color.LIGHT_GRAY.getColorMiniMessage() + "Local " + Color.DARK_GRAY.getColorMiniMessage()
+          + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
+          + Color.LIGHT_GRAY.getColorMiniMessage() + "%s";
     ;
-    private final String ShoutMessage = Color.LIGHT_YELLOW.getColorMiniMessage() + "Shout " + Color.DARK_GRAY.getColorMiniMessage()
-            + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
-            + Color.LIGHT_YELLOW.getColorMiniMessage() + "%s";
-    private final String GlobalMessage = Color.ORANGE.getColorMiniMessage() + "Global " + Color.DARK_GRAY.getColorMiniMessage()
-            + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
-            + Color.LIGHT_GREEN.getColorMiniMessage() + "%s";
+    private final String ShoutMessage = Color.LIGHT_YELLOW.getColorMiniMessage() + "<click:suggest_command:!>Shout" +
+          "</click> " + Color.DARK_GRAY.getColorMiniMessage()
+          + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
+          + Color.LIGHT_YELLOW.getColorMiniMessage() + "%s";
+    private final String GlobalMessage = Color.ORANGE.getColorMiniMessage() + "<click:suggest_command:@>Global</click" +
+          "> " + Color.DARK_GRAY.getColorMiniMessage()
+          + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
+          + Color.LIGHT_GREEN.getColorMiniMessage() + "%s";
     private final String SpyMessage = Color.RED.getColorMiniMessage() + "Spy " + Color.DARK_GRAY.getColorMiniMessage()
-            + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
-            + Color.LIGHT_RED.getColorMiniMessage() + "%s";
+          + "▕ " + Color.LIGHT_GRAY.getColorMiniMessage() + "%s" + Color.DARK_GRAY.getColorMiniMessage() + " » "
+          + Color.LIGHT_RED.getColorMiniMessage() + "%s";
 
     private MessageSender ms = new MessageSender();
 
