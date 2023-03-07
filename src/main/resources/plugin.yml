@@ -21,6 +21,18 @@ softdepend:
 
 
 commands:
+  build:
+    description: Build-Mode
+    permission: server.build
+
+  broadcast:
+    description: Broadcast something to all players
+    permission: server.broadcast
+
+  invsee:
+    description: See someones inventory
+    permission: server.invsee
+
   discord:
     description: Get the Discord Link
     permission: server.discord

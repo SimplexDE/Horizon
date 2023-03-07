@@ -2,10 +2,7 @@ package de.simplex.horizon.horizon;
 
 import de.simplex.horizon.command.*;
 import de.simplex.horizon.enums.ResponseMessage;
-import de.simplex.horizon.listener.ChatListener;
-import de.simplex.horizon.listener.ConnectionListener;
-import de.simplex.horizon.listener.LuckPermsListener;
-import de.simplex.horizon.listener.MOTD;
+import de.simplex.horizon.listener.*;
 import de.simplex.horizon.method.ServerConfig;
 import de.simplex.horizon.util.MessageSender;
 import de.simplex.horizon.util.RankManager;
@@ -63,11 +60,15 @@ public final class Horizon extends JavaPlugin {
         getCommand("vanish").setExecutor(new Vanish());
         getCommand("teamchat").setExecutor(new TeamChat());
         getCommand("discord").setExecutor(new DiscordCommand());
+        getCommand("invsee").setExecutor(new Invsee());
+        getCommand("broadcast").setExecutor(new Broadcast());
+        getCommand("build").setExecutor(new BuildCommand());
 
         final PluginManager pM = Bukkit.getPluginManager();
         pM.registerEvents(new ConnectionListener(), getHorizon());
         pM.registerEvents(new ChatListener(), getHorizon());
         pM.registerEvents(new MOTD(), getHorizon());
+        pM.registerEvents(new BuildListener(), getHorizon());
 
         for (Player player : Bukkit.getOnlinePlayers()) {
             RankManager.assignRank(player);
