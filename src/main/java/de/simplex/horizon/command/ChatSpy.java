@@ -68,11 +68,11 @@ public class ChatSpy implements TabExecutor {
 
 			if (isChatSpying(targetPlayer)) {
 				ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "ChatSpy"
-					+ Color.LIGHT_RED.getColorMiniMessage() + " deactivated" + Color.LIGHT_GRAY + " for "
+					+ Color.LIGHT_RED.getColorMiniMessage() + " deactivated" + Color.LIGHT_BLUE.getColorMiniMessage() + " for "
 					+ targetPlayer.getName());
 			} else {
 				ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "ChatSpy"
-					+ Color.LIGHT_GREEN.getColorMiniMessage() + " activated" + Color.LIGHT_GRAY + " for "
+					+ Color.LIGHT_GREEN.getColorMiniMessage() + " activated" + Color.LIGHT_BLUE.getColorMiniMessage() + " for "
 					+ targetPlayer.getName());
 			}
 

@@ -80,11 +80,11 @@ public class Vanish implements TabExecutor {
 
             if (isVanished(targetPlayer)) {
                 ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Vanish"
-                      + Color.LIGHT_RED.getColorMiniMessage() + " deactivated" + Color.LIGHT_GRAY + " for "
+                      + Color.LIGHT_RED.getColorMiniMessage() + " deactivated" + Color.LIGHT_BLUE.getColorMiniMessage() + " for "
                       + targetPlayer.getName());
             } else {
                 ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Vanish"
-                      + Color.LIGHT_GREEN.getColorMiniMessage() + " activated" + Color.LIGHT_GRAY + " for "
+                      + Color.LIGHT_GREEN.getColorMiniMessage() + " activated" + Color.LIGHT_BLUE.getColorMiniMessage() + " for "
                       + targetPlayer.getName());
             }
 
