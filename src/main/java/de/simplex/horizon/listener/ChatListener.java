@@ -39,6 +39,10 @@ public class ChatListener implements Listener {
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
+
+        final double ChatRange = 30.0; // Chat Distance in Blocks
+        final double ShoutRange = 75.0; // Chat Distance in Blocks
+
         Player sender = e.getPlayer();
         String message = e.getMessage().replace("<", "⏴").replace(">", "⏵");
 

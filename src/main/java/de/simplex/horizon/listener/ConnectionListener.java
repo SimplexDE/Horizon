@@ -114,8 +114,8 @@ public class ConnectionListener implements Listener {
         }
 
         ms.sendToPlayer(p, "<newline>" + ResponseMessage.WARN.getNotification() + "Welcome!<newline>" +
-              "<newline>Messages reach up to 50 Blocks." +
-              "<newline>Messages starting with \"!\" reach up to 100 Blocks." +
+              "<newline>Messages reach up to 30 Blocks." +
+              "<newline>Messages starting with \"!\" reach up to 75 Blocks." +
               "<newline>Messages starting with \"@\" are Global." + "<newline><newline>If you have further questions," +
               " please refer to our " + Color.LIGHT_BLUE.getColorMiniMessage() + "<click:run_command:/discord>Discord" +
               "</click>");
