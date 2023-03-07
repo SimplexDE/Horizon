@@ -38,19 +38,19 @@ public class Gamemode implements TabExecutor {
         GameModeName gameMode;
 
         if (args.length > 2) {
-            ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT_LENGTH.getMsg());
+            ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT_LENGTH.getMessage());
             return true;
         }
 
         if (GameModeName.fromString(args[0]) == null) {
-            ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT.getMsg());
+            ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT.getMessage());
             return true;
         }
         gameMode = GameModeName.fromString(args[0]);
 
         if (args.length == 2 && Bukkit.getPlayer(args[1]) != null && Bukkit.getPlayer(args[1]) != sender) {
             if (!sender.hasPermission(commandPermission + ".others")) {
-                ms.sendToSender(sender, AlertMessage.NO_PERMISSION.getMsg());
+                ms.sendToSender(sender, AlertMessage.NO_PERMISSION.getMessage());
                 return true;
             }
             targetPlayer = Bukkit.getPlayer(args[1]);
@@ -63,7 +63,7 @@ public class Gamemode implements TabExecutor {
         }
 
         if (!(sender instanceof Player player)) {
-            ms.sendToSender(sender, AlertMessage.ONLY_PLAYER.getMsg());
+            ms.sendToSender(sender, AlertMessage.ONLY_PLAYER.getMessage());
             return true;
         }
 

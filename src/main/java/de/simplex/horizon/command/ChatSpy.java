@@ -51,7 +51,7 @@ public class ChatSpy implements TabExecutor {
 
 		// Check for correct argument length
 		if (args.length > 1) {
-			ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT_LENGTH.getMsg());
+			ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT_LENGTH.getMessage());
 			return true;
 		}
 
@@ -60,7 +60,7 @@ public class ChatSpy implements TabExecutor {
 
 			// Check if the Sender has the Permission to toggle ChatSpy for others
 			if (!sender.hasPermission(commandPermission + ".others")) {
-				ms.sendToSender(sender, AlertMessage.NO_PERMISSION.getMsg());
+				ms.sendToSender(sender, AlertMessage.NO_PERMISSION.getMessage());
 				return true;
 			}
 
@@ -81,7 +81,7 @@ public class ChatSpy implements TabExecutor {
 		}
 
 		if (!(sender instanceof Player player)) {
-			ms.sendToSender(sender, AlertMessage.ONLY_PLAYER.getMsg());
+			ms.sendToSender(sender, AlertMessage.ONLY_PLAYER.getMessage());
 			return true;
 		}
 
