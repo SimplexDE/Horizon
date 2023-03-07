@@ -1,34 +1,25 @@
-package de.simplex.horizon.commands;
+package de.simplex.horizon.command;
 
 import de.simplex.horizon.enums.Color;
 import de.simplex.horizon.util.MessageSender;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
-import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
-
-public class TeamChat implements TabExecutor {
-
-    private static final LegacyComponentSerializer legacySerializer = LegacyComponentSerializer.builder()
-            .useUnusualXRepeatedCharacterHexFormat()
-            .hexColors()
-            .build();
+public class TeamChat implements CommandExecutor {
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        MessageSender ms = new MessageSender();
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+                             @NotNull String[] args) {
         Player p = (Player) sender;
 
         User u = lpapi.getUserManager().getUser(p.getUniqueId());
@@ -54,11 +45,5 @@ public class TeamChat implements TabExecutor {
         ChatAudience.sendMessage(emsg);
 
         return false;
-    }
-
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        return null;
     }
 }

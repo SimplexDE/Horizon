@@ -1,6 +1,6 @@
-package de.simplex.horizon.commands;
+package de.simplex.horizon.command;
 
-import de.simplex.horizon.enums.Notification;
+import de.simplex.horizon.enums.ResponseMessage;
 import de.simplex.horizon.util.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -20,7 +20,7 @@ public class Kick implements TabExecutor {
         MessageSender ms = new MessageSender();
 
         if (Bukkit.getPlayer(args[0]) == null) {
-            ms.sendToSender(sender, Notification.INFO.getNotification() + "Dieser Spieler ist nicht online.");
+            ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Dieser Spieler ist nicht online.");
             return false;
         }
 
