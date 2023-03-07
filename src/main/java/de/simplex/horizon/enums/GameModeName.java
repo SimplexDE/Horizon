@@ -16,6 +16,10 @@ public enum GameModeName {
         this.gameMode = gameMode;
     }
 
+    /**
+     * @param input the gamemode to search for
+     * @return The gamemode or null if not found
+     */
     public static GameModeName fromString(String input) {
         for (GameModeName modeName : values()) {
             for (String alias : modeName.aliases) {
