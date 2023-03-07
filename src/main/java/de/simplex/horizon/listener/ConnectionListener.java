@@ -103,15 +103,22 @@ public class ConnectionListener implements Listener {
 
         if (!vanished) {
             ms.sendToAll(Color.GREEN.getColorMiniMessage()
-                    + "☑"
-                    + Color.DARK_GRAY.getColorMiniMessage()
-                    + " ┃ "
-                    + color
-                    + p.getName()
-                    + Color.LIGHT_GRAY.getColorMiniMessage()
-                    + " joined"
-                    + ".");
+                  + "☑"
+                  + Color.DARK_GRAY.getColorMiniMessage()
+                  + " ┃ "
+                  + color
+                  + p.getName()
+                  + Color.LIGHT_GRAY.getColorMiniMessage()
+                  + " joined"
+                  + ".");
         }
+
+        ms.sendToPlayer(p, "<newline>" + ResponseMessage.WARN.getNotification() + "Welcome!<newline>" +
+              "<newline>Messages reach up to 50 Blocks." +
+              "<newline>Messages starting with \"!\" reach up to 100 Blocks." +
+              "<newline>Messages starting with \"@\" are Global." + "<newline><newline>If you have further questions," +
+              " please refer to our " + Color.LIGHT_BLUE.getColorMiniMessage() + "<click:run_command:/discord>Discord" +
+              "</click>");
 
     }
 

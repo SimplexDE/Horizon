@@ -62,6 +62,7 @@ public final class Horizon extends JavaPlugin {
         getCommand("maintenance").setExecutor(new Maintenance());
         getCommand("vanish").setExecutor(new Vanish());
         getCommand("teamchat").setExecutor(new TeamChat());
+        getCommand("discord").setExecutor(new DiscordCommand());
 
         final PluginManager pM = Bukkit.getPluginManager();
         pM.registerEvents(new ConnectionListener(), getHorizon());

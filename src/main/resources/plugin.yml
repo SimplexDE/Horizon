@@ -21,6 +21,10 @@ softdepend:
 
 
 commands:
+  discord:
+    description: Get the Discord Link
+    permission: server.discord
+
   chatspy:
     description: Spy on other Chat Messages
     usage: chatspy [<Player>]
@@ -113,3 +117,6 @@ permissions:
   "server.maintenance.bypass":
     description: ...
     default: false
+  "server.discord":
+    description: Get the Discord Server Link
+    default: true
