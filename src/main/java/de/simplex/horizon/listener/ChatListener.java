@@ -11,7 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class ChatListener implements Listener {
 

@@ -14,7 +14,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 
-import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class Tablist {
 

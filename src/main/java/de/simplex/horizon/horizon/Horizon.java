@@ -1,7 +1,7 @@
 package de.simplex.horizon.horizon;
 
-import de.simplex.horizon.commands.*;
-import de.simplex.horizon.enums.Notification;
+import de.simplex.horizon.command.*;
+import de.simplex.horizon.enums.ResponseMessage;
 import de.simplex.horizon.listener.ChatListener;
 import de.simplex.horizon.listener.ConnectionListener;
 import de.simplex.horizon.listener.LuckPermsListener;
@@ -75,14 +75,16 @@ public final class Horizon extends JavaPlugin {
         ServerConfig.createConfig();
         ServerConfig.loadConfig();
 
-        ms.sendToConsole(Notification.HORIZON.getNotification() + "Loaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
+        ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Loaded " + getDescription().getVersion() + " / "
+              + getDescription().getAPIVersion());
     }
 
     @Override
     public void onDisable() {
         MessageSender ms = new MessageSender();
 
-        ms.sendToConsole(Notification.HORIZON.getNotification() + "Unloaded " + getDescription().getVersion() + " / " + getDescription().getAPIVersion());
+        ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Unloaded " + getDescription().getVersion() + " " +
+	        "/ " + getDescription().getAPIVersion());
 
         if (this.adventure != null) {
             this.adventure.close();

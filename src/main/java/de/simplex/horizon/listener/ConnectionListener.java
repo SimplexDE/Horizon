@@ -1,7 +1,7 @@
 package de.simplex.horizon.listener;
 
 import de.simplex.horizon.enums.Color;
-import de.simplex.horizon.enums.Notification;
+import de.simplex.horizon.enums.ResponseMessage;
 import de.simplex.horizon.horizon.Horizon;
 import de.simplex.horizon.method.PlayerConfig;
 import de.simplex.horizon.method.ServerConfig;
@@ -26,7 +26,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class ConnectionListener implements Listener {
 
@@ -81,7 +81,7 @@ public class ConnectionListener implements Listener {
                 p.setSilent(true);
                 pc.set("staff.vanish", true);
                 ms.sendToPlayer(p,
-                        Notification.WARN.getNotification()
+                      ResponseMessage.WARN.getNotification()
                                 + "Silently joined the server.");
             }
         }

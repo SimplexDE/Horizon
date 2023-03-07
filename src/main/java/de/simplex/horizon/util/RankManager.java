@@ -5,7 +5,7 @@ import de.simplex.horizon.method.Tablist;
 import net.luckperms.api.model.user.User;
 import org.bukkit.entity.Player;
 
-import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class RankManager {
 

@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 import org.jetbrains.annotations.NotNull;
 
-import static de.simplex.horizon.commands.api.LuckPermsAPI.lpapi;
+import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class Sidebar {
 

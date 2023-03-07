@@ -1,7 +1,7 @@
 package de.simplex.horizon.util;
 
 
-import de.simplex.horizon.commands.api.AdventureAPI;
+import de.simplex.horizon.command.api.AdventureAPI;
 import net.kyori.adventure.key.Key;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
