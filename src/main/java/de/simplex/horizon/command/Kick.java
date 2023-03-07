@@ -1,6 +1,6 @@
 package de.simplex.horizon.command;
 
-import de.simplex.horizon.enums.ResponseMessage;
+import de.simplex.horizon.enums.AlertMessage;
 import de.simplex.horizon.util.MessageSender;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -14,17 +14,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Kick implements TabExecutor {
+
+    private MessageSender ms = new MessageSender();
+
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-
-        MessageSender ms = new MessageSender();
-
-        if (Bukkit.getPlayer(args[0]) == null) {
-            ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Dieser Spieler ist nicht online.");
-            return false;
-        }
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+                             String[] args) {
 
         String msg = "";
+
+        if (Bukkit.getPlayer(args[0]) == null) {
+            ms.sendToSender(sender, AlertMessage.PLAYER_NOT_FOUND.getMsg());
+            return false;
+        }
 
         for (int i = 1; i < args.length; i++) {
             msg += (args[i] + " ");
