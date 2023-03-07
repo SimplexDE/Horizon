@@ -24,7 +24,7 @@ public class Kick implements TabExecutor {
         String msg = "";
 
         if (Bukkit.getPlayer(args[0]) == null) {
-            ms.sendToSender(sender, AlertMessage.PLAYER_NOT_FOUND.getMsg());
+            ms.sendToSender(sender, AlertMessage.PLAYER_NOT_FOUND.getMessage());
             return false;
         }
 
