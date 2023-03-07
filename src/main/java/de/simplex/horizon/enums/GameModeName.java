@@ -30,4 +30,8 @@ public enum GameModeName {
     public GameMode getGameMode() {
         return gameMode;
     }
+
+    public String getGameModeName() {
+        return aliases[0];
+    }
 }
