@@ -58,7 +58,7 @@ public class Gamemode implements TabExecutor {
             setGameMode(targetPlayer, gameMode);
             ms.sendToSender(sender, ResponseMessage.INFO.getNotification() + "Gamemode of "
                   + targetPlayer.getName() + " changed to " + Color.LIGHT_GREEN.getColorMiniMessage()
-                  + StringUtils.capitalize(gameMode.toString()));
+                  + StringUtils.capitalize(StringUtils.capitalize(gameMode.getGameModeName())));
             return true;
         }
 
