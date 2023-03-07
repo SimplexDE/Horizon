@@ -18,6 +18,7 @@ public enum Color {
     DARK_RED("#a60c0c"),
     RED("#ed1212"),
     LIGHT_RED("#f35959"),
+    DARK_ORANGE("#d9760d"),
     ORANGE("#f29026"),
     YELLOW("#f4e818"),
     LIGHT_YELLOW("#f7ef55"),
