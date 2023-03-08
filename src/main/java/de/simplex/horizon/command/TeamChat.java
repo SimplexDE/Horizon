@@ -1,5 +1,6 @@
 package de.simplex.horizon.command;
 
+import de.simplex.horizon.enums.AlertMessage;
 import de.simplex.horizon.enums.Color;
 import de.simplex.horizon.util.MessageSender;
 import net.kyori.adventure.audience.Audience;
@@ -15,6 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class TeamChat implements CommandExecutor {
+
+    private final MessageSender ms = new MessageSender();
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
@@ -36,6 +39,7 @@ public class TeamChat implements CommandExecutor {
               .replace("<", "⏴")
               .replace(">", "⏵"));
         if (msg.length() < 1) {
+            ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
             return true;
         }
 
