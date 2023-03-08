@@ -21,13 +21,23 @@ softdepend:
 
 
 commands:
+  difficulty:
+    description: Difficulty
+    permission: server.difficulty
+    usage: "difficulty <Difficulty/world> [<world>]"
+
   build:
     description: Build-Mode
     permission: server.build
+    aliases:
+      - buildmode
 
   broadcast:
     description: Broadcast something to all players
     permission: server.broadcast
+    aliases:
+      - bc
+      - rundfunk
 
   invsee:
     description: See someones inventory
@@ -36,6 +46,8 @@ commands:
   discord:
     description: Get the Discord Link
     permission: server.discord
+    aliases:
+      - dc
 
   chatspy:
     description: Spy on other Chat Messages
@@ -60,8 +72,8 @@ commands:
     description: Send a message to the Teamchat
     #usage:
     permission: server.chat.team
-    #aliases:
-    #  -
+    aliases:
+      - tc
 
   maintenance:
     description: Toggles the server-maintenance, replaces the default whitelist.
