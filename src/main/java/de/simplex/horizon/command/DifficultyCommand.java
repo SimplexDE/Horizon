@@ -7,6 +7,7 @@ import de.simplex.horizon.enums.ResponseMessage;
 import de.simplex.horizon.util.MessageSender;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DifficultyCommand implements TabExecutor {
@@ -72,6 +74,9 @@ public class DifficultyCommand implements TabExecutor {
 					ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
 					ms.sendToSender(sender, command.getUsage());
 					return true;
+				} else {
+					ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT.getMessage());
+					return true;
 				}
 			} else {
 				if (Bukkit.getWorld(args[0]) != null) {
@@ -88,35 +93,50 @@ public class DifficultyCommand implements TabExecutor {
 					ms.sendToSender(sender, DifficultySet.formatted(StringUtils.capitalize(world.getName()),
 						StringUtils.capitalize(difficultyName.getDifficultyName())));
 					return true;
+				} else {
+					ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT.getMessage());
+					return true;
 				}
 			}
 		}
 
-		if (args.length == 2) {
-			if (DifficultyName.fromString(args[0]) == null) {
-				ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
-				ms.sendToSender(sender, command.getUsage());
-				return true;
-			}
-			difficultyName = DifficultyName.fromString(args[0]);
-			if (Bukkit.getWorld(args[1]) == null) {
-				ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
-				ms.sendToSender(sender, command.getUsage());
-				return true;
-			}
-			world = Bukkit.getWorld(args[1]);
-			world.setDifficulty(difficultyName.getDifficulty());
-			ms.sendToSender(sender, DifficultySet.formatted(StringUtils.capitalize(world.getName()),
-				StringUtils.capitalize(difficultyName.getDifficultyName())));
+		if (DifficultyName.fromString(args[0]) == null) {
+			ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
+			ms.sendToSender(sender, command.getUsage());
 			return true;
 		}
-		return false;
+		difficultyName = DifficultyName.fromString(args[0]);
+		if (Bukkit.getWorld(args[1]) == null) {
+			ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
+			ms.sendToSender(sender, command.getUsage());
+			return true;
+		}
+		world = Bukkit.getWorld(args[1]);
+		world.setDifficulty(difficultyName.getDifficulty());
+		ms.sendToSender(sender, DifficultySet.formatted(StringUtils.capitalize(world.getName()),
+			StringUtils.capitalize(difficultyName.getDifficultyName())));
+		return true;
 	}
 
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label
 		, @NotNull String[] args) {
-		return null;
+		if (args.length == 1) {
+			List<String> difficulties = new ArrayList<>();
+			for (Difficulty difficulty : Difficulty.values()) {
+				difficulties.add(difficulty.toString().toLowerCase());
+			}
+			return difficulties;
+		} else if (args.length == 2) {
+			List<String> worldsList = new ArrayList<>();
+			World[] worlds = Bukkit.getServer().getWorlds().toArray(new World[0]);
+			for (int i = 0; i < worlds.length; i++) {
+				worldsList.add(worlds[i].getName());
+			}
+			return worldsList;
+		} else {
+			return null;
+		}
 	}
 }
