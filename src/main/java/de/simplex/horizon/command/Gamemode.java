@@ -42,6 +42,11 @@ public class Gamemode implements TabExecutor {
             return true;
         }
 
+        if (args.length == 0) {
+            ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
+            return true;
+        }
+
         if (GameModeName.fromString(args[0]) == null) {
             ms.sendToSender(sender, AlertMessage.INVALID_ARGUMENT.getMessage());
             return true;
