@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class BuildListener implements Listener {
 
@@ -49,6 +50,14 @@ public class BuildListener implements Listener {
 				e.setCancelled(true);
 			}
 		}
+	}
 
+	@EventHandler
+	public void onJoin(PlayerJoinEvent e) {
+		PlayerConfig con = PlayerConfig.loadConfig(e.getPlayer());
+		if (con.isSet("staff.build")) {
+			con.set("staff.build", false);
+			con.save();
+		}
 	}
 }
