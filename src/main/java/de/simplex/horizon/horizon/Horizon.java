@@ -53,7 +53,7 @@ public final class Horizon extends JavaPlugin {
 
 
         getCommand("enderchest").setExecutor(new Enderchest());
-        getCommand("chatspy").setExecutor(new ChatSpy());
+        getCommand("chatspy").setExecutor(new ChatSpyCommand());
         getCommand("gamemode").setExecutor(new Gamemode());
         getCommand("kick").setExecutor(new Kick());
         getCommand("maintenance").setExecutor(new Maintenance());
