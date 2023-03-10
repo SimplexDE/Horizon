@@ -5,5 +5,5 @@ import net.luckperms.api.LuckPermsProvider;
 
 public class LuckPermsAPI {
 
-    public static LuckPerms lpapi = LuckPermsProvider.get();
+	public static LuckPerms lpapi = LuckPermsProvider.get();
 }

@@ -30,158 +30,161 @@ import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class ConnectionListener implements Listener {
 
-    ServerConfig c = ServerConfig.loadConfig();
-    MessageSender ms = new MessageSender();
-    Tablist tc = new Tablist();
+	ServerConfig c = ServerConfig.loadConfig();
+	MessageSender ms = new MessageSender();
+	Tablist tc = new Tablist();
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) {
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent e) {
 
-        PlayerConfig pc = PlayerConfig.loadConfig(e.getPlayer());
+		PlayerConfig pc = PlayerConfig.loadConfig(e.getPlayer());
 
-        Player p = e.getPlayer();
-        User u = lpapi.getUserManager().getUser(p.getUniqueId());
-        Group g = lpapi.getGroupManager().getGroup(u.getPrimaryGroup());
-        e.setJoinMessage("");
+		Player p = e.getPlayer();
+		User u = lpapi.getUserManager().getUser(p.getUniqueId());
+		Group g = lpapi.getGroupManager().getGroup(u.getPrimaryGroup());
+		e.setJoinMessage("");
 
-        Sidebar.defaultSb(p);
+		Sidebar.defaultSb(p);
 
-        RankManager.assignRank(p);
+		RankManager.assignRank(p);
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            tc.setTabListHeaderAndFooter(Horizon.adventure().players());
-            Sidebar.updatePlayers(player);
-        }
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			tc.setTabListHeaderAndFooter(Horizon.adventure().players());
+			Sidebar.updatePlayers(player);
+		}
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerConfig apc = PlayerConfig.loadConfig(player.getPlayer());
-            if (apc.isSet("staff.vanish") && apc.getBoolean("staff.vanish")) {
-                if (p.hasPermission("staff.vanish.see")) {
-                    break;
-                }
-                p.hidePlayer(Horizon.getHorizon(), player);
-            }
-        }
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			PlayerConfig apc = PlayerConfig.loadConfig(player.getPlayer());
+			if (apc.isSet("staff.vanish") && apc.getBoolean("staff.vanish")) {
+				if (p.hasPermission("staff.vanish.see")) {
+					break;
+				}
+				p.hidePlayer(Horizon.getHorizon(), player);
+			}
+		}
 
-        boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
+		boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
 
-        if (vanished) {
-            if (!p.hasPermission("server.vanish")) {
-                pc.set("staff.vanish", false);
-            } else {
-                for (Player ap : Bukkit.getOnlinePlayers()) {
-                    if (ap.canSee(p)) {
-                        if (ap.hasPermission("server.vanish.see")) {
-                            break;
-                        }
-                        ap.hidePlayer(Horizon.getHorizon(), p);
-                    }
-                }
-                Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
-                p.setSilent(true);
-                pc.set("staff.vanish", true);
-                ms.sendToPlayer(p,
-                      ResponseMessage.WARN.getNotification()
-                                + "Silently joined the server.");
-            }
-        }
+		if (vanished) {
+			if (! p.hasPermission("server.vanish")) {
+				pc.set("staff.vanish", false);
+			} else {
+				for (Player ap : Bukkit.getOnlinePlayers()) {
+					if (ap.canSee(p)) {
+						if (ap.hasPermission("server.vanish.see")) {
+							break;
+						}
+						ap.hidePlayer(Horizon.getHorizon(), p);
+					}
+				}
+				Objects.requireNonNull(lpapi.getUserManager().getUser(p.getUniqueId())).data().add(Node.builder(
+					  "suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+				p.setSilent(true);
+				pc.set("staff.vanish", true);
+				ms.sendToPlayer(p,
+					  ResponseMessage.WARN.getNotification()
+							+ "Silently joined the server.");
+			}
+		}
 
-        Date now = new Date();
-        DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);
+		Date now = new Date();
+		DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);
 
-        pc.set("online", true);
-        pc.set("last_known_name", e.getPlayer().getName());
-        pc.set("last_known_address", e.getPlayer().getAddress().getHostString());
-        pc.set("last_seen", (date.format(now)));
+		pc.set("online", true);
+		pc.set("last_known_name", e.getPlayer().getName());
+		pc.set("last_known_address", e.getPlayer().getAddress().getHostString());
+		pc.set("last_seen", (date.format(now)));
 
-        pc.save();
+		pc.save();
 
-        String color = StringUtils.substring(u.getCachedData().getMetaData().getPrefix(), 0, 9);
-        if (color == null) {
-            color = "<#949494>";
-        }
+		String color = StringUtils.substring(u.getCachedData().getMetaData().getPrefix(), 0, 9);
+		if (color == null) {
+			color = "<#949494>";
+		}
 
-        if (!vanished) {
-            ms.sendToAll(Color.GREEN.getColorMiniMessage()
-                  + "☑"
-                  + Color.DARK_GRAY.getColorMiniMessage()
-                  + " ┃ "
-                  + color
-                  + p.getName()
-                  + Color.LIGHT_GRAY.getColorMiniMessage()
-                  + " joined"
-                  + ".");
-        }
+		if (! vanished) {
+			ms.sendToAll(Color.GREEN.getColorMiniMessage()
+				  + "☑"
+				  + Color.DARK_GRAY.getColorMiniMessage()
+				  + " ┃ "
+				  + color
+				  + p.getName()
+				  + Color.LIGHT_GRAY.getColorMiniMessage()
+				  + " joined"
+				  + ".");
+		}
 
-        ms.sendToPlayer(p, "<newline>" + ResponseMessage.WARN.getNotification() + "Welcome!<newline>" +
-              "<newline>Messages reach up to 30 Blocks." +
-              "<newline>Messages starting with \"!\" reach up to 75 Blocks." +
-              "<newline>Messages starting with \"@\" are Global." + "<newline><newline>If you have further questions," +
-              " please refer to our " + Color.LIGHT_BLUE.getColorMiniMessage() + "<click:run_command:/discord>Discord" +
-              "</click>");
+		ms.sendToPlayer(p, "<newline>" + ResponseMessage.WARN.getNotification() + "Welcome!<newline>" +
+			  "<newline>Messages reach up to 30 Blocks." +
+			  "<newline>Messages starting with \"!\" reach up to 75 Blocks." +
+			  "<newline>Messages starting with \"@\" are Global." + "<newline><newline>If you have further " +
+			  "questions," +
+			  " please refer to our " + Color.LIGHT_BLUE.getColorMiniMessage() + "<click:run_command:/discord" +
+			  ">Discord" +
+			  "</click>");
 
-    }
+	}
 
-    @EventHandler
-    public void onPlayerConnect(PlayerLoginEvent e) {
-        Player p = e.getPlayer();
+	@EventHandler
+	public void onPlayerConnect(PlayerLoginEvent e) {
+		Player p = e.getPlayer();
 
-        if (c.isSet("server.maintenance") && c.getBoolean("server.maintenance")) {
-            if (!(p.hasPermission("server.maintenance.bypass"))) {
-                p.setWhitelisted(false);
-                e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cMaintenance" + " \n§7Please hold tight." +
-                        "\nMore information under: §9" + Horizon.getHorizon().getDescription().getWebsite());
-            } else {
-                p.setWhitelisted(true);
-                e.allow();
-            }
-        }
-    }
+		if (c.isSet("server.maintenance") && c.getBoolean("server.maintenance")) {
+			if (! (p.hasPermission("server.maintenance.bypass"))) {
+				p.setWhitelisted(false);
+				e.disallow(PlayerLoginEvent.Result.KICK_OTHER, "§cMaintenance" + " \n§7Please hold tight." +
+					  "\nMore information under: §9" + Horizon.getHorizon().getDescription().getWebsite());
+			} else {
+				p.setWhitelisted(true);
+				e.allow();
+			}
+		}
+	}
 
-    @EventHandler
-    public void onPlayerLeave(PlayerQuitEvent e) {
+	@EventHandler
+	public void onPlayerLeave(PlayerQuitEvent e) {
 
-        PlayerConfig pc = PlayerConfig.loadConfig(e.getPlayer());
+		PlayerConfig pc = PlayerConfig.loadConfig(e.getPlayer());
 
-        Player p = e.getPlayer();
-        e.setQuitMessage("");
+		Player p = e.getPlayer();
+		e.setQuitMessage("");
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(Horizon.getHorizon(), () -> {
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                tc.setTabListHeaderAndFooter(Horizon.adventure().players());
-                Sidebar.updatePlayers(player);
-            }
-        }, 10L);
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Horizon.getHorizon(), () -> {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				tc.setTabListHeaderAndFooter(Horizon.adventure().players());
+				Sidebar.updatePlayers(player);
+			}
+		}, 10L);
 
-        Date now = new Date();
-        DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);
+		Date now = new Date();
+		DateFormat date = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.MEDIUM, Locale.GERMANY);
 
-        pc.set("online", false);
-        pc.set("last_seen", (date.format(now)));
-        pc.save();
+		pc.set("online", false);
+		pc.set("last_seen", (date.format(now)));
+		pc.save();
 
-        User u = lpapi.getUserManager().getUser(p.getUniqueId());
-        Group g = lpapi.getGroupManager().getGroup(u.getPrimaryGroup());
+		User u = lpapi.getUserManager().getUser(p.getUniqueId());
+		Group g = lpapi.getGroupManager().getGroup(u.getPrimaryGroup());
 
-        String color = StringUtils.substring(u.getCachedData().getMetaData().getPrefix(), 0, 9);
-        if (color == null) {
-            color = "<#949494>";
-        }
+		String color = StringUtils.substring(u.getCachedData().getMetaData().getPrefix(), 0, 9);
+		if (color == null) {
+			color = "<#949494>";
+		}
 
-        boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
+		boolean vanished = pc.isSet("staff.vanish") && pc.getBoolean("staff.vanish");
 
-        if (!vanished) {
-            ms.sendToAll(Color.RED.getColorMiniMessage()
-                    + "☒"
-                    + Color.DARK_GRAY.getColorMiniMessage()
-                    + " ┃ "
-                    + color
-                    + p.getName()
-                    + Color.LIGHT_GRAY.getColorMiniMessage()
-                    + " left"
-                    + ".");
-        }
-    }
+		if (! vanished) {
+			ms.sendToAll(Color.RED.getColorMiniMessage()
+				  + "☒"
+				  + Color.DARK_GRAY.getColorMiniMessage()
+				  + " ┃ "
+				  + color
+				  + p.getName()
+				  + Color.LIGHT_GRAY.getColorMiniMessage()
+				  + " left"
+				  + ".");
+		}
+	}
 
 
 }

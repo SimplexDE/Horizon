@@ -21,6 +21,9 @@ softdepend:
 
 
 commands:
+  test:
+    description: Debug
+
   difficulty:
     description: Difficulty
     permission: server.difficulty

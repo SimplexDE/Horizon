@@ -17,81 +17,80 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public final class Horizon extends JavaPlugin {
 
-    private static Horizon horizon;
+	public static String VERSION = "",
+		  PREFIX = "",
+		  NO_PERMS = "<red>You have no permission to use this command";
+	private static Horizon horizon;
+	private BukkitAudiences adventure;
 
-    public static String VERSION = "",
-            PREFIX = "",
-            NO_PERMS = "<red>You have no permission to use this command";
+	public static Horizon getHorizon() {
+		return horizon;
+	}
 
-    public static Horizon getHorizon() {
-        return horizon;
-    }
+	public static @NonNull BukkitAudiences adventure() {
+		if (Horizon.getHorizon().adventure == null) {
+			throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
+		}
+		return Horizon.getHorizon().adventure;
+	}
 
-    private BukkitAudiences adventure;
+	@Override
+	public void onEnable() {
+		horizon = this;
+		VERSION = getDescription().getVersion();
+		PREFIX = getDescription().getPrefix();
 
-    public static @NonNull BukkitAudiences adventure() {
-        if (Horizon.getHorizon().adventure == null) {
-            throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
-        }
-        return Horizon.getHorizon().adventure;
-    }
+		this.adventure = BukkitAudiences.create(Horizon.getHorizon());
 
-    @Override
-    public void onEnable() {
-        horizon = this;
-        VERSION = getDescription().getVersion();
-        PREFIX = getDescription().getPrefix();
+		MessageSender ms = new MessageSender();
+		new LuckPermsListener(LuckPermsProvider.get());
 
-        this.adventure = BukkitAudiences.create(Horizon.getHorizon());
-
-        MessageSender ms = new MessageSender();
-        new LuckPermsListener(LuckPermsProvider.get());
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
-            new UpdateVisibility().updateVisibility(this);
-        }, 0L, 5L);
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> {
+			new UpdateVisibility().updateVisibility(this);
+		}, 0L, 5L);
 
 
-        getCommand("enderchest").setExecutor(new Enderchest());
-        getCommand("chatspy").setExecutor(new ChatSpyCommand());
-        getCommand("gamemode").setExecutor(new Gamemode());
-        getCommand("kick").setExecutor(new Kick());
-        getCommand("maintenance").setExecutor(new Maintenance());
-        getCommand("vanish").setExecutor(new Vanish());
-        getCommand("teamchat").setExecutor(new TeamChat());
-        getCommand("discord").setExecutor(new DiscordCommand());
-        getCommand("invsee").setExecutor(new Invsee());
-        getCommand("broadcast").setExecutor(new Broadcast());
-        getCommand("build").setExecutor(new BuildCommand());
-        getCommand("difficulty").setExecutor(new DifficultyCommand());
+		getCommand("enderchest").setExecutor(new Enderchest());
+		getCommand("chatspy").setExecutor(new ChatSpyCommand());
+		getCommand("gamemode").setExecutor(new Gamemode());
+		getCommand("kick").setExecutor(new Kick());
+		getCommand("maintenance").setExecutor(new Maintenance());
+		getCommand("vanish").setExecutor(new Vanish());
+		getCommand("teamchat").setExecutor(new TeamChat());
+		getCommand("discord").setExecutor(new DiscordCommand());
+		getCommand("invsee").setExecutor(new Invsee());
+		getCommand("broadcast").setExecutor(new Broadcast());
+		getCommand("build").setExecutor(new BuildCommand());
+		getCommand("difficulty").setExecutor(new DifficultyCommand());
 
-        final PluginManager pM = Bukkit.getPluginManager();
-        pM.registerEvents(new ConnectionListener(), getHorizon());
-        pM.registerEvents(new ChatListener(), getHorizon());
-        pM.registerEvents(new MOTD(), getHorizon());
-        pM.registerEvents(new BuildListener(), getHorizon());
+		final PluginManager pM = Bukkit.getPluginManager();
+		pM.registerEvents(new ConnectionListener(), getHorizon());
+		pM.registerEvents(new ChatListener(), getHorizon());
+		pM.registerEvents(new MOTD(), getHorizon());
+		pM.registerEvents(new BuildListener(), getHorizon());
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            RankManager.assignRank(player);
-        }
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			RankManager.assignRank(player);
+		}
 
-        ServerConfig.createConfig();
-        ServerConfig.loadConfig();
+		ServerConfig.createConfig();
+		ServerConfig.loadConfig();
 
-        ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Loaded " + getDescription().getVersion() + " / "
-              + getDescription().getAPIVersion());
-    }
+		ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Loaded " + getDescription().getVersion() + " / "
+			  + getDescription().getAPIVersion());
+	}
 
-    @Override
-    public void onDisable() {
-        MessageSender ms = new MessageSender();
+	@Override
+	public void onDisable() {
+		MessageSender ms = new MessageSender();
 
-        ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Unloaded " + getDescription().getVersion() + " " +
-	        "/ " + getDescription().getAPIVersion());
+		ms.sendToConsole(ResponseMessage.HORIZON.getNotification() + "Unloaded " + getDescription().getVersion() +
+			  " " +
+			  "/ " + getDescription().getAPIVersion());
 
-        if (this.adventure != null) {
-            this.adventure.close();
-            this.adventure = null;
-        }
-    }
+		if (this.adventure != null) {
+			this.adventure.close();
+			this.adventure = null;
+		}
+	}
 }

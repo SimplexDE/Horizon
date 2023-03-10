@@ -15,43 +15,44 @@ import java.util.List;
 
 public class Kick implements TabExecutor {
 
-    private MessageSender ms = new MessageSender();
+	private MessageSender ms = new MessageSender();
 
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-                             String[] args) {
+	@Override
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+	                         String[] args) {
 
-        String msg = "";
+		String msg = "";
 
-        if (Bukkit.getPlayer(args[0]) == null) {
-            ms.sendToSender(sender, AlertMessage.PLAYER_NOT_FOUND.getMessage());
-            return false;
-        }
+		if (Bukkit.getPlayer(args[0]) == null) {
+			ms.sendToSender(sender, AlertMessage.PLAYER_NOT_FOUND.getMessage());
+			return false;
+		}
 
-        for (int i = 1; i < args.length; i++) {
-            msg += (args[i] + " ");
-        }
+		for (int i = 1; i < args.length; i++) {
+			msg += (args[i] + " ");
+		}
 
-        Player target = Bukkit.getPlayer(args[0]);
+		Player target = Bukkit.getPlayer(args[0]);
 
-        assert target != null;
-        target.kickPlayer("§c" + msg);
+		assert target != null;
+		target.kickPlayer("§c" + msg);
 
-        return true;
-    }
+		return true;
+	}
 
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length == 1) {
-            List<String> playerNames = new ArrayList<>();
-            Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
-            Bukkit.getServer().getOnlinePlayers().toArray(players);
-            for (int i = 0; i < players.length; i++) {
-                playerNames.add(players[i].getName());
-            }
-            return playerNames;
-        }
-        return null;
-    }
+	@Nullable
+	@Override
+	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+	                                  @NotNull String[] args) {
+		if (args.length == 1) {
+			List<String> playerNames = new ArrayList<>();
+			Player[] players = new Player[Bukkit.getServer().getOnlinePlayers().size()];
+			Bukkit.getServer().getOnlinePlayers().toArray(players);
+			for (int i = 0; i < players.length; i++) {
+				playerNames.add(players[i].getName());
+			}
+			return playerNames;
+		}
+		return null;
+	}
 }

@@ -9,15 +9,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class LuckPermsListener {
-    public LuckPermsListener(LuckPerms luckPerms) {
-        EventBus eventBus = luckPerms.getEventBus();
+	public LuckPermsListener(LuckPerms luckPerms) {
+		EventBus eventBus = luckPerms.getEventBus();
 
-        eventBus.subscribe(Horizon.getHorizon(), NodeMutateEvent.class, this::onNodeMutate);
-    }
+		eventBus.subscribe(Horizon.getHorizon(), NodeMutateEvent.class, this::onNodeMutate);
+	}
 
-    private void onNodeMutate(NodeMutateEvent event) {
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            RankManager.assignRank(p);
-        }
-    }
+	private void onNodeMutate(NodeMutateEvent event) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			RankManager.assignRank(p);
+		}
+	}
 }
