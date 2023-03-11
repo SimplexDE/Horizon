@@ -38,7 +38,6 @@ public class Maintenance implements CommandExecutor {
 			}
 			ms.sendToConsole(ResponseMessage.HORIZON.getNotification()
 				  + "All players were kicked due to the activation of maintenance.");
-			Bukkit.setWhitelist(true);
 			ms.sendToAll(String.format(MAINTENANCE_ANNOUNCE, "activated"));
 		} else {
 			newMaintenanceState = false;
