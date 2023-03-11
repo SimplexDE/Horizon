@@ -32,12 +32,16 @@ public class Vanish implements TabExecutor {
 
 		if (isVanished(player)) {
 			targetPlayerConfig.set("staff.vanish", false);
-			lpapi.getUserManager().getUser(player.getUniqueId()).data().remove(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+			lpapi.getUserManager().modifyUser(player.getUniqueId(), user -> {
+				user.data().remove(Node.builder("suffix.1." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+			});
 			ms.sendToPlayer(player, ResponseMessage.INFO.getNotification() + "Vanish"
 				  + Color.LIGHT_RED.getColorMiniMessage() + " deactivated");
 		} else {
 			targetPlayerConfig.set("staff.vanish", true);
-			lpapi.getUserManager().getUser(player.getUniqueId()).data().add(Node.builder("suffix.100." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+			lpapi.getUserManager().modifyUser(player.getUniqueId(), user -> {
+				user.data().add(Node.builder("suffix.1." + Color.LIGHT_PURPLE.getColorMiniMessage() + "[V]").build());
+			});
 			ms.sendToPlayer(player, ResponseMessage.INFO.getNotification() + "Vanish"
 				  + Color.LIGHT_GREEN.getColorMiniMessage() + " activated");
 		}
