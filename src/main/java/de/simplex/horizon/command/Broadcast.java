@@ -24,9 +24,9 @@ public class Broadcast implements CommandExecutor {
 			msg += s + " ";
 		}
 
-		Component emsg = MiniMessage.miniMessage().deserialize("<newline><rainbow>ʀᴜɴᴅꜰᴜɴᴋ</rainbow> "
-			+ Color.DARK_GRAY.getColorMiniMessage() + "┃ "
-			+ Color.AQUA.getColorMiniMessage() + msg + "<newline>");
+		Component emsg = MiniMessage.miniMessage().deserialize("<newline><rainbow>ʙʀᴏᴀᴅᴄᴀsᴛ</rainbow> "
+			  + Color.DARK_GRAY.getColorMiniMessage() + "┃ "
+			  + Color.AQUA.getColorMiniMessage() + msg + "<newline>");
 		if (msg.length() < 1) {
 			ms.sendToSender(sender, AlertMessage.MISSING_ARGUMENT.getMessage());
 			return true;
