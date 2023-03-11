@@ -49,7 +49,7 @@ public class Invsee implements TabExecutor {
 			targetInventory = targetPlayer.getInventory();
 			player.openInventory(targetInventory);
 			ms.sendToPlayer(player,
-				ResponseMessage.INFO.getNotification() + "Inventory of " + targetPlayer.getName() + "opened");
+				  ResponseMessage.INFO.getNotification() + "Inventory of " + targetPlayer.getName() + " opened");
 			return true;
 		}
 
