@@ -117,14 +117,25 @@ public class ConnectionListener implements Listener {
 				  + ".");
 		}
 
-		ms.sendToPlayer(p, "<newline>" + ResponseMessage.WARN.getNotification() + "Welcome!<newline>" +
-			  "<newline>Messages reach up to 30 Blocks." +
-			  "<newline>Messages starting with \"!\" reach up to 75 Blocks." +
-			  "<newline>Messages starting with \"@\" are Global." + "<newline><newline>If you have further " +
-			  "questions," +
-			  " please refer to our " + Color.LIGHT_BLUE.getColorMiniMessage() + "<click:run_command:/discord" +
-			  ">Discord" +
-			  "</click>");
+		ms.sendToPlayer(p, "<newline>" + ResponseMessage.WARN.getNotification()
+			  + "Welcome!<newline><newline>"
+			  + "Messages reach up to "
+			  + Color.LIGHT_YELLOW.getColorMiniMessage() + "30 Blocks."
+			  + Color.ORANGE.getColorMiniMessage()
+			  + "<newline>Messages starting with "
+			  + Color.LIGHT_RED.getColorMiniMessage()
+			  + " \"!\" "
+			  + Color.ORANGE.getColorMiniMessage()
+			  + " reach up to"
+			  + Color.LIGHT_YELLOW.getColorMiniMessage()
+			  + " 75 Blocks."
+			  + Color.ORANGE.getColorMiniMessage()
+			  + "<newline>Messages starting with " + Color.LIGHT_RED.getColorMiniMessage() + " \"@\" "
+			  + Color.ORANGE.getColorMiniMessage() + " are" + Color.LIGHT_YELLOW.getColorMiniMessage()
+			  + " Global." + Color.ORANGE.getColorMiniMessage() + "<newline><newline>If you have further " +
+			  "questions,"
+			  + " please refer to our " + Color.LIGHT_BLUE.getColorMiniMessage() + "<click:run_command:/discord"
+			  + ">Discord" + "</click>");
 
 	}
 
