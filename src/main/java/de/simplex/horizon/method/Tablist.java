@@ -14,6 +14,8 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.SortedMap;
+
 import static de.simplex.horizon.command.api.LuckPermsAPI.lpapi;
 
 public class Tablist {
@@ -76,8 +78,18 @@ public class Tablist {
 			team.addEntry(playerName);
 		}
 
+		SortedMap<Integer, String> suffixes = u.getCachedData().getMetaData().getSuffixes();
 
-		Component prefixComponent = MiniMessage.miniMessage().deserialize(prefix + player.getName() + suffix);
+		StringBuilder sortedSuffixes = new StringBuilder();
+
+		int j = 0;
+		while (j <= suffixes.size() + 1) {
+			sortedSuffixes.append(suffixes.get(j));
+			j += 1;
+		}
+
+
+		Component prefixComponent = MiniMessage.miniMessage().deserialize(prefix + player.getName() + sortedSuffixes);
 		String prefixString = legacySerializer.serialize(prefixComponent);
 
 		String playerListName = prefixString.replace("null", "");
