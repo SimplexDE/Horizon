@@ -62,6 +62,8 @@ public final class Horizon extends JavaPlugin {
 		getCommand("broadcast").setExecutor(new Broadcast());
 		getCommand("build").setExecutor(new BuildCommand());
 		getCommand("difficulty").setExecutor(new DifficultyCommand());
+		getCommand("fly").setExecutor(new Fly());
+		getCommand("godmode").setExecutor(new GodMode());
 
 		final PluginManager pM = Bukkit.getPluginManager();
 		pM.registerEvents(new ConnectionListener(), getHorizon());

@@ -21,8 +21,15 @@ softdepend:
 
 
 commands:
-  test:
-    description: Debug
+  godmode:
+    description: Toggle Godmode
+    permission: server.godmode
+    aliases:
+      - god
+
+  fly:
+    description: Toggle Fly
+    permission: server.fly
 
   difficulty:
     description: Difficulty
