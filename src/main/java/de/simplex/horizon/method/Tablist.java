@@ -36,7 +36,8 @@ public class Tablist {
 				  " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>" + Color.GRAY.getColorMiniMessage() + " ▬▬▬▬▬ " +
 				  "<newline>");
 			footer = MiniMessage.miniMessage().deserialize("<newline>" + Color.GREEN.getColorMiniMessage()
-				  + Bukkit.getOnlinePlayers().size() + Color.ORANGE.getColorMiniMessage() + " Spieler<newline><newline" +
+				  + Bukkit.getOnlinePlayers().size() + Color.ORANGE.getColorMiniMessage() + " Players<newline" +
+				  "><newline" +
 				  ">" +
 				  Color.GRAY.getColorMiniMessage() + " ▬▬▬▬▬ <rainbow>ʜᴏʀɪᴢᴏɴ ᴍʏsᴇʀᴠᴇʀ</rainbow>"
 				  + Color.GRAY.getColorMiniMessage() + " ▬▬▬▬▬ <newline>");

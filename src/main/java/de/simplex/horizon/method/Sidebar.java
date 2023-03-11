@@ -40,14 +40,15 @@ public class Sidebar {
 			  s4 = o.getScore(" §3 ");
 
 		Component rangtitleComponent = MiniMessage.miniMessage()
-			  .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + "Dein " +
-				    "Rang");
+			  .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() + "Your" +
+				    " " +
+					"Rank");
 		Component worldtitleComponent = MiniMessage.miniMessage()
 			  .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() +
-				    "Aktuelle Welt");
+					"Current World");
 		Component playertitleComponent = MiniMessage.miniMessage()
 			  .deserialize(Color.YELLOW.getColorMiniMessage() + "» " + Color.LIGHT_GRAY.getColorMiniMessage() +
-				    "Aktuelle Spieler");
+					"Current Players");
 
 		String rangtitleRow = legacySerializer.serialize(rangtitleComponent);
 		String worldtitleRow = legacySerializer.serialize(worldtitleComponent);
