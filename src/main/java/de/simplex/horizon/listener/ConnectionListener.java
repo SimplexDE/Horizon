@@ -46,7 +46,10 @@ public class ConnectionListener implements Listener {
 
 		Sidebar.defaultSb(p);
 
-		RankManager.assignRank(p);
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Horizon.getHorizon(), () -> {
+			RankManager.assignRank(p);
+		}, 10L);
+
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			tc.setTabListHeaderAndFooter(Horizon.adventure().players());
