@@ -14,97 +14,59 @@ default-permission: op
 
 depend:
   - LuckPerms
-  #- ProtocolLib
+  # - ProtocolLib
 
 softdepend:
   - ViaVersion
 
 
 commands:
-  godmode:
-    description: Toggle Godmode
-    permission: server.godmode
-    aliases:
-      - god
-
-  fly:
-    description: Toggle Fly
-    permission: server.fly
-
-  difficulty:
-    description: Difficulty
-    permission: server.difficulty
-    usage: "difficulty <Difficulty/world> [<world>]"
-
-  build:
-    description: Build-Mode
-    permission: server.build
-    aliases:
-      - buildmode
-
   broadcast:
-    description: Broadcast something to all players
     permission: server.broadcast
     aliases:
       - bc
-      - rundfunk
-
-  invsee:
-    description: See someones inventory
-    permission: server.invsee
-
+      - alert
+  build:
+    permission: server.build
+    aliases:
+      - buildmode
+  chatspy:
+    permission: server.chatspy
+  difficulty:
+    permission: server.difficulty
   discord:
-    description: Get the Discord Link
     permission: server.discord
     aliases:
       - dc
-
-  chatspy:
-    description: Spy on other Chat Messages
-    usage: chatspy [<Player>]
-    permission: server.chatspy
-
-  gamemode:
-    description: Gamemode
-    usage: gamemode <Mode> [<Player>]
-    permission: server.gamemode
-    aliases:
-      - gm
-
   enderchest:
-    description: Opens enderchest
-    usage: enderchest
     permission: server.enderchest
     aliases:
       - ec
-
+  fly:
+    permission: server.fly
+  gamemode:
+    permission: server.gamemode
+    aliases:
+      - gm
+  godmode:
+    permission: server.godmode
+    aliases:
+      - god
+  invsee:
+    permission: server.invsee
+  kick:
+    permission: server.kick
+  maintenance:
+    permission: server.maintenance
   teamchat:
-    description: Send a message to the Teamchat
-    #usage:
-    permission: server.chat.team
+    permission: server.teamchat
     aliases:
       - tc
-
-  maintenance:
-    description: Toggles the server-maintenance, replaces the default whitelist.
-    usage: maintenance
-    permission: server.maintenance
-    aliases:
-      - whitelist
-
   vanish:
-    description: Toggles an invisibility mode.
-    usage: vanish [player]
     permission: server.vanish
     aliases:
       - v
-
-  kick:
-    description: Kicks a player.
-    usage: kick <player> [reason]
-    permission: server.kick
-    aliases:
-      - ekick
+      - hide
 
 permissions:
   "*":
@@ -116,41 +78,55 @@ permissions:
     description: Access all commands for the Server.
     default: false
     children:
-      - server.kick
-      - server.vanish
-      - server.vanish.others
-      - server.vanish.see
-      - server.maintenance
-      - server.mainteance.bypass
-  "server.kick":
-    description: Access to the Kick command.
-    default: false
-    #children:
-    #  -
-  "server.vanish.*":
-    default: false
-    children:
-      - server.vanish
-  "server.vanish":
-    description: Access to the Vanish command.
-    default: false
-    children:
-      - server.vanish.others
-      - server.vanish.see
-  "server.vanish.others":
-    description: Allows to Vanish other Players.
-    default: false
-  "server.vanish.see":
-    description: See vanished Players.
-    default: false
-  "server.maintenance":
-    description: ...
-    default: false
-    children:
-      - server.maintenance.bypass
-  "server.maintenance.bypass":
-    description: ...
-    default: false
-  "server.discord":
-    description: Get the Discord Server Link
-    default: true
+      server.godmode:
+        default: false
+        children:
+          server.godmode.others:
+            default: false
+      server.fly:
+        default: false
+        children:
+          server.fly.others:
+            default: false
+      server.difficulty:
+        default: false
+      server.build:
+        default: false
+        children:
+          server.build.others:
+            default: false
+      server.broadcast:
+        default: false
+      server.invsee:
+        default: false
+      server.discord:
+        default: true
+      server.chatspy:
+        default: false
+        children:
+          server.chatspy.others:
+            default: false
+      server.gamemode:
+        default: false
+        children:
+          server.gamemode.others:
+            default: false
+      server.enderchest:
+        default: true
+        children:
+          server.enderchest.others:
+            default: false
+      server.teamchat:
+        default: false
+      server.maintenance:
+        default: false
+        children:
+          server.maintenance.bypass:
+            default: false
+      server.vanish:
+        default: false
+        children:
+          server.vanish.others:
+            default: false
+      server.kick:
+        default: false
